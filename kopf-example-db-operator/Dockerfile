@@ -1,4 +1,6 @@
 FROM python:3.7
-RUN pip install kopf
-COPY app/handlers.py /handlers.py
+ADD app /app
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r /app/requirements.txt
+#COPY app/handlers.py /handlers.py
 CMD kopf run --standalone /handlers.py
