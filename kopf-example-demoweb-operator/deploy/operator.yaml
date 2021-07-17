@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: demoweb-operator
-  label:
+  namespace: demoweb-operator
+  labels:
     app: op
 spec:
   replicas: 1
