@@ -1,0 +1,21 @@
+name: CI for DockerHub
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      APP_NAME: djkormo-op-db
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Publish to Docker Repository
+      uses: elgohr/Publish-Docker-Github-Action@master
+      with:
+        name: djkormo/op-db
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
