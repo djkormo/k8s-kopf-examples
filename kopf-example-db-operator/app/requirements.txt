@@ -1,3 +1,2 @@
 kopf
-yaml
 kubernetes
