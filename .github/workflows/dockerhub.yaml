@@ -21,6 +21,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile
         context: kopf-example-db-operator
-        workdir: kopf-example-db-operato
+        workdir: kopf-example-db-operator
 
 
