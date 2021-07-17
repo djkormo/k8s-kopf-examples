@@ -21,6 +21,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile
         context: kopf-example-db-operator
-        tag_with_ref: true
 
 
