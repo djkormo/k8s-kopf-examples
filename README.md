@@ -1,0 +1,1 @@
+Examples of using kopf for building kubernetes operators

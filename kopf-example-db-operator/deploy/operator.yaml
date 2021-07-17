@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: op
+  namespace: db-operator
+spec:
+  selector:
+    matchLabels:
+      app: op
+  template:
+    metadata:
+      labels:
+        app: op
+    spec:
+      serviceAccountName: db-operator
+      containers:
+      - image: djkormo/db-op:latest
+        name: op
