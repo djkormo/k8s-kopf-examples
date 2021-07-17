@@ -24,7 +24,7 @@ docker image push djkormo/op-db:latest
 
 ### Deploy the operator
 
-```console kubectl apply -f deploy/deployment.yaml ```
+```console kubectl apply -f deploy/operator.yaml ```
 
 ### Deploy sample CR (dababase object)
 
@@ -39,4 +39,3 @@ In case of troubles look into operator logs
 operator_pod=$(kubectl get pod -n db-operator -L app=op -o name)
 kubectl -n db-operator logs ${operator_pod}
 ```
-
