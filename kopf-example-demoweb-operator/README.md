@@ -11,30 +11,43 @@ docker image push djkormo/op-demoweb:latest
 
 ### Deploy crd
 
-```console kubectl apply -f crd/crd.yaml ```
+```console 
+kubectl apply -f crd/crd.yaml 
+```
 
 ### Create namespace for the operator
 
-```console kubectl create ns demoweb-operator```
+```console 
+kubectl create ns demoweb-operator
+```
 
 
 ### Deploy operator permission
 
-```console kubectl apply -f deploy/rbac ```
+```console 
+kubectl apply -f deploy/rbac 
+```
 
 ### Deploy the operator
 
-```console kubectl apply -f deploy/operator.yaml ```
+```console 
+kubectl apply -f deploy/operator.yaml 
+```
 
 ### Deploy sample CR (demoweb object)
 
-```console kubectl apply -f test/demoweb.yaml ```
+```console 
+kubectl apply -f test/demoweb.yaml 
+```
 
 ### Check 
 
-```console kubectl get pod,svc -n demoweb-operator ```
+```console 
+kubectl get pod,svc -n demoweb-operator 
+```
 
-In case of troubles look into operator logs
+#### In case of troubles look into operator logs
+
 ```console
 operator_pod=$(kubectl get pod -n demoweb-operator -L app=op -o name | grep operator)
 kubectl -n demoweb-operator logs ${operator_pod}
