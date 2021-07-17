@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demoweb-operator
+  label:
+    app: op
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      application: demoweb-operator
+  template:
+    metadata:
+      labels:
+        application: demoweb-operator
+    spec:
+      serviceAccountName: demoweb-operator
+      containers:
+      - name: op
+        image: djkormo/op-demoweb

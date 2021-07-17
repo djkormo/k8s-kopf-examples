@@ -1,4 +1,4 @@
-name: CI for DockerHub
+name: Demoweb operator for DockerHub
 
 on: [push]
 
@@ -8,7 +8,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      APP_NAME: djkormo-op-db
+      APP_NAME: djkormo-op-demoweb
 
     steps:
     - uses: actions/checkout@v2
@@ -16,11 +16,11 @@ jobs:
     - name: Publish to Docker Repository
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: djkormo/op-db
+        name: djkormo/op-demoweb
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile
 #        context: kopf-example-db-operator
-        workdir: kopf-example-db-operator
+        workdir: kopf-example-demoweb-operator
 
 

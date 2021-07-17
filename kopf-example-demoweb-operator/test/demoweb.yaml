@@ -1,0 +1,9 @@
+apiVersion: baeke.info/v1
+kind: DemoWeb
+metadata:
+  name: demoweb
+  namespace: demoweb-operator
+spec:
+  replicas: 2
+  gitrepo: "https://github.com/djkormo/simple-chess-ai.git"
+
