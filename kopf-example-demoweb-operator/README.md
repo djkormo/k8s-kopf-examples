@@ -36,7 +36,7 @@ docker image push djkormo/op-demoweb:latest
 
 In case of troubles look into operator logs
 ```console
-operator_pod=$(kubectl get pod -n demoweb-operator -L app=op -o name)
+operator_pod=$(kubectl get pod -n demoweb-operator -L app=op -o name | grep operator)
 kubectl -n demoweb-operator logs ${operator_pod}
 ```
 
