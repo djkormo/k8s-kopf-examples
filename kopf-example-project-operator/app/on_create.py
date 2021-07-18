@@ -75,12 +75,16 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     data = yaml.safe_load(text)
     
+    logger.info(f"ResourceQuota child definition: {data}")
+
     kopf.adopt(data)
 
     api = kubernetes.client.CoreV1Api()
 
-    body = kubernetes.client.V1ResourceQuota()
+    data = kubernetes.client.V1ResourceQuota()
 
+    logger.info(f"ResourceQuota child definition: {data}")
+    
     # Create resourcequota
 
     try:
