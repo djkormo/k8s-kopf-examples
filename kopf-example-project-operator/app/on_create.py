@@ -11,26 +11,26 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")
     logger.info(f"Object project is created: {spec}")
 
-    resourcequotarequestscpu = spec.get('resourcequotarequestscpu')
+    resourcequotarequestscpu = spec.get('resourcequotarequestscpu',1)
     if not resourcequotarequestscpu:
       raise kopf.PermanentError(f"resourcequotarequestscpu must be set. Got {resourcequotarequestscpu!r}.")
 
-    resourcequotarequestsmemory = spec.get('resourcequotarequestsmemory')
+    resourcequotarequestsmemory = spec.get('resourcequotarequestsmemory',1)
     if not resourcequotarequestsmemory:
       raise kopf.PermanentError(f"resourcequotarequestsmemory must be set. Got {resourcequotarequestsmemory!r}.")
     
-    resourcequotalimitscpu=spec.get('resourcequotalimitscpu')
+    resourcequotalimitscpu=spec.get('resourcequotalimitscpu',1)
     
-    resourcequotalimitsmemory=spec.get('resourcequotalimitsmemory')
-    resourcequotacountjobsbatch=spec.get('resourcequotacountjobsbatch')
-    resourcequotacountingresses=spec.get('resourcequotacountingresses')
-    resourcequotapods=spec.get('resourcequotapods')
-    resourcequotaservices=spec.get('resourcequotaservices')
-    resourcequotaconfigmaps=spec.get('resourcequotaconfigmaps')
-    resourcequotapersistentvolumeclaims=spec.get('resourcequotapersistentvolumeclaims'),
-    resourcequotareplicationcontrollers=spec.get('resourcequotareplicationcontrollers')
-    resourcequotasecrets=spec.get('resourcequotasecrets')
-    resourcequotaservicesloadbalancers=spec.get('resourcequotaservicesloadbalancers')
+    resourcequotalimitsmemory=spec.get('resourcequotalimitsmemory',1)
+    resourcequotacountjobsbatch=spec.get('resourcequotacountjobsbatch',1)
+    resourcequotacountingresses=spec.get('resourcequotacountingresses',1)
+    resourcequotapods=spec.get('resourcequotapods',1)
+    resourcequotaservices=spec.get('resourcequotaservices',1)
+    resourcequotaconfigmaps=spec.get('resourcequotaconfigmaps',1)
+    resourcequotapersistentvolumeclaims=spec.get('resourcequotapersistentvolumeclaims',1),
+    resourcequotareplicationcontrollers=spec.get('resourcequotareplicationcontrollers',1)
+    resourcequotasecrets=spec.get('resourcequotasecrets',1)
+    resourcequotaservicesloadbalancers=spec.get('resourcequotaservicesloadbalancers',1)
 
     # get context of yaml manifest for namespace
 
