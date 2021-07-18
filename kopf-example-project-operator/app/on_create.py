@@ -83,12 +83,15 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     # Create resourcequota
 
     obj = api.create_namespaced_resource_quota(
-          namespace=namespace,
+          namespace=name,
           body=data,
       )
+
+    kopf.adjust_namespace(obj,name, forced=True)
+
     try:
       obj = api.create_namespaced_resource_quota(
-          namespace=namespace,
+          namespace=name,
           body=data,
       )
       pprint(obj)
