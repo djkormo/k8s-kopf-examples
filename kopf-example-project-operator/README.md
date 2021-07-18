@@ -61,7 +61,6 @@ kubectl -n project-operator exec ${operator_pod} -it -- bash
 ```
 
 
-
 Based on 
 
 https://github.com/lukasz-bielinski/project-operator

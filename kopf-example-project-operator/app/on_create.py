@@ -81,10 +81,6 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     api = kubernetes.client.CoreV1Api()
 
-    data = kubernetes.client.V1ResourceQuota()
-
-    logger.info(f"ResourceQuota child definition: {data}")
-    
     # Create resourcequota
 
     try:
