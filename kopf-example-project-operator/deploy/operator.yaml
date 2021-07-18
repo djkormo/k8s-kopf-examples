@@ -21,3 +21,14 @@ spec:
       containers:
       - name: op
         image: djkormo/op-project
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "20m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
