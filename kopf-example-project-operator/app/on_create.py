@@ -40,7 +40,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     data = yaml.safe_load(text)
     kopf.adopt(data)
-
+    logger.info(f"Namespace child definition: {data}")
     api = kubernetes.client.CoreV1Api()
 
     ## Create namespace
@@ -49,7 +49,6 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           body=data,
       )
       pprint(obj)
-      return {'children': [obj.metadata.uid]}
       logger.info(f"Namespace child is created: {obj}")
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespace: %s\n" % e)  
