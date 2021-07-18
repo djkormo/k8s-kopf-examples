@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-operator
+  namespace: project-operator
+  labels:
+    app: op
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      application: project-operator
+  template:
+    metadata:
+      labels:
+        application: project-operator
+    spec:
+      serviceAccountName: project-operator
+      containers:
+      - name: op
+        image: djkormo/op-project
