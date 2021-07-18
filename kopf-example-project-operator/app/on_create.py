@@ -1,3 +1,4 @@
+import time
 import kopf
 import kubernetes
 import yaml
@@ -8,7 +9,8 @@ from pprint import pprint
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
 def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")
-    logger.info(f"Object is project created: {spec}")
+    logger.info(f"Object project is created: {spec}")
+    kopf.info(name, reason="creating project", message="Start")
     resourcequotarequestscpu = spec.get('resourcequotarequestscpu')
     if not resourcequotarequestscpu:
       raise kopf.PermanentError(f"resourcequotarequestscpu must be set. Got {resourcequotarequestscpu!r}.")
@@ -18,6 +20,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
       raise kopf.PermanentError(f"resourcequotarequestsmemory must be set. Got {resourcequotarequestsmemory!r}.")
     
     resourcequotalimitscpu=spec.get('resourcequotalimitscpu')
+    
     resourcequotalimitsmemory=spec.get('resourcequotalimitsmemory')
     resourcequotacountjobsbatch=spec.get('resourcequotacountjobsbatch')
     resourcequotacountingresses=spec.get('resourcequotacountingresses')
@@ -39,13 +42,14 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     kopf.adopt(data)
 
     api = kubernetes.client.CoreV1Api()
-    
+
     ## Create namespace
     try:
       obj = api.create_namespace(
           body=data,
       )
       pprint(obj)
+      return {'children': [obj.metadata.uid]}
       logger.info(f"Namespace child is created: {obj}")
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespace: %s\n" % e)  
@@ -75,6 +79,8 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     api = kubernetes.client.CoreV1Api()
 
+    body = kubernetes.client.V1ResourceQuota()
+
     # Create resourcequota
 
     try:
@@ -87,6 +93,8 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_resource_quota: %s\n" % e)  
 
+    kopf.info(name, reason="creating project", message="Stop")
+    
     return {'message': 'done'}  # will be the new status
 
 
