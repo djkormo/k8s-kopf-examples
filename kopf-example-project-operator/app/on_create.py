@@ -76,18 +76,12 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     logger.info(f"ResourceQuota child definition: {data}")
 
-#    kopf.adopt(data)
+    kopf.adopt(data)
 
-  #  api = kubernetes.client.CoreV1Api()
 
     # Create resourcequota
 
-    obj = api.create_namespaced_resource_quota(
-          namespace=name,
-          body=data,
-      )
-
-    kopf.adjust_namespace(obj,name, forced=True)
+  #  kopf.adjust_namespace(obj,name, forced=True)
 
     try:
       obj = api.create_namespaced_resource_quota(
