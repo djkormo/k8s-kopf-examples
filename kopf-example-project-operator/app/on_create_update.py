@@ -111,7 +111,7 @@ def update_fn(spec, name, status, namespace, logger, **kwargs):
     api = kubernetes.client.CoreV1Api()
 
     try:
-      obj = api.path_namespaced_resource_quota(
+      obj = api.patch_namespaced_resource_quota(
           namespace=name,
           name=project_name,
           body=project_patch,
@@ -119,7 +119,7 @@ def update_fn(spec, name, status, namespace, logger, **kwargs):
       pprint(obj)
       logger.info(f"ResourceQuota child is updated: {obj}")
     except ApiException as e:
-      print("Exception when calling CoreV1Api->path_namespaced_resource_quota: %s\n" % e)  
+      print("Exception when calling CoreV1Api->patch_namespaced_resource_quota: %s\n" % e)  
     
 
 
@@ -134,7 +134,7 @@ def relabel(diff, status,name, namespace, logger, **kwargs):
     api = kubernetes.client.CoreV1Api()
 
     try:
-      obj = api.path_namespaced_resource_quota(
+      obj = api.patch_namespaced_resource_quota(
           namespace=name,
           name=project_name,
           body=project_patch,
@@ -142,7 +142,7 @@ def relabel(diff, status,name, namespace, logger, **kwargs):
       pprint(obj)
       logger.info(f"ResourceQuota child is updated: {obj}")
     except ApiException as e:
-      print("Exception when calling CoreV1Api->path_namespaced_resource_quota: %s\n" % e)  
+      print("Exception when calling CoreV1Api->patch_namespaced_resource_quota: %s\n" % e)  
 
 
   
