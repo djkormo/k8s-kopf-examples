@@ -78,10 +78,14 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
 #    kopf.adopt(data)
 
-    api = kubernetes.client.CoreV1Api()
+  #  api = kubernetes.client.CoreV1Api()
 
     # Create resourcequota
 
+    obj = api.create_namespaced_resource_quota(
+          namespace=namespace,
+          body=data,
+      )
     try:
       obj = api.create_namespaced_resource_quota(
           namespace=namespace,
