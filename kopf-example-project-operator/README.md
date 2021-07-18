@@ -53,6 +53,9 @@ operator_pod=$(kubectl get pod -n project-operator -L app=op -o name | grep oper
 kubectl -n project-operator logs ${operator_pod}
 ```
 
+
+kubectl -n project-operator describe ${operator_pod}
+
 ```
 kubectl -n project-operator exec ${operator_pod} -it -- bash
 ```

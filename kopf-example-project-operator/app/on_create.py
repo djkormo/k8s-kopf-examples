@@ -10,6 +10,7 @@ from pprint import pprint
 def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")
     logger.info(f"Object project is created: {spec}")
+    kopf.event(name, type="SomeType", reason="SomeReason", message="Some message")
     kopf.info(name, reason="creating project", message="Start")
     resourcequotarequestscpu = spec.get('resourcequotarequestscpu')
     if not resourcequotarequestscpu:
@@ -94,7 +95,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
       print("Exception when calling CoreV1Api->create_namespaced_resource_quota: %s\n" % e)  
 
     kopf.info(name, reason="creating project", message="Stop")
-    
+
     return {'message': 'done'}  # will be the new status
 
 
