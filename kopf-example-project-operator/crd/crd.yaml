@@ -1,9 +1,9 @@
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  name: projects.project.djkormo
+  name: projects.djkormo.github
 spec:
-  group: project.djkormo
+  group: djkormo.github
   names:
     kind: Project
     listKind: ProjectList

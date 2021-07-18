@@ -1,4 +1,4 @@
-apiVersion: project.djkormo/v1alpha1
+apiVersion: djkormo.github/v1alpha1
 kind: Project
 metadata:
   name: my-namespace
