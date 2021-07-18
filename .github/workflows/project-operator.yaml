@@ -1,6 +1,9 @@
 name: Project operator for DockerHub
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'kopf-example-project-operator/**'
 
 jobs:
 
