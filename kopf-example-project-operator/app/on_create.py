@@ -76,7 +76,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     logger.info(f"ResourceQuota child definition: {data}")
 
-    kopf.adopt(data)
+#    kopf.adopt(data)
 
     api = kubernetes.client.CoreV1Api()
 
