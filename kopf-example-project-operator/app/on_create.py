@@ -8,7 +8,7 @@ from pprint import pprint
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
 def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")
-    logger.info(f"Object is created: {spec}")
+    logger.info(f"Object is project created: {spec}")
     resourcequotarequestscpu = spec.get('resourcequotarequestscpu')
     if not resourcequotarequestscpu:
       raise kopf.PermanentError(f"resourcequotarequestscpu must be set. Got {resourcequotarequestscpu!r}.")
@@ -29,16 +29,17 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     resourcequotasecrets=spec.get('resourcequotasecrets')
     resourcequotaservicesloadbalancers=spec.get('resourcequotaservicesloadbalancers')
 
-    api = kubernetes.client.CoreV1Api()
-
     # get context of yaml manifest for namespace
 
     path = os.path.join(os.path.dirname(__file__), 'namespace.yaml')
     tmpl = open(path, 'rt').read()
-    text = tmpl.format(name=name, namespace=namespace
-    )
-    data = yaml.safe_load(text)
+    text = tmpl.format(name=name, namespace=namespace)
 
+    data = yaml.safe_load(text)
+    kopf.adopt(data)
+
+    api = kubernetes.client.CoreV1Api()
+    
     ## Create namespace
     try:
       obj = api.create_namespace(
@@ -70,6 +71,10 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     data = yaml.safe_load(text)
     
+    kopf.adopt(data)
+
+    api = kubernetes.client.CoreV1Api()
+
     # Create resourcequota
 
     try:
