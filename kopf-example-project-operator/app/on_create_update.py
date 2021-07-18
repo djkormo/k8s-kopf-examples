@@ -93,12 +93,11 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_resource_quota: %s\n" % e)  
 
-
-    return {'message': 'done'}  # will be the new status
+    return {str(name): obj.metadata.name}
 
 
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
-def update_fn(spec, name, namespace, logger, **kwargs):
+def update_fn(spec, name, status, namespace, logger, **kwargs):
     print(f"Updating: {spec}")
     logger.info(f"Object project is updated: {spec}")
     
