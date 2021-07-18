@@ -57,7 +57,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     path = os.path.join(os.path.dirname(__file__), 'resourcequota.yaml')
     tmpl = open(path, 'rt').read()
-    text = tmpl.format(name=name, resourcequotarequestscpu=resourcequotarequestscpu,
+    text = tmpl.format(name=name,resourcequotarequestscpu=resourcequotarequestscpu,
            resourcequotarequestsmemory=resourcequotarequestsmemory, 
            resourcequotalimitscpu=resourcequotalimitscpu,
            resourcequotalimitsmemory=resourcequotalimitsmemory,
