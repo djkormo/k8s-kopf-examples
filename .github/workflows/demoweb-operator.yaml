@@ -1,7 +1,9 @@
 name: Demoweb operator for DockerHub
 
-on: [push]
-
+on:
+  push:
+    paths:
+      - 'kopf-example-demoweb-operator/**'
 jobs:
 
   build:
@@ -20,7 +22,6 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile
-#        context: kopf-example-db-operator
         workdir: kopf-example-demoweb-operator
 
 
