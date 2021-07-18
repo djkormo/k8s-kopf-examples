@@ -50,7 +50,7 @@ kubectl get pod,svc -n project-operator
 
 ```console
 operator_pod=$(kubectl get pod -n project-operator -L app=op -o name | grep operator | head -n1)
-kubectl -n project-operator logs ${operator_pod}
+kubectl -n project-operator logs ${operator_pod} -f 
 ```
 
 

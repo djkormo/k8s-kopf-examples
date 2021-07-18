@@ -122,3 +122,27 @@ def update_fn(spec, name, status, namespace, logger, **kwargs):
       print("Exception when calling CoreV1Api->path_namespaced_resource_quota: %s\n" % e)  
     
 
+
+@kopf.on.field('djkormo.github', 'v1alpha1', 'project', field='spec.hard')
+def relabel(diff, status,name, namespace, logger, **kwargs):
+    project_patch = {field[0]: new for op, field, old, new in diff}
+    project_name = status['create_fn']['pvc-name']
+    project_path = {'spec': {'hard': project_patch}}
+
+    logger.info(f"Object project is updated: {project_path}")
+
+    api = kubernetes.client.CoreV1Api()
+
+    try:
+      obj = api.path_namespaced_resource_quota(
+          namespace=name,
+          name=project_name,
+          body=project_patch,
+      )
+      pprint(obj)
+      logger.info(f"ResourceQuota child is updated: {obj}")
+    except ApiException as e:
+      print("Exception when calling CoreV1Api->path_namespaced_resource_quota: %s\n" % e)  
+
+
+  
