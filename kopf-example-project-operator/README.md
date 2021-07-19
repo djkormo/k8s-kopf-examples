@@ -34,7 +34,7 @@ kubectl apply -f deploy/rbac
 kubectl apply -f deploy/operator.yaml 
 ```
 
-### Deploy sample CR (demoweb object)
+### Deploy sample CR (project object)
 
 ```console 
 kubectl apply -f test/project.yaml 
