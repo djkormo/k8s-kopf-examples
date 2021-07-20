@@ -1,10 +1,15 @@
 FROM python:3.7-alpine
 ADD app /app
 
-RUN apk update apk add --no-cache gcc git python3-dev musl-dev linux-headers libc-dev rsync zsh 
-RUN apk update apk add --no-cache findutils wget util-linux grep libxml2-dev libxslt-dev 
+RUN apk update apk add --no-cache gcc git python3-dev musl-dev linux-headers libc-dev rsync zsh \
+  && findutils wget util-linux grep libxml2-dev libxslt-dev 
 
 RUN pip install --upgrade pip
+
+RUN apk add --no-cache --virtual .build-deps gcc musl-dev \
+  && pip install cython \
+  && apk del .build-deps gcc musl-dev 
+
 RUN adduser -D worker
 USER worker
 WORKDIR /home/worker
