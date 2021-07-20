@@ -9,7 +9,7 @@ RUN pip install --upgrade pip
 #  && pip install cython \
 #  && apk del .build-deps gcc musl-dev 
 
-RUN adduser -D worker
+RUN adduser worker
 USER worker
 WORKDIR /home/worker
 COPY --chown=worker:worker /app/requirements.txt requirements.txt
