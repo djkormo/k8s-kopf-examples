@@ -2,7 +2,7 @@ FROM python:3.7-alpine
 ADD app /app
 
 RUN apk update apk add --no-cache gcc git python3-dev musl-dev linux-headers libc-dev rsync zsh 
-RUN findutils wget util-linux grep libxml2-dev libxslt-dev 
+RUN apk update apk add --no-cache findutils wget util-linux grep libxml2-dev libxslt-dev 
 
 RUN pip install --upgrade pip
 RUN adduser -D worker
