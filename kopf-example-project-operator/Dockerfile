@@ -2,7 +2,7 @@ FROM python:3.7-alpine
 ADD app /app
 
 RUN apk update apk add --no-cache gcc git python3-dev musl-dev linux-headers libc-dev rsync zsh \
-  && findutils wget util-linux grep libxml2-dev libxslt-dev 
+  && wget util-linux grep libxml2-dev libxslt-dev 
 
 RUN pip install --upgrade pip
 
