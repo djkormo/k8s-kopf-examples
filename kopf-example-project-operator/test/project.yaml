@@ -11,7 +11,7 @@ spec:
   resourcequotalimitsmemory: 3Gi
   resourcequotacountjobsbatch: 3k
   resourcequotacountingresses: 1k
-  resourcequotapods: 100
+  resourcequotapods: 200
   resourcequotaservices: "8"
 #  resourcequotaconfigmaps: 99
 #  resourcequotapersistentvolumeclaims: "98"

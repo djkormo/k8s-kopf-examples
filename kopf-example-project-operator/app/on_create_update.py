@@ -5,6 +5,15 @@ import yaml
 import os
 from kubernetes.client.rest import ApiException
 from pprint import pprint
+import datetime
+import random
+@kopf.on.probe(id='now')
+def get_current_timestamp(**kwargs):
+    return datetime.datetime.utcnow().isoformat()
+
+@kopf.on.probe(id='random')
+def get_random_value(**kwargs):
+    return random.randint(0, 1_000_000)
 
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
 def create_fn(spec, name, namespace, logger, **kwargs):
@@ -126,7 +135,7 @@ def update_fn(spec, name, status, namespace, logger, **kwargs):
 @kopf.on.field('djkormo.github', 'v1alpha1', 'project', field='spec.hard')
 def relabel(diff, status,name, namespace, logger, **kwargs):
     project_patch = {field[0]: new for op, field, old, new in diff}
-    project_name = status['create_fn']['project-name']
+    project_name = status['relabel']['project-name']
     project_path = {'spec': {'hard': project_patch}}
 
     logger.info(f"Object project is updated: {project_path}")
@@ -144,5 +153,9 @@ def relabel(diff, status,name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->patch_namespaced_resource_quota: %s\n" % e)  
 
+    return {'project-name': obj.metadata.name}
 
-  
+@kopf.on
+.delete('djkormo.github', 'v1alpha1', 'project')
+def update_fn(spec, name, status, namespace, logger, **kwargs):
+    print(f"Deleting: {spec}")
