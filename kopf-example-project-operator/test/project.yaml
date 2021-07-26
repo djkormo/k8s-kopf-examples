@@ -5,13 +5,13 @@ metadata:
   namespace: project-operator
 spec:
   # Add fields here
-  resourcequotarequestscpu: "3"
-  resourcequotarequestsmemory: 2Gi
+  resourcequotarequestscpu: "2"
+  resourcequotarequestsmemory: 1Gi
   resourcequotalimitscpu: "2"
-  resourcequotalimitsmemory: 4Gi
-  resourcequotacountjobsbatch: 5k
-  resourcequotacountingresses: 6k
-  resourcequotapods: 7k
+  resourcequotalimitsmemory: 3Gi
+  resourcequotacountjobsbatch: 3k
+  resourcequotacountingresses: 1k
+  resourcequotapods: 100
   resourcequotaservices: "8"
 #  resourcequotaconfigmaps: 99
 #  resourcequotapersistentvolumeclaims: "98"

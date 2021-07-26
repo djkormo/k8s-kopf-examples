@@ -121,6 +121,8 @@ def update_fn(spec, name, status, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->patch_namespaced_resource_quota: %s\n" % e)  
     
+    return {'project-name': obj.metadata.name}
+    
 @kopf.on.field('djkormo.github', 'v1alpha1', 'project', field='spec.hard')
 def relabel(diff, status,name, namespace, logger, **kwargs):
     project_patch = {field[0]: new for op, field, old, new in diff}
