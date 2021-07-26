@@ -155,7 +155,6 @@ def relabel(diff, status,name, namespace, logger, **kwargs):
 
     return {'project-name': obj.metadata.name}
 
-@kopf.on
-.delete('djkormo.github', 'v1alpha1', 'project')
+@kopf.on.delete('djkormo.github', 'v1alpha1', 'project')
 def update_fn(spec, name, status, namespace, logger, **kwargs):
     print(f"Deleting: {spec}")
