@@ -18,6 +18,9 @@ spec:
         application: project-operator
     spec:
       serviceAccountName: project-operator
+      securityContext:
+        runAsUser:
+          1000
       containers:
       - name: op
         image: djkormo/op-project

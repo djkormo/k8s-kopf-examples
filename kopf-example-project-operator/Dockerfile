@@ -3,7 +3,6 @@ ADD app /app
 RUN pip install --upgrade pip
 
 RUN adduser worker
-
 USER worker
 WORKDIR /home/worker
 
@@ -13,10 +12,10 @@ RUN pip install --no-cache-dir --user -r requirements.txt
 
 ENV PATH="/home/worker/.local/bin:${PATH}"
 
-COPY app/on_create_update.py /on_create_update.py
+#COPY app/on_create_update.py /on_create_update.py
 
-COPY app/namespace.yaml /namespace.yaml
-COPY app/resourcequota.yaml /resourcequota.yaml
+#COPY app/namespace.yaml /namespace.yaml
+#COPY app/resourcequota.yaml /resourcequota.yaml
 
 COPY --chown=worker:worker /app /home/worker/app
 

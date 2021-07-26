@@ -96,7 +96,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     return {'project-name': obj.metadata.name}
 
 
-@kopf.on.create('djkormo.github', 'v1alpha1', 'project')
+@kopf.on.update('djkormo.github', 'v1alpha1', 'project')
 def update_fn(spec, name, status, namespace, logger, **kwargs):
     print(f"Updating: {spec}")
 
