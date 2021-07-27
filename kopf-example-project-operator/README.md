@@ -58,6 +58,8 @@ kubectl -n project-operator describe ${operator_pod}
 
 ```
 kubectl -n project-operator exec ${operator_pod} -it -- bash
+curl http://localhost:8080/healthz
+
 ```
 
 
