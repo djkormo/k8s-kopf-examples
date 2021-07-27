@@ -147,7 +147,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-allow-dns-access.yaml')
     tmpl = open(path, 'rt').read()
     pprint(tmpl)
-    text = tmpl.format(name=name)
+    #text = tmpl.format(name=name)
     
     #data = yaml.safe_load(text)
 
