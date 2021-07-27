@@ -145,7 +145,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     api = kubernetes.client.NetworkingV1Api()
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy.yaml')
     tmpl = open(path, 'rt').read()
-    text = tmpl.format(namespace=namespace)
+    text = tmpl.format(namespace=name)
     data = yaml.safe_load(text)
     try:
       obj = api.create_namespaced_network_policy(
