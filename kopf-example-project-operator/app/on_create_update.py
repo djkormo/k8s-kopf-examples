@@ -147,12 +147,13 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     tmpl = open(path, 'rt').read()
     text = tmpl.format(namespace=name)
     data = yaml.safe_load(text)
+    pprint(data)
     try:
       obj = api.create_namespaced_network_policy(
           namespace=name,
           body=data,
       )
-      #pprint(obj)
+      pprint(obj)
       logger.info(f"NetworkPolicy child is created: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
