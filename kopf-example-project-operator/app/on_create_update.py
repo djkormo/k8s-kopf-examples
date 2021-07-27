@@ -265,6 +265,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     # apply changes
     try:
       obj = api.patch_namespaced_limit_range(
+          name=project_name,
           namespace=name,
           body=data,
       )
