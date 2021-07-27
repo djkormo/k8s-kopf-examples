@@ -140,6 +140,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
     kopf.adopt(data)
+
     # create network policy
 
     api = kubernetes.client.NetworkingV1Api()
@@ -210,6 +211,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
 
     kopf.adopt(data)
 
+  
     #project_patch = {'spec': {'hard': {'requests.cpu': resourcequotarequestscpu}}}
     logger.info(f"Object project is updated: {spec}")
     api = kubernetes.client.CoreV1Api()
@@ -225,6 +227,48 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->patch_namespaced_resource_quota: %s\n" % e)  
     
+    # update limit range 
+
+    # get context of yaml manifest for limitrange
+
+    path = os.path.join(os.path.dirname(__file__), 'limitrange.yaml')
+    tmpl = open(path, 'rt').read()
+
+    # get fields values
+
+    limitrangemaxcpu = spec.get('limitrangemaxcpu',1)
+    limitrangemaxmem = spec.get('limitrangemaxmem',1)
+    limitrangemincpu = spec.get('limitrangemincpu',1)
+    limitrangeminmem = spec.get('limitrangeminmem',1)
+    limitrangedefaultcpu = spec.get('limitrangedefaultcpu',1)
+    limitrangedefaultmem = spec.get('limitrangedefaultmem',1)
+    limitrangedefaultrequestcpu = spec.get('limitrangedefaultrequestcpu',1)
+    limitrangedefaultrequestmem = spec.get('limitrangedefaultrequestmem',1)
+
+    # replace values in manifest
+    
+    text = tmpl.format(name=name,limitrangemaxmem=limitrangemaxmem,
+           limitrangemaxcpu=limitrangemaxcpu, 
+           limitrangemincpu=limitrangemincpu,
+           limitrangeminmem=limitrangeminmem,
+           limitrangedefaultcpu=limitrangedefaultcpu,
+           limitrangedefaultmem=limitrangedefaultmem,
+           limitrangedefaultrequestcpu=limitrangedefaultrequestcpu,
+           limitrangedefaultrequestmem=limitrangedefaultrequestmem,
+    )
+    
+    data = yaml.safe_load(text)
+    try:
+      obj = api.patch_namespaced_limit_range(
+          namespace=name,
+          body=data,
+      )
+      #pprint(obj)
+      logger.info(f"LimitRange child is created: {obj}")
+    except ApiException as e:
+      print("Exception when calling CoreV1Api->patch_namespaced_limit_range: %s\n" % e)
+    kopf.adopt(data)
+
     return {'project-name': obj.metadata.name}
     
 #@kopf.on.field('djkormo.github', 'v1alpha1', 'project', field='spec.hard')
