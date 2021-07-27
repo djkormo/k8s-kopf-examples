@@ -7,6 +7,9 @@ from kubernetes.client.rest import ApiException
 from pprint import pprint
 import datetime
 import random
+
+# for Kubernetes probes
+
 @kopf.on.probe(id='now')
 def get_current_timestamp(**kwargs):
     return datetime.datetime.utcnow().isoformat()
@@ -14,6 +17,9 @@ def get_current_timestamp(**kwargs):
 @kopf.on.probe(id='random')
 def get_random_value(**kwargs):
     return random.randint(0, 1_000_000)
+
+
+# When creating object
 
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
 def create_fn(spec, name, namespace, logger, **kwargs):
@@ -101,7 +107,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
       print("Exception when calling CoreV1Api->create_namespaced_resource_quota: %s\n" % e)  
 
     # create limitrange 
-    # get context of yaml manifest for resource quota
+    # get context of yaml manifest for limitrange
 
     path = os.path.join(os.path.dirname(__file__), 'limitrange.yaml')
     tmpl = open(path, 'rt').read()
@@ -134,9 +140,26 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
     
+  # create network policy
+    api = kubernetes.client.NetworkingV1Api()
+    path = os.path.join(os.path.dirname(__file__), 'networkpolicy.yaml')
+    tmpl = open(path, 'rt').read()
+    text = tmpl.format(name=name)
+    data = yaml.safe_load(text)
+    try:
+      obj = api.create_namespaced_network_policy(
+          namespace=name,
+          body=data,
+      )
+      pprint(obj)
+      logger.info(f"NetworkPolicy child is created: {obj}")
+    except ApiException as e:
+      print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
+
+
     return {'project-name': obj.metadata.name}
 
-
+# When updating object
 @kopf.on.update('djkormo.github', 'v1alpha1', 'project')
 def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     print(f"Updating: {spec}")
