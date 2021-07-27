@@ -135,23 +135,24 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           namespace=name,
           body=data,
       )
-      pprint(obj)
+      #pprint(obj)
       logger.info(f"LimitRange child is created: {obj}")
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
     
-  # create network policy
+    # create network policy
+
     api = kubernetes.client.NetworkingV1Api()
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy.yaml')
     tmpl = open(path, 'rt').read()
-    text = tmpl.format(name=name)
+    text = tmpl.format(namespace=namespace)
     data = yaml.safe_load(text)
     try:
       obj = api.create_namespaced_network_policy(
           namespace=name,
           body=data,
       )
-      pprint(obj)
+      #pprint(obj)
       logger.info(f"NetworkPolicy child is created: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
