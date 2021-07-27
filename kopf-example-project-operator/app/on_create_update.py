@@ -64,6 +64,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           body=data,
       )
       pprint(obj)
+      kopf.append_owner_reference(obj)
       logger.info(f"Namespace child is created: {obj}")
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespace: %s\n" % e)  
@@ -90,7 +91,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     data = yaml.safe_load(text)
     
     logger.info(f"ResourceQuota child definition: {data}")
-
+    
     kopf.adopt(data)
 
 
@@ -102,6 +103,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           body=data,
       )
       pprint(obj)
+      kopf.append_owner_reference(obj)
       logger.info(f"ResourceQuota child is created: {obj}")
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_resource_quota: %s\n" % e)  
@@ -136,6 +138,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           body=data,
       )
       #pprint(obj)
+      kopf.append_owner_reference(obj)
       logger.info(f"LimitRange child is created: {obj}")
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
