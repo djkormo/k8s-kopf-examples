@@ -146,20 +146,23 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     api = kubernetes.client.NetworkingV1Api()
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-allow-dns-access.yaml')
     tmpl = open(path, 'rt').read()
+    pprint(tmpl)
     text = tmpl.format(name=name)
-    data = yaml.safe_load(text)
-    pprint(data)
-    try:
-      obj = api.create_namespaced_network_policy(
-          namespace=name,
-          body=data,
-      )
-      pprint(obj)
-      logger.info(f"NetworkPolicy child is created: {obj}")
-    except ApiException as e:
-      print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
-    kopf.adopt(data)
+    #data = yaml.safe_load(text)
+
+    #pprint(data)
+    #try:
+    #  obj = api.create_namespaced_network_policy(
+    #      namespace=name,
+    #      body=data,
+    #  )
+    #  pprint(obj)
+    #  logger.info(f"NetworkPolicy child is created: {obj}")
+    #except ApiException as e:
+    #  print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
+    
+    #kopf.adopt(data)
 
     return {'project-name': obj.metadata.name}
 
@@ -246,7 +249,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     limitrangedefaultrequestmem = spec.get('limitrangedefaultrequestmem',1)
 
     # replace values in manifest
-    
+
     text = tmpl.format(name=name,limitrangemaxmem=limitrangemaxmem,
            limitrangemaxcpu=limitrangemaxcpu, 
            limitrangemincpu=limitrangemincpu,
@@ -256,15 +259,17 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
            limitrangedefaultrequestcpu=limitrangedefaultrequestcpu,
            limitrangedefaultrequestmem=limitrangedefaultrequestmem,
     )
-    
+    # create yaml manifest
+
     data = yaml.safe_load(text)
+    # apply changes
     try:
       obj = api.patch_namespaced_limit_range(
           namespace=name,
           body=data,
       )
       #pprint(obj)
-      logger.info(f"LimitRange child is created: {obj}")
+      logger.info(f"Limitrange child is updated: {obj}")
     except ApiException as e:
       print("Exception when calling CoreV1Api->patch_namespaced_limit_range: %s\n" % e)
     kopf.adopt(data)
