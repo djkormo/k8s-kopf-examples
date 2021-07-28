@@ -217,9 +217,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
 
     kopf.adopt(data)
 
-  
-    #project_patch = {'spec': {'hard': {'requests.cpu': resourcequotarequestscpu}}}
-    logger.info(f"Object project is updated: {spec}")
+    logger.info(f"Object project is updated: {diff}")
     api = kubernetes.client.CoreV1Api()
 
     try:
@@ -253,7 +251,8 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
 
     # replace values in manifest
 
-    text = tmpl.format(name=name,limitrangemaxmem=limitrangemaxmem,
+    text = tmpl.format(name=name,
+           limitrangemaxmem=limitrangemaxmem,
            limitrangemaxcpu=limitrangemaxcpu, 
            limitrangemincpu=limitrangemincpu,
            limitrangeminmem=limitrangeminmem,

@@ -23,6 +23,18 @@ rules:
     verbs: [create, patch]
 
   # Application: read-only access for watching cluster-wide.
-  - apiGroups: [kopf.dev]
-    resources: [kopfexamples]
+  - apiGroups: [djkormo.github]
+    resources: [projects,projects/status]
     verbs: [list, watch]
+  # for controlling namespace  
+  - apiGroups: [""]
+    resources: [namespaces]
+    verbs: [list, watch,patch,create,delete]
+  # for controlling resourcequotas and limitranges  
+  - apiGroups: [""]
+    resources: [resourcequotas,limitranges]
+    verbs: [list, watch,patch,create,delete]
+  # for controlling networkpolicies    
+  - apiGroups: [""]
+    resources: [networkpolicies]
+    verbs: [list, watch,patch,create,delete]

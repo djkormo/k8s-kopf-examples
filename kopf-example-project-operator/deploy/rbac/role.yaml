@@ -16,15 +16,8 @@ rules:
     verbs: [create]
 
   # Application: watching & handling for the custom resource we declare.
-  - apiGroups: [kopf.dev]
-    resources: [kopfexamples]
-    verbs: [list, watch, patch]
+  - apiGroups: [djkormo.github]
+    resources: [projects,projects/status]
+    verbs: [list, watch,patch]
 
   # Application: other resources it produces and manipulates.
-  # Here, we create Jobs+PVCs+Pods, but we do not patch/update/delete them ever.
-  - apiGroups: [batch, extensions]
-    resources: [jobs]
-    verbs: [create]
-  - apiGroups: [""]
-    resources: [pods, persistentvolumeclaims]
-    verbs: [create]

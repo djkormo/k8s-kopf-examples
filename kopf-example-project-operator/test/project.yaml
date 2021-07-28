@@ -1,28 +1,28 @@
 apiVersion: djkormo.github/v1alpha1
 kind: Project
 metadata:
-  name: my-namespace
+  name: my-namespace-2
   namespace: project-operator
 spec:
   # Add fields here
-  resourcequotarequestscpu: "2"
-  resourcequotarequestsmemory: 1Gi
-  resourcequotalimitscpu: "2"
-  resourcequotalimitsmemory: 3Gi
-  resourcequotacountjobsbatch: 3k
-  resourcequotacountingresses: 1k
-  resourcequotapods: 200
-  resourcequotaservices: "8"
+  resourcequotarequestscpu: "5"
+  resourcequotarequestsmemory: 5Gi
+  resourcequotalimitscpu: "3"
+  resourcequotalimitsmemory: 4Gi
+  resourcequotacountjobsbatch: 4k
+  resourcequotacountingresses: 2k
+  resourcequotapods: 109
+  resourcequotaservices: 109
 #  resourcequotaconfigmaps: 99
 #  resourcequotapersistentvolumeclaims: "98"
 #  resourcequotareplicationcontrollers: 97
 #  resourcequotasecrets: 96
 #  resourcequotaservicesloadbalancers: 95
-#  limitrangemaxmem: 31Gi
-#  limitrangemaxcpu: 21000m
-#  limitrangemincpu: 51m
-#  limitrangeminmem: 51Mi
-#  limitrangedefaultcpu: 1100m
-#  limitrangedefaultmem: "1100Mi"
-#  limitrangedefaultrequestcpu: 110m
-#  limitrangedefaultrequestmem: 110Mi
+  limitrangemaxmem: 1Gi
+  limitrangemaxcpu: 1000m
+  limitrangemincpu: 51m
+  limitrangeminmem: 51Mi
+  limitrangedefaultcpu: 500m
+  limitrangedefaultmem: "500Mi"
+  limitrangedefaultrequestcpu: 101m
+  limitrangedefaultrequestmem: 100Mi
