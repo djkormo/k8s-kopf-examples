@@ -1,13 +1,13 @@
-FROM python:3.7-alpine
-
-RUN apk --no-cache add gcc musl-dev
+FROM python:3.7
 
 ADD app /app
 
 RUN pip install --upgrade pip
 
 RUN adduser worker
+
 USER worker
+
 WORKDIR /home/worker
 
 COPY --chown=worker:worker /app/requirements.txt requirements.txt
