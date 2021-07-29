@@ -22,7 +22,16 @@ spec:
         runAsUser:
           1000
       containers:
-      - name: op
+      - env:
+        - name: VERBOSE
+          value: "true"
+        - name: DEBUG
+          value: "true"
+        - name: NAMESPACE
+          value: project-operator
+        - name: LIVENESS
+          value: "true"
+        name: op
         image: djkormo/op-project
         resources:
           requests:

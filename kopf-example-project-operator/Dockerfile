@@ -18,6 +18,6 @@ COPY --chown=worker:worker /app /home/worker/app
 
 LABEL maintainer="Krzysztof Pudlowski <djkormo@gmail.com>" version="1.0.0"
 
-#CMD kopf run --liveness=http://0.0.0.0:8080/healthz --verbose --standalone /home/worker/app/on_create_update.py
+#CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone /home/worker/app/operator.py
 
-CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone /home/worker/app/on_create_update.py
+ENTRYPOINT ["/home/worker/app/operator.bash"]
