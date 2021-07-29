@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-set -u
+#set -u
 command="kopf run --standalone /home/worker/app/operator.py "
 #[[ "$VERBOSE" = "true" ]] && command+=("--verbose")
 
