@@ -10,5 +10,5 @@ command=("kopf" "run" "--standalone" "/home/worker/app/operator.py")
 USER=$(id -u)
 echo "Setting USER environment variable to ${USER}"
 export USER=$USER
-
+echo " Executing ${command}"
 exec ${command}
