@@ -6,7 +6,7 @@ RUN pip install --upgrade pip
 
 ADD app /app
 
-RUN adduser -D -h /home/worker -s /bin/bash -G users worker
+RUN adduser -D -h /home/worker -s /bin/bash worker
 
 USER worker
 
