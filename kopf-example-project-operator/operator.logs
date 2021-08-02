@@ -1,0 +1,523 @@
+[2021-08-02 14:34:41,046] asyncio              [DEBUG   ] Using selector: EpollSelector
+/home/worker/.local/lib/python3.7/site-packages/kopf/_core/reactor/running.py:172: FutureWarning: Absence of either namespaces or cluster-wide flag will become an error soon. For now, switching to the cluster-wide mode for backward compatibility.
+  FutureWarning)
+[2021-08-02 14:34:41,358] asyncio              [WARNING ] Executing <Task pending coro=<operator() running at /home/worker/.local/lib/python3.7/site-packages/kopf/_core/reactor/running.py:127> cb=[_run_until_complete_cb() at /usr/local/lib/python3.7/asyncio/base_events.py:157] created at /usr/local/lib/python3.7/asyncio/base_events.py:566> took 0.198 seconds
+[2021-08-02 14:34:41,442] kopf._core.reactor.r [DEBUG   ] Starting Kopf 1.32.1.
+[2021-08-02 14:34:41,445] kopf._core.engines.a [INFO    ] Initial authentication has been initiated.
+[2021-08-02 14:34:41,445] kopf.activities.auth [DEBUG   ] Activity 'login_via_client' is invoked.
+[2021-08-02 14:34:41,546] kopf.activities.auth [DEBUG   ] Client is configured in cluster with service account.
+[2021-08-02 14:34:41,550] asyncio              [WARNING ] Executing <Task pending coro=<guard() running at /home/worker/.local/lib/python3.7/site-packages/kopf/_cogs/aiokits/aiotasks.py:69> wait_for=<Future pending cb=[shield.<locals>._outer_done_callback() at /usr/local/lib/python3.7/asyncio/tasks.py:820, <TaskWakeupMethWrapper object at 0x7f68fe44c290>()] created at /usr/local/lib/python3.7/asyncio/base_events.py:395> created at /usr/local/lib/python3.7/asyncio/tasks.py:351> took 0.105 seconds
+[2021-08-02 14:34:41,649] kopf.activities.auth [INFO    ] Activity 'login_via_client' succeeded.
+[2021-08-02 14:34:41,650] kopf._core.engines.a [INFO    ] Initial authentication has finished.
+[2021-08-02 14:34:41,748] asyncio              [INFO    ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> is serving
+[2021-08-02 14:34:41,749] kopf._core.engines.p [DEBUG   ] Serving health status at http://0.0.0.0:8080/healthz
+[2021-08-02 14:34:41,844] asyncio              [DEBUG   ] connect <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:34:41,846] asyncio              [DEBUG   ] connect <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:34:41,850] asyncio              [DEBUG   ] poll 300091.518 ms took 0.096 ms: 2 events
+[2021-08-02 14:34:41,948] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe255210> starts SSL handshake
+[2021-08-02 14:34:42,043] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe255310> starts SSL handshake
+[2021-08-02 14:34:42,063] asyncio              [DEBUG   ] poll 59904.289 ms took 16.823 ms: 1 events
+[2021-08-02 14:34:42,143] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe255210>: SSL handshake took 193.1 ms
+[2021-08-02 14:34:42,145] asyncio              [DEBUG   ] <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 36238), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fe26cb50>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fe2630c0>)
+[2021-08-02 14:34:42,243] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe255310>: SSL handshake took 199.6 ms
+[2021-08-02 14:34:42,244] asyncio              [DEBUG   ] <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 36240), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fe255190>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fe252f30>)
+[2021-08-02 14:34:42,646] asyncio              [DEBUG   ] connect <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:34:42,647] asyncio              [DEBUG   ] connect <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:34:42,649] asyncio              [DEBUG   ] connect <socket.socket fd=11, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:34:42,742] asyncio              [DEBUG   ] connect <socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:34:42,846] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe2d4fd0> starts SSL handshake
+[2021-08-02 14:34:42,849] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe146f90> starts SSL handshake
+[2021-08-02 14:34:42,942] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe1b0c90> starts SSL handshake
+[2021-08-02 14:34:42,943] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe146710> starts SSL handshake
+[2021-08-02 14:34:42,947] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe2d4fd0>: SSL handshake took 100.2 ms
+[2021-08-02 14:34:42,948] asyncio              [DEBUG   ] <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 36250), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fe26cc10>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fe2000c0>)
+[2021-08-02 14:34:42,957] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe146f90>: SSL handshake took 107.5 ms
+[2021-08-02 14:34:42,958] asyncio              [DEBUG   ] <socket.socket fd=10, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 36252), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fe2e7310>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fe1f9d70>)
+[2021-08-02 14:34:43,043] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe1b0c90>: SSL handshake took 100.9 ms
+[2021-08-02 14:34:43,045] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe146710>: SSL handshake took 101.4 ms
+[2021-08-02 14:34:43,047] asyncio              [DEBUG   ] <socket.socket fd=11, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 36254), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fe1589d0>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fe1b43d0>)
+[2021-08-02 14:34:43,049] asyncio              [DEBUG   ] <socket.socket fd=12, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 36256), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fe15d250>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fe1b4f30>)
+[2021-08-02 14:34:43,148] kopf._cogs.clients.w [DEBUG   ] Starting the watch-stream for customresourcedefinitions.v1.apiextensions.k8s.io cluster-wide.
+[2021-08-02 14:34:43,248] asyncio              [WARNING ] Executing <Task pending coro=<guard() running at /home/worker/.local/lib/python3.7/site-packages/kopf/_cogs/aiokits/aiotasks.py:69> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 0x7f68fe2191d0>()] created at /usr/local/lib/python3.7/asyncio/base_events.py:395> cb=[_wait.<locals>._on_completion() at /usr/local/lib/python3.7/asyncio/tasks.py:466] created at /usr/local/lib/python3.7/asyncio/tasks.py:351> took 0.101 seconds
+[2021-08-02 14:34:43,350] kopf._cogs.clients.w [DEBUG   ] Starting the watch-stream for projects.v1alpha1.djkormo.github cluster-wide.
+[2021-08-02 14:34:43,449] asyncio              [WARNING ] Executing <Task pending coro=<guard() running at /home/worker/.local/lib/python3.7/site-packages/kopf/_cogs/aiokits/aiotasks.py:69> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 0x7f68fe1bd290>()] created at /usr/local/lib/python3.7/asyncio/base_events.py:395> created at /usr/local/lib/python3.7/asyncio/tasks.py:351> took 0.100 seconds
+[2021-08-02 14:34:43,644] asyncio              [WARNING ] Executing <Task pending coro=<guard() running at /home/worker/.local/lib/python3.7/site-packages/kopf/_cogs/aiokits/aiotasks.py:69> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 0x7f68fe146190>()] created at /usr/local/lib/python3.7/asyncio/base_events.py:395> cb=[_wait.<locals>._on_completion() at /usr/local/lib/python3.7/asyncio/tasks.py:466] created at /usr/local/lib/python3.7/asyncio/tasks.py:351> took 0.194 seconds
+[2021-08-02 14:34:43,745] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 45418): <socket.socket fd=13, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 45418)>
+[2021-08-02 14:34:43,847] kopf.activities.prob [DEBUG   ] Activity 'now' is invoked.
+[2021-08-02 14:34:43,948] kopf.activities.prob [INFO    ] Activity 'now' succeeded.
+[2021-08-02 14:34:43,948] kopf.activities.prob [DEBUG   ] Activity 'random' is invoked.
+[2021-08-02 14:34:44,044] kopf.activities.prob [INFO    ] Activity 'random' succeeded.
+[2021-08-02 14:34:44,045] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:34:43 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:34:49,045] asyncio              [INFO    ] poll 4996.933 ms took 4998.992 ms: timeout
+[2021-08-02 14:34:53,720] asyncio              [INFO    ] poll 8893.824 ms took 4672.266 ms: 1 events
+[2021-08-02 14:34:53,720] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 45496): <socket.socket fd=13, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 45496)>
+[2021-08-02 14:34:53,726] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:34:53 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:34:57,947] asyncio              [INFO    ] poll 4210.886 ms took 4216.549 ms: timeout
+[2021-08-02 14:34:57,949] asyncio              [DEBUG   ] poll 15991.699 ms took 0.058 ms: 2 events
+[2021-08-02 14:35:03,720] asyncio              [INFO    ] poll 15985.498 ms took 5764.252 ms: 1 events
+[2021-08-02 14:35:03,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 45574): <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 45574)>
+[2021-08-02 14:35:03,727] kopf.activities.prob [DEBUG   ] Activity 'now' is invoked.
+[2021-08-02 14:35:03,742] kopf.activities.prob [INFO    ] Activity 'now' succeeded.
+[2021-08-02 14:35:03,742] kopf.activities.prob [DEBUG   ] Activity 'random' is invoked.
+[2021-08-02 14:35:03,744] kopf.activities.prob [INFO    ] Activity 'random' succeeded.
+[2021-08-02 14:35:03,745] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:35:03 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:35:13,720] asyncio              [INFO    ] poll 10195.588 ms took 9974.259 ms: 1 events
+[2021-08-02 14:35:13,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 45654): <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 45654)>
+[2021-08-02 14:35:13,743] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:35:13 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:35:13,942] asyncio              [DEBUG   ] poll took 0.029 ms: 1 events
+[2021-08-02 14:35:23,720] asyncio              [INFO    ] poll took 9776.081 ms: 1 events
+[2021-08-02 14:35:23,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 45744): <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 45744)>
+[2021-08-02 14:35:23,730] kopf.activities.prob [DEBUG   ] Activity 'now' is invoked.
+[2021-08-02 14:35:23,746] kopf.activities.prob [INFO    ] Activity 'now' succeeded.
+[2021-08-02 14:35:23,747] kopf.activities.prob [DEBUG   ] Activity 'random' is invoked.
+[2021-08-02 14:35:23,842] kopf.activities.prob [INFO    ] Activity 'random' succeeded.
+[2021-08-02 14:35:23,843] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:35:23 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:35:33,720] asyncio              [INFO    ] poll took 9875.763 ms: 1 events
+[2021-08-02 14:35:33,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 45826): <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 45826)>
+[2021-08-02 14:35:33,743] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:35:33 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:35:43,721] asyncio              [INFO    ] poll took 9977.133 ms: 1 events
+[2021-08-02 14:35:43,722] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 45904): <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 45904)>
+[2021-08-02 14:35:43,732] kopf.activities.prob [DEBUG   ] Activity 'now' is invoked.
+[2021-08-02 14:35:43,745] kopf.activities.prob [INFO    ] Activity 'now' succeeded.
+[2021-08-02 14:35:43,745] kopf.activities.prob [DEBUG   ] Activity 'random' is invoked.
+[2021-08-02 14:35:43,747] kopf.activities.prob [INFO    ] Activity 'random' succeeded.
+[2021-08-02 14:35:43,748] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:35:43 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:35:46,143] asyncio              [INFO    ] poll took 2394.203 ms: 1 events
+[2021-08-02 14:35:46,254] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Adding the finalizer, thus preventing the actual deletion.
+[2021-08-02 14:35:46,255] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Patching with: {'metadata': {'finalizers': ['kopf.zalando.org/KopfFinalizerMarker']}}
+[2021-08-02 14:35:46,344] asyncio              [DEBUG   ] connect <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:35:46,346] asyncio              [DEBUG   ] poll 300594.670 ms took 0.039 ms: 1 events
+[2021-08-02 14:35:46,349] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe255050> starts SSL handshake
+[2021-08-02 14:35:46,441] asyncio              [DEBUG   ] poll 59998.218 ms took 90.030 ms: 1 events
+[2021-08-02 14:35:46,444] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe255050>: SSL handshake took 94.9 ms
+[2021-08-02 14:35:46,446] asyncio              [DEBUG   ] <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 36772), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fe16a8d0>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fdea83d0>)
+[2021-08-02 14:35:46,500] asyncio              [DEBUG   ] poll 300490.039 ms took 48.556 ms: 1 events
+[2021-08-02 14:35:46,652] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Creation is in progress: {'apiVersion': 'djkormo.github/v1alpha1', 'kind': 'Project', 'metadata': {'annotations': {'kubectl.kubernetes.io/last-applied-configuration': '{"apiVersion":"djkormo.github/v1alpha1","kind":"Project","metadata":{"annotations":{},"name":"my-namespace","namespace":"project-operator"},"spec":{"limitrangedefaultcpu":"500m","limitrangedefaultmem":"500Mi","limitrangedefaultrequestcpu":"103m","limitrangedefaultrequestmem":"103Mi","limitrangemaxcpu":"1000m","limitrangemaxmem":"1Gi","limitrangemincpu":"51m","limitrangeminmem":"51Mi","resourcequotacountingresses":"2k","resourcequotacountjobsbatch":"4k","resourcequotalimitscpu":"3","resourcequotalimitsmemory":"4Gi","resourcequotapods":109,"resourcequotarequestscpu":"5","resourcequotarequestsmemory":"5Gi","resourcequotaservices":109}}\n'}, 'creationTimestamp': '2021-08-02T14:35:46Z', 'finalizers': ['kopf.zalando.org/KopfFinalizerMarker'], 'generation': 1, 'managedFields': [{'apiVersion': 'djkormo.github/v1alpha1', 'fieldsType': 'FieldsV1', 'fieldsV1': {'f:metadata': {'f:finalizers': {'.': {}, 'v:"kopf.zalando.org/KopfFinalizerMarker"': {}}}}, 'manager': 'kopf', 'operation': 'Update', 'time': '2021-08-02T14:35:46Z'}, {'apiVersion': 'djkormo.github/v1alpha1', 'fieldsType': 'FieldsV1', 'fieldsV1': {'f:metadata': {'f:annotations': {'.': {}, 'f:kubectl.kubernetes.io/last-applied-configuration': {}}}, 'f:spec': {'.': {}, 'f:limitrangedefaultcpu': {}, 'f:limitrangedefaultmem': {}, 'f:limitrangedefaultrequestcpu': {}, 'f:limitrangedefaultrequestmem': {}, 'f:limitrangemaxcpu': {}, 'f:limitrangemaxmem': {}, 'f:limitrangemincpu': {}, 'f:limitrangeminmem': {}, 'f:resourcequotacountingresses': {}, 'f:resourcequotacountjobsbatch': {}, 'f:resourcequotalimitscpu': {}, 'f:resourcequotalimitsmemory': {}, 'f:resourcequotapods': {}, 'f:resourcequotarequestscpu': {}, 'f:resourcequotarequestsmemory': {}, 'f:resourcequotaservices': {}}}, 'manager': 'kubectl.exe', 'operation': 'Update', 'time': '2021-08-02T14:35:46Z'}], 'name': 'my-namespace', 'namespace': 'project-operator', 'resourceVersion': '30389', 'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}, 'spec': {'limitrangedefaultcpu': '500m', 'limitrangedefaultmem': '500Mi', 'limitrangedefaultrequestcpu': '103m', 'limitrangedefaultrequestmem': '103Mi', 'limitrangemaxcpu': '1000m', 'limitrangemaxmem': '1Gi', 'limitrangemincpu': '51m', 'limitrangeminmem': '51Mi', 'resourcequotacountingresses': '2k', 'resourcequotacountjobsbatch': '4k', 'resourcequotalimitscpu': '3', 'resourcequotalimitsmemory': '4Gi', 'resourcequotapods': 109, 'resourcequotarequestscpu': '5', 'resourcequotarequestsmemory': '5Gi', 'resourcequotaservices': 109}}
+[2021-08-02 14:35:46,653] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Handler 'create_fn' is invoked.
+[2021-08-02 14:35:46,656] kopf.objects         [INFO    ] [project-operator/my-namespace] Object project is created: {'limitrangedefaultcpu': '500m', 'limitrangedefaultmem': '500Mi', 'limitrangedefaultrequestcpu': '103m', 'limitrangedefaultrequestmem': '103Mi', 'limitrangemaxcpu': '1000m', 'limitrangemaxmem': '1Gi', 'limitrangemincpu': '51m', 'limitrangeminmem': '51Mi', 'resourcequotacountingresses': '2k', 'resourcequotacountjobsbatch': '4k', 'resourcequotalimitscpu': '3', 'resourcequotalimitsmemory': '4Gi', 'resourcequotapods': 109, 'resourcequotarequestscpu': '5', 'resourcequotarequestsmemory': '5Gi', 'resourcequotaservices': 109}
+[2021-08-02 14:35:46,755] asyncio              [DEBUG   ] poll 15191.266 ms took 5.558 ms: 1 events
+[2021-08-02 14:35:46,842] asyncio              [DEBUG   ] poll 15182.836 ms took 83.624 ms: 1 events
+[2021-08-02 14:35:46,749] kopf.objects         [INFO    ] [project-operator/my-namespace] Namespace child definition: {'apiVersion': 'v1', 'kind': 'Namespace', 'metadata': {'name': 'my-namespace', 'ownerReferences': [{'controller': True, 'blockOwnerDeletion': True, 'apiVersion': 'djkormo.github/v1alpha1', 'kind': 'Project', 'name': 'my-namespace', 'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}], 'namespace': 'project-operator', 'labels': {}}}
+[2021-08-02 14:35:46,960] asyncio              [DEBUG   ] poll 14993.989 ms took 13.051 ms: 1 events
+[2021-08-02 14:35:47,142] kubernetes.client.re [DEBUG   ] response body: {"kind":"Namespace","apiVersion":"v1","metadata":{"name":"my-namespace","uid":"b1e0d15a-6cc7-4ed9-9cdf-45c07dd2a3a1","resourceVersion":"30394","creationTimestamp":"2021-08-02T14:35:47Z","labels":{"kubernetes.io/metadata.name":"my-namespace"},"ownerReferences":[{"apiVersion":"djkormo.github/v1alpha1","kind":"Project","name":"my-namespace","uid":"6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d","controller":true,"blockOwnerDeletion":true}],"managedFields":[{"manager":"Swagger-Codegen","operation":"Update","apiVersion":"v1","time":"2021-08-02T14:35:47Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:kubernetes.io/metadata.name":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}}}}]},"spec":{"finalizers":["kubernetes"]},"status":{"phase":"Active"}}
+
+[2021-08-02 14:35:47,948] asyncio              [DEBUG   ] poll 14894.983 ms took 901.803 ms: 1 events
+[2021-08-02 14:35:47,947] kopf.objects         [INFO    ] [project-operator/my-namespace] Namespace child is created: {'api_version': 'v1',
+ 'kind': 'Namespace',
+ 'metadata': {'annotations': None,
+              'cluster_name': None,
+              'creation_timestamp': datetime.datetime(2021, 8, 2, 14, 35, 47, tzinfo=tzlocal()),
+              'deletion_grace_period_seconds': None,
+              'deletion_timestamp': None,
+              'finalizers': None,
+              'generate_name': None,
+              'generation': None,
+              'initializers': None,
+              'labels': {'kubernetes.io/metadata.name': 'my-namespace'},
+              'managed_fields': [{'api_version': 'v1',
+                                  'fields': None,
+                                  'manager': 'Swagger-Codegen',
+                                  'operation': 'Update',
+                                  'time': datetime.datetime(2021, 8, 2, 14, 35, 47, tzinfo=tzlocal())}],
+              'name': 'my-namespace',
+              'namespace': None,
+              'owner_references': [{'api_version': 'djkormo.github/v1alpha1',
+                                    'block_owner_deletion': True,
+                                    'controller': True,
+                                    'kind': 'Project',
+                                    'name': 'my-namespace',
+                                    'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}],
+              'resource_version': '30394',
+              'self_link': None,
+              'uid': 'b1e0d15a-6cc7-4ed9-9cdf-45c07dd2a3a1'},
+ 'spec': {'finalizers': ['kubernetes']},
+ 'status': {'phase': 'Active'}}
+[2021-08-02 14:35:48,047] kopf.objects         [INFO    ] [project-operator/my-namespace] ResourceQuota child definition: {'apiVersion': 'v1', 'kind': 'ResourceQuota', 'metadata': {'name': 'my-namespace', 'namespace': 'my-namespace'}, 'spec': {'hard': {'requests.cpu': '5', 'requests.memory': '5Gi', 'limits.cpu': '3', 'limits.memory': '4Gi', 'count/jobs.batch': '4k', 'count/ingresses.extensions': '2k', 'pods': '109'}}}
+[2021-08-02 14:35:48,160] kubernetes.client.re [DEBUG   ] response body: {"kind":"ResourceQuota","apiVersion":"v1","metadata":{"name":"my-namespace","namespace":"my-namespace","uid":"14e048e5-7869-40f7-8062-1ab3d6dd45bf","resourceVersion":"30402","creationTimestamp":"2021-08-02T14:35:48Z","ownerReferences":[{"apiVersion":"djkormo.github/v1alpha1","kind":"Project","name":"my-namespace","uid":"6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d","controller":true,"blockOwnerDeletion":true}],"managedFields":[{"manager":"Swagger-Codegen","operation":"Update","apiVersion":"v1","time":"2021-08-02T14:35:48Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:ownerReferences":{".":{},"k:{\"uid\":\"6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:hard":{".":{},"f:count/ingresses.extensions":{},"f:count/jobs.batch":{},"f:limits.cpu":{},"f:limits.memory":{},"f:pods":{},"f:requests.cpu":{},"f:requests.memory":{}}}}}]},"spec":{"hard":{"count/ingresses.extensions":"2k","count/jobs.batch":"4k","limits.cpu":"3","limits.memory":"4Gi","pods":"109","requests.cpu":"5","requests.memory":"5Gi"}},"status":{}}
+
+[2021-08-02 14:35:48,247] asyncio              [DEBUG   ] poll 13797.162 ms took 102.852 ms: 1 events
+[2021-08-02 14:35:48,446] asyncio              [WARNING ] Executing <Task pending coro=<guard() running at /home/worker/.local/lib/python3.7/site-packages/kopf/_cogs/aiokits/aiotasks.py:69> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 0x7f68fe15dd50>()] created at /usr/local/lib/python3.7/asyncio/base_events.py:395> cb=[_wait.<locals>._on_completion() at /usr/local/lib/python3.7/asyncio/tasks.py:466] created at /usr/local/lib/python3.7/asyncio/tasks.py:351> took 0.197 seconds
+[2021-08-02 14:35:48,343] kopf.objects         [INFO    ] [project-operator/my-namespace] ResourceQuota child is created: {'api_version': 'v1',
+ 'kind': 'ResourceQuota',
+ 'metadata': {'annotations': None,
+              'cluster_name': None,
+              'creation_timestamp': datetime.datetime(2021, 8, 2, 14, 35, 48, tzinfo=tzlocal()),
+              'deletion_grace_period_seconds': None,
+              'deletion_timestamp': None,
+              'finalizers': None,
+              'generate_name': None,
+              'generation': None,
+              'initializers': None,
+              'labels': None,
+              'managed_fields': [{'api_version': 'v1',
+                                  'fields': None,
+                                  'manager': 'Swagger-Codegen',
+                                  'operation': 'Update',
+                                  'time': datetime.datetime(2021, 8, 2, 14, 35, 48, tzinfo=tzlocal())}],
+              'name': 'my-namespace',
+              'namespace': 'my-namespace',
+              'owner_references': [{'api_version': 'djkormo.github/v1alpha1',
+                                    'block_owner_deletion': True,
+                                    'controller': True,
+                                    'kind': 'Project',
+                                    'name': 'my-namespace',
+                                    'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}],
+              'resource_version': '30402',
+              'self_link': None,
+              'uid': '14e048e5-7869-40f7-8062-1ab3d6dd45bf'},
+ 'spec': {'hard': {'count/ingresses.extensions': '2k',
+                   'count/jobs.batch': '4k',
+                   'limits.cpu': '3',
+                   'limits.memory': '4Gi',
+                   'pods': '109',
+                   'requests.cpu': '5',
+                   'requests.memory': '5Gi'},
+          'scope_selector': None,
+          'scopes': None},
+ 'status': {'hard': None, 'used': None}}
+[2021-08-02 14:35:48,457] asyncio              [DEBUG   ] poll 13488.547 ms took 4.072 ms: 1 events
+[2021-08-02 14:35:48,746] kubernetes.client.re [DEBUG   ] response body: {"kind":"LimitRange","apiVersion":"v1","metadata":{"name":"my-namespace","namespace":"my-namespace","uid":"904fb8bc-f069-450c-840a-e0a8fdfd2b3b","resourceVersion":"30407","creationTimestamp":"2021-08-02T14:35:48Z","managedFields":[{"manager":"Swagger-Codegen","operation":"Update","apiVersion":"v1","time":"2021-08-02T14:35:48Z","fieldsType":"FieldsV1","fieldsV1":{"f:spec":{"f:limits":{}}}}]},"spec":{"limits":[{"type":"Container","max":{"cpu":"1","memory":"1Gi"},"min":{"cpu":"51m","memory":"51Mi"},"default":{"cpu":"500m","memory":"500Mi"},"defaultRequest":{"cpu":"103m","memory":"103Mi"}}]}}
+
+[2021-08-02 14:35:48,846] asyncio              [WARNING ] Executing <Task pending coro=<guard() running at /home/worker/.local/lib/python3.7/site-packages/kopf/_cogs/aiokits/aiotasks.py:69> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 0x7f68fd703dd0>()] created at /usr/local/lib/python3.7/asyncio/base_events.py:395> cb=[_wait.<locals>._on_completion() at /usr/local/lib/python3.7/asyncio/tasks.py:466] created at /usr/local/lib/python3.7/asyncio/tasks.py:351> took 0.296 seconds
+[2021-08-02 14:35:48,844] kopf.objects         [INFO    ] [project-operator/my-namespace] LimitRange child is created: {'api_version': 'v1',
+ 'kind': 'LimitRange',
+ 'metadata': {'annotations': None,
+              'cluster_name': None,
+              'creation_timestamp': datetime.datetime(2021, 8, 2, 14, 35, 48, tzinfo=tzlocal()),
+              'deletion_grace_period_seconds': None,
+              'deletion_timestamp': None,
+              'finalizers': None,
+              'generate_name': None,
+              'generation': None,
+              'initializers': None,
+              'labels': None,
+              'managed_fields': [{'api_version': 'v1',
+                                  'fields': None,
+                                  'manager': 'Swagger-Codegen',
+                                  'operation': 'Update',
+                                  'time': datetime.datetime(2021, 8, 2, 14, 35, 48, tzinfo=tzlocal())}],
+              'name': 'my-namespace',
+              'namespace': 'my-namespace',
+              'owner_references': [{'api_version': 'djkormo.github/v1alpha1',
+                                    'block_owner_deletion': True,
+                                    'controller': True,
+                                    'kind': 'Project',
+                                    'name': 'my-namespace',
+                                    'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}],
+              'resource_version': '30407',
+              'self_link': None,
+              'uid': '904fb8bc-f069-450c-840a-e0a8fdfd2b3b'},
+ 'spec': {'limits': [{'default': {'cpu': '500m', 'memory': '500Mi'},
+                      'default_request': {'cpu': '103m', 'memory': '103Mi'},
+                      'max': {'cpu': '1', 'memory': '1Gi'},
+                      'max_limit_request_ratio': None,
+                      'min': {'cpu': '51m', 'memory': '51Mi'},
+                      'type': 'Container'}]}}
+[2021-08-02 14:35:49,042] kopf.objects         [ERROR   ] [project-operator/my-namespace] Handler 'create_fn' failed with an exception. Will retry.
+Traceback (most recent call last):
+  File "/home/worker/.local/lib/python3.7/site-packages/kopf/_core/actions/execution.py", line 292, in execute_handler_once
+    subrefs=subrefs,
+  File "/home/worker/.local/lib/python3.7/site-packages/kopf/_core/actions/execution.py", line 386, in invoke_handler
+    runtime=runtime,
+  File "/home/worker/.local/lib/python3.7/site-packages/kopf/_core/actions/invocation.py", line 140, in invoke
+    await asyncio.shield(future)  # slightly expensive: creates tasks
+  File "/usr/local/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/worker/app/operator.py", line 152, in create_fn
+    text = tmpl.format(name=name)
+IndexError: tuple index out of range
+[2021-08-02 14:35:49,045] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Patching with: {'metadata': {'annotations': {'kopf.zalando.org/create_fn': '{"started":"2021-08-02T14:35:46.652374","delayed":"2021-08-02T14:36:49.044825","purpose":"create","retries":1,"success":false,"failure":false,"message":"tuple index out of range"}'}}, 'status': {'kopf': {'progress': {'create_fn': {'started': '2021-08-02T14:35:46.652374', 'stopped': None, 'delayed': '2021-08-02T14:36:49.044825', 'purpose': 'create', 'retries': 1, 'success': False, 'failure': False, 'message': 'tuple index out of range', 'subrefs': None}}}}}
+[2021-08-02 14:35:49,242] asyncio              [DEBUG   ] connect <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:35:49,249] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe1bd390> starts SSL handshake
+[2021-08-02 14:35:49,253] asyncio              [DEBUG   ] poll 12689.107 ms took 1.167 ms: 1 events
+[2021-08-02 14:35:49,345] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe1bd390>: SSL handshake took 95.1 ms
+[2021-08-02 14:35:49,347] asyncio              [DEBUG   ] <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 36804), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fd685c90>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fd6de910>)
+[2021-08-02 14:35:49,462] asyncio              [DEBUG   ] poll 12497.194 ms took 17.585 ms: 1 events
+[2021-08-02 14:35:49,564] asyncio              [DEBUG   ] poll 12397.736 ms took 20.665 ms: 1 events
+[2021-08-02 14:35:49,642] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Sleeping was skipped because of the patch, 59.999431 seconds left.
+[2021-08-02 14:35:49,753] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Creation is in progress: {'apiVersion': 'djkormo.github/v1alpha1', 'kind': 'Project', 'metadata': {'annotations': {'kopf.zalando.org/create_fn': '{"started":"2021-08-02T14:35:46.652374","delayed":"2021-08-02T14:36:49.044825","purpose":"create","retries":1,"success":false,"failure":false,"message":"tuple index out of range"}', 'kubectl.kubernetes.io/last-applied-configuration': '{"apiVersion":"djkormo.github/v1alpha1","kind":"Project","metadata":{"annotations":{},"name":"my-namespace","namespace":"project-operator"},"spec":{"limitrangedefaultcpu":"500m","limitrangedefaultmem":"500Mi","limitrangedefaultrequestcpu":"103m","limitrangedefaultrequestmem":"103Mi","limitrangemaxcpu":"1000m","limitrangemaxmem":"1Gi","limitrangemincpu":"51m","limitrangeminmem":"51Mi","resourcequotacountingresses":"2k","resourcequotacountjobsbatch":"4k","resourcequotalimitscpu":"3","resourcequotalimitsmemory":"4Gi","resourcequotapods":109,"resourcequotarequestscpu":"5","resourcequotarequestsmemory":"5Gi","resourcequotaservices":109}}\n'}, 'creationTimestamp': '2021-08-02T14:35:46Z', 'finalizers': ['kopf.zalando.org/KopfFinalizerMarker'], 'generation': 1, 'managedFields': [{'apiVersion': 'djkormo.github/v1alpha1', 'fieldsType': 'FieldsV1', 'fieldsV1': {'f:metadata': {'f:annotations': {'.': {}, 'f:kubectl.kubernetes.io/last-applied-configuration': {}}}, 'f:spec': {'.': {}, 'f:limitrangedefaultcpu': {}, 'f:limitrangedefaultmem': {}, 'f:limitrangedefaultrequestcpu': {}, 'f:limitrangedefaultrequestmem': {}, 'f:limitrangemaxcpu': {}, 'f:limitrangemaxmem': {}, 'f:limitrangemincpu': {}, 'f:limitrangeminmem': {}, 'f:resourcequotacountingresses': {}, 'f:resourcequotacountjobsbatch': {}, 'f:resourcequotalimitscpu': {}, 'f:resourcequotalimitsmemory': {}, 'f:resourcequotapods': {}, 'f:resourcequotarequestscpu': {}, 'f:resourcequotarequestsmemory': {}, 'f:resourcequotaservices': {}}}, 'manager': 'kubectl.exe', 'operation': 'Update', 'time': '2021-08-02T14:35:46Z'}, {'apiVersion': 'djkormo.github/v1alpha1', 'fieldsType': 'FieldsV1', 'fieldsV1': {'f:metadata': {'f:annotations': {'f:kopf.zalando.org/create_fn': {}}, 'f:finalizers': {'.': {}, 'v:"kopf.zalando.org/KopfFinalizerMarker"': {}}}, 'f:status': {'.': {}, 'f:kopf': {'.': {}, 'f:progress': {'.': {}, 'f:create_fn': {'.': {}, 'f:delayed': {}, 'f:failure': {}, 'f:message': {}, 'f:purpose': {}, 'f:retries': {}, 'f:started': {}, 'f:success': {}}}}}}, 'manager': 'kopf', 'operation': 'Update', 'time': '2021-08-02T14:35:49Z'}], 'name': 'my-namespace', 'namespace': 'project-operator', 'resourceVersion': '30414', 'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}, 'spec': {'limitrangedefaultcpu': '500m', 'limitrangedefaultmem': '500Mi', 'limitrangedefaultrequestcpu': '103m', 'limitrangedefaultrequestmem': '103Mi', 'limitrangemaxcpu': '1000m', 'limitrangemaxmem': '1Gi', 'limitrangemincpu': '51m', 'limitrangeminmem': '51Mi', 'resourcequotacountingresses': '2k', 'resourcequotacountjobsbatch': '4k', 'resourcequotalimitscpu': '3', 'resourcequotalimitsmemory': '4Gi', 'resourcequotapods': 109, 'resourcequotarequestscpu': '5', 'resourcequotarequestsmemory': '5Gi', 'resourcequotaservices': 109}, 'status': {'kopf': {'progress': {'create_fn': {'delayed': '2021-08-02T14:36:49.044825', 'failure': False, 'message': 'tuple index out of range', 'purpose': 'create', 'retries': 1, 'started': '2021-08-02T14:35:46.652374', 'success': False}}}}}
+[2021-08-02 14:35:49,754] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Sleeping for 59.290783 seconds for the delayed handlers.
+[2021-08-02 14:35:53,720] asyncio              [INFO    ] poll 12183.316 ms took 3961.993 ms: 1 events
+[2021-08-02 14:35:53,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 45994): <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 45994)>
+[2021-08-02 14:35:53,745] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:35:53 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:36:01,950] asyncio              [INFO    ] poll 8194.717 ms took 8203.473 ms: timeout
+[2021-08-02 14:36:03,720] asyncio              [INFO    ] poll 15989.448 ms took 1768.436 ms: 1 events
+[2021-08-02 14:36:03,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 46074): <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 46074)>
+[2021-08-02 14:36:03,732] kopf.activities.prob [DEBUG   ] Activity 'now' is invoked.
+[2021-08-02 14:36:03,747] kopf.activities.prob [INFO    ] Activity 'now' succeeded.
+[2021-08-02 14:36:03,748] kopf.activities.prob [DEBUG   ] Activity 'random' is invoked.
+[2021-08-02 14:36:03,843] kopf.activities.prob [INFO    ] Activity 'random' succeeded.
+[2021-08-02 14:36:03,844] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:36:03 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:36:13,719] asyncio              [INFO    ] poll 14094.430 ms took 9872.465 ms: 1 events
+[2021-08-02 14:36:13,720] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 46152): <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 46152)>
+[2021-08-02 14:36:13,742] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:36:13 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:36:17,947] asyncio              [INFO    ] poll 4197.493 ms took 4203.555 ms: timeout
+[2021-08-02 14:36:17,949] asyncio              [DEBUG   ] poll 31097.494 ms took 0.068 ms: 1 events
+[2021-08-02 14:36:23,721] asyncio              [INFO    ] poll 31089.835 ms took 5764.071 ms: 1 events
+[2021-08-02 14:36:23,722] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 46230): <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 46230)>
+[2021-08-02 14:36:23,745] kopf.activities.prob [DEBUG   ] Activity 'now' is invoked.
+[2021-08-02 14:36:23,749] kopf.activities.prob [INFO    ] Activity 'now' succeeded.
+[2021-08-02 14:36:23,750] kopf.activities.prob [DEBUG   ] Activity 'random' is invoked.
+[2021-08-02 14:36:23,845] kopf.activities.prob [INFO    ] Activity 'random' succeeded.
+[2021-08-02 14:36:23,847] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:36:23 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:36:33,720] asyncio              [INFO    ] poll 25197.811 ms took 9870.909 ms: 1 events
+[2021-08-02 14:36:33,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 46308): <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 46308)>
+[2021-08-02 14:36:33,746] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:36:33 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:36:43,720] asyncio              [INFO    ] poll 15204.931 ms took 9877.476 ms: 1 events
+[2021-08-02 14:36:43,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 46388): <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 46388)>
+[2021-08-02 14:36:43,729] kopf.activities.prob [DEBUG   ] Activity 'now' is invoked.
+[2021-08-02 14:36:43,746] kopf.activities.prob [INFO    ] Activity 'now' succeeded.
+[2021-08-02 14:36:43,747] kopf.activities.prob [DEBUG   ] Activity 'random' is invoked.
+[2021-08-02 14:36:43,843] kopf.activities.prob [INFO    ] Activity 'random' succeeded.
+[2021-08-02 14:36:43,845] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:36:43 +0000] "GET /healthz HTTP/1.1" 200 236 "-" "kube-probe/1.21"
+[2021-08-02 14:36:49,053] asyncio              [INFO    ] poll 5199.535 ms took 5205.465 ms: timeout
+[2021-08-02 14:36:49,057] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Patching with: {'metadata': {'annotations': {'kopf.zalando.org/touch-dummy': '2021-08-02T14:36:49.056785'}}, 'status': {'kopf': {'dummy': '2021-08-02T14:36:49.056785'}}}
+[2021-08-02 14:36:49,063] asyncio              [DEBUG   ] connect <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:36:49,066] asyncio              [DEBUG   ] poll 300875.677 ms took 0.072 ms: 1 events
+[2021-08-02 14:36:49,070] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe161510> starts SSL handshake
+[2021-08-02 14:36:49,151] asyncio              [DEBUG   ] poll 59926.857 ms took 7.614 ms: 1 events
+[2021-08-02 14:36:49,154] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe161510>: SSL handshake took 83.9 ms
+[2021-08-02 14:36:49,155] asyncio              [DEBUG   ] <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 37278), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fd690890>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fd6a0440>)
+[2021-08-02 14:36:49,341] asyncio              [DEBUG   ] poll 300697.602 ms took 97.729 ms: 2 events
+[2021-08-02 14:36:49,355] asyncio              [DEBUG   ] poll 15595.435 ms took 9.064 ms: 2 events
+[2021-08-02 14:36:49,466] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Creation is in progress: {'apiVersion': 'djkormo.github/v1alpha1', 'kind': 'Project', 'metadata': {'annotations': {'kopf.zalando.org/create_fn': '{"started":"2021-08-02T14:35:46.652374","delayed":"2021-08-02T14:36:49.044825","purpose":"create","retries":1,"success":false,"failure":false,"message":"tuple index out of range"}', 'kopf.zalando.org/touch-dummy': '2021-08-02T14:36:49.056785', 'kubectl.kubernetes.io/last-applied-configuration': '{"apiVersion":"djkormo.github/v1alpha1","kind":"Project","metadata":{"annotations":{},"name":"my-namespace","namespace":"project-operator"},"spec":{"limitrangedefaultcpu":"500m","limitrangedefaultmem":"500Mi","limitrangedefaultrequestcpu":"103m","limitrangedefaultrequestmem":"103Mi","limitrangemaxcpu":"1000m","limitrangemaxmem":"1Gi","limitrangemincpu":"51m","limitrangeminmem":"51Mi","resourcequotacountingresses":"2k","resourcequotacountjobsbatch":"4k","resourcequotalimitscpu":"3","resourcequotalimitsmemory":"4Gi","resourcequotapods":109,"resourcequotarequestscpu":"5","resourcequotarequestsmemory":"5Gi","resourcequotaservices":109}}\n'}, 'creationTimestamp': '2021-08-02T14:35:46Z', 'finalizers': ['kopf.zalando.org/KopfFinalizerMarker'], 'generation': 1, 'managedFields': [{'apiVersion': 'djkormo.github/v1alpha1', 'fieldsType': 'FieldsV1', 'fieldsV1': {'f:metadata': {'f:annotations': {'.': {}, 'f:kubectl.kubernetes.io/last-applied-configuration': {}}}, 'f:spec': {'.': {}, 'f:limitrangedefaultcpu': {}, 'f:limitrangedefaultmem': {}, 'f:limitrangedefaultrequestcpu': {}, 'f:limitrangedefaultrequestmem': {}, 'f:limitrangemaxcpu': {}, 'f:limitrangemaxmem': {}, 'f:limitrangemincpu': {}, 'f:limitrangeminmem': {}, 'f:resourcequotacountingresses': {}, 'f:resourcequotacountjobsbatch': {}, 'f:resourcequotalimitscpu': {}, 'f:resourcequotalimitsmemory': {}, 'f:resourcequotapods': {}, 'f:resourcequotarequestscpu': {}, 'f:resourcequotarequestsmemory': {}, 'f:resourcequotaservices': {}}}, 'manager': 'kubectl.exe', 'operation': 'Update', 'time': '2021-08-02T14:35:46Z'}, {'apiVersion': 'djkormo.github/v1alpha1', 'fieldsType': 'FieldsV1', 'fieldsV1': {'f:metadata': {'f:annotations': {'f:kopf.zalando.org/create_fn': {}, 'f:kopf.zalando.org/touch-dummy': {}}, 'f:finalizers': {'.': {}, 'v:"kopf.zalando.org/KopfFinalizerMarker"': {}}}, 'f:status': {'.': {}, 'f:kopf': {'.': {}, 'f:dummy': {}, 'f:progress': {'.': {}, 'f:create_fn': {'.': {}, 'f:delayed': {}, 'f:failure': {}, 'f:message': {}, 'f:purpose': {}, 'f:retries': {}, 'f:started': {}, 'f:success': {}}}}}}, 'manager': 'kopf', 'operation': 'Update', 'time': '2021-08-02T14:36:49Z'}], 'name': 'my-namespace', 'namespace': 'project-operator', 'resourceVersion': '30488', 'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}, 'spec': {'limitrangedefaultcpu': '500m', 'limitrangedefaultmem': '500Mi', 'limitrangedefaultrequestcpu': '103m', 'limitrangedefaultrequestmem': '103Mi', 'limitrangemaxcpu': '1000m', 'limitrangemaxmem': '1Gi', 'limitrangemincpu': '51m', 'limitrangeminmem': '51Mi', 'resourcequotacountingresses': '2k', 'resourcequotacountjobsbatch': '4k', 'resourcequotalimitscpu': '3', 'resourcequotalimitsmemory': '4Gi', 'resourcequotapods': 109, 'resourcequotarequestscpu': '5', 'resourcequotarequestsmemory': '5Gi', 'resourcequotaservices': 109}, 'status': {'kopf': {'dummy': '2021-08-02T14:36:49.056785', 'progress': {'create_fn': {'delayed': '2021-08-02T14:36:49.044825', 'failure': False, 'message': 'tuple index out of range', 'purpose': 'create', 'retries': 1, 'started': '2021-08-02T14:35:46.652374', 'success': False}}}}}
+[2021-08-02 14:36:49,466] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Handler 'create_fn' is invoked.
+[2021-08-02 14:36:49,468] kopf.objects         [INFO    ] [project-operator/my-namespace] Object project is created: {'limitrangedefaultcpu': '500m', 'limitrangedefaultmem': '500Mi', 'limitrangedefaultrequestcpu': '103m', 'limitrangedefaultrequestmem': '103Mi', 'limitrangemaxcpu': '1000m', 'limitrangemaxmem': '1Gi', 'limitrangemincpu': '51m', 'limitrangeminmem': '51Mi', 'resourcequotacountingresses': '2k', 'resourcequotacountjobsbatch': '4k', 'resourcequotalimitscpu': '3', 'resourcequotalimitsmemory': '4Gi', 'resourcequotapods': 109, 'resourcequotarequestscpu': '5', 'resourcequotarequestsmemory': '5Gi', 'resourcequotaservices': 109}
+[2021-08-02 14:36:49,549] asyncio              [DEBUG   ] poll 15394.910 ms took 2.417 ms: 1 events
+[2021-08-02 14:36:49,553] asyncio              [DEBUG   ] poll 15391.569 ms took 3.461 ms: 1 events
+[2021-08-02 14:36:49,548] kopf.objects         [INFO    ] [project-operator/my-namespace] Namespace child definition: {'apiVersion': 'v1', 'kind': 'Namespace', 'metadata': {'name': 'my-namespace', 'ownerReferences': [{'controller': True, 'blockOwnerDeletion': True, 'apiVersion': 'djkormo.github/v1alpha1', 'kind': 'Project', 'name': 'my-namespace', 'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}], 'namespace': 'project-operator', 'labels': {}}}
+[2021-08-02 14:36:49,642] asyncio              [DEBUG   ] poll 15382.868 ms took 83.320 ms: 1 events
+[2021-08-02 14:36:49,755] kubernetes.client.re [DEBUG   ] response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"namespaces \"my-namespace\" already exists","reason":"AlreadyExists","details":{"name":"my-namespace","kind":"namespaces"},"code":409}
+
+[2021-08-02 14:36:49,760] asyncio              [DEBUG   ] poll 15195.171 ms took 14.005 ms: 1 events
+[2021-08-02 14:36:49,759] kopf.objects         [INFO    ] [project-operator/my-namespace] ResourceQuota child definition: {'apiVersion': 'v1', 'kind': 'ResourceQuota', 'metadata': {'name': 'my-namespace', 'namespace': 'my-namespace'}, 'spec': {'hard': {'requests.cpu': '5', 'requests.memory': '5Gi', 'limits.cpu': '3', 'limits.memory': '4Gi', 'count/jobs.batch': '4k', 'count/ingresses.extensions': '2k', 'pods': '109'}}}
+[2021-08-02 14:36:49,949] asyncio              [DEBUG   ] poll 14996.953 ms took 4.830 ms: 1 events
+[2021-08-02 14:36:50,042] kubernetes.client.re [DEBUG   ] response body: {"kind":"ResourceQuota","apiVersion":"v1","metadata":{"name":"my-namespace","namespace":"my-namespace","uid":"230dbc0b-357e-4534-8395-9dbea2c86d9f","resourceVersion":"30494","creationTimestamp":"2021-08-02T14:36:49Z","ownerReferences":[{"apiVersion":"djkormo.github/v1alpha1","kind":"Project","name":"my-namespace","uid":"6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d","controller":true,"blockOwnerDeletion":true}],"managedFields":[{"manager":"Swagger-Codegen","operation":"Update","apiVersion":"v1","time":"2021-08-02T14:36:49Z","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:ownerReferences":{".":{},"k:{\"uid\":\"6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:hard":{".":{},"f:count/ingresses.extensions":{},"f:count/jobs.batch":{},"f:limits.cpu":{},"f:limits.memory":{},"f:pods":{},"f:requests.cpu":{},"f:requests.memory":{}}}}}]},"spec":{"hard":{"count/ingresses.extensions":"2k","count/jobs.batch":"4k","limits.cpu":"3","limits.memory":"4Gi","pods":"109","requests.cpu":"5","requests.memory":"5Gi"}},"status":{}}
+
+[2021-08-02 14:36:50,044] kopf.objects         [INFO    ] [project-operator/my-namespace] ResourceQuota child is created: {'api_version': 'v1',
+ 'kind': 'ResourceQuota',
+ 'metadata': {'annotations': None,
+              'cluster_name': None,
+              'creation_timestamp': datetime.datetime(2021, 8, 2, 14, 36, 49, tzinfo=tzlocal()),
+              'deletion_grace_period_seconds': None,
+              'deletion_timestamp': None,
+              'finalizers': None,
+              'generate_name': None,
+              'generation': None,
+              'initializers': None,
+              'labels': None,
+              'managed_fields': [{'api_version': 'v1',
+                                  'fields': None,
+                                  'manager': 'Swagger-Codegen',
+                                  'operation': 'Update',
+                                  'time': datetime.datetime(2021, 8, 2, 14, 36, 49, tzinfo=tzlocal())}],
+              'name': 'my-namespace',
+              'namespace': 'my-namespace',
+              'owner_references': [{'api_version': 'djkormo.github/v1alpha1',
+                                    'block_owner_deletion': True,
+                                    'controller': True,
+                                    'kind': 'Project',
+                                    'name': 'my-namespace',
+                                    'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}],
+              'resource_version': '30494',
+              'self_link': None,
+              'uid': '230dbc0b-357e-4534-8395-9dbea2c86d9f'},
+ 'spec': {'hard': {'count/ingresses.extensions': '2k',
+                   'count/jobs.batch': '4k',
+                   'limits.cpu': '3',
+                   'limits.memory': '4Gi',
+                   'pods': '109',
+                   'requests.cpu': '5',
+                   'requests.memory': '5Gi'},
+          'scope_selector': None,
+          'scopes': None},
+ 'status': {'hard': None, 'used': None}}
+[2021-08-02 14:36:50,147] asyncio              [DEBUG   ] poll 14891.693 ms took 97.973 ms: 1 events
+[2021-08-02 14:36:50,264] kubernetes.client.re [DEBUG   ] response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"limitranges \"my-namespace\" already exists","reason":"AlreadyExists","details":{"name":"my-namespace","kind":"limitranges"},"code":409}
+
+Creating: {'limitrangedefaultcpu': '500m', 'limitrangedefaultmem': '500Mi', 'limitrangedefaultrequestcpu': '103m', 'limitrangedefaultrequestmem': '103Mi', 'limitrangemaxcpu': '1000m', 'limitrangemaxmem': '1Gi', 'limitrangemincpu': '51m', 'limitrangeminmem': '51Mi', 'resourcequotacountingresses': '2k', 'resourcequotacountjobsbatch': '4k', 'resourcequotalimitscpu': '3', 'resourcequotalimitsmemory': '4Gi', 'resourcequotapods': 109, 'resourcequotarequestscpu': '5', 'resourcequotarequestsmemory': '5Gi', 'resourcequotaservices': 109}
+{'api_version': 'v1',
+ 'kind': 'Namespace',
+ 'metadata': {'annotations': None,
+              'cluster_name': None,
+              'creation_timestamp': datetime.datetime(2021, 8, 2, 14, 35, 47, tzinfo=tzlocal()),
+              'deletion_grace_period_seconds': None,
+              'deletion_timestamp': None,
+              'finalizers': None,
+              'generate_name': None,
+              'generation': None,
+              'initializers': None,
+              'labels': {'kubernetes.io/metadata.name': 'my-namespace'},
+              'managed_fields': [{'api_version': 'v1',
+                                  'fields': None,
+                                  'manager': 'Swagger-Codegen',
+                                  'operation': 'Update',
+                                  'time': datetime.datetime(2021, 8, 2, 14, 35, 47, tzinfo=tzlocal())}],
+              'name': 'my-namespace',
+              'namespace': None,
+              'owner_references': [{'api_version': 'djkormo.github/v1alpha1',
+                                    'block_owner_deletion': True,
+                                    'controller': True,
+                                    'kind': 'Project',
+                                    'name': 'my-namespace',
+                                    'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}],
+              'resource_version': '30394',
+              'self_link': None,
+              'uid': 'b1e0d15a-6cc7-4ed9-9cdf-45c07dd2a3a1'},
+ 'spec': {'finalizers': ['kubernetes']},
+ 'status': {'phase': 'Active'}}
+{'api_version': 'v1',
+ 'kind': 'ResourceQuota',
+ 'metadata': {'annotations': None,
+              'cluster_name': None,
+              'creation_timestamp': datetime.datetime(2021, 8, 2, 14, 35, 48, tzinfo=tzlocal()),
+              'deletion_grace_period_seconds': None,
+              'deletion_timestamp': None,
+              'finalizers': None,
+              'generate_name': None,
+              'generation': None,
+              'initializers': None,
+              'labels': None,
+              'managed_fields': [{'api_version': 'v1',
+                                  'fields': None,
+                                  'manager': 'Swagger-Codegen',
+                                  'operation': 'Update',
+                                  'time': datetime.datetime(2021, 8, 2, 14, 35, 48, tzinfo=tzlocal())}],
+              'name': 'my-namespace',
+              'namespace': 'my-namespace',
+              'owner_references': [{'api_version': 'djkormo.github/v1alpha1',
+                                    'block_owner_deletion': True,
+                                    'controller': True,
+                                    'kind': 'Project',
+                                    'name': 'my-namespace',
+                                    'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}],
+              'resource_version': '30402',
+              'self_link': None,
+              'uid': '14e048e5-7869-40f7-8062-1ab3d6dd45bf'},
+ 'spec': {'hard': {'count/ingresses.extensions': '2k',
+                   'count/jobs.batch': '4k',
+                   'limits.cpu': '3',
+                   'limits.memory': '4Gi',
+                   'pods': '109',
+                   'requests.cpu': '5',
+                   'requests.memory': '5Gi'},
+          'scope_selector': None,
+          'scopes': None},
+ 'status': {'hard': None, 'used': None}}
+('apiVersion: networking.k8s.io/v1\n'
+ 'kind: NetworkPolicy\n'
+ 'metadata:\n'
+ '  name: allow-dns-access\n'
+ '  namespace: "{name}"\n'
+ 'spec:\n'
+ '  podSelector:\n'
+ '    matchLabels: {}\n'
+ '  policyTypes:\n'
+ '  - Egress\n'
+ '  egress:\n'
+ '  - to:\n'
+ '    - namespaceSelector:\n'
+ '        matchLabels:\n'
+ '          name: kube-system\n'
+ '    ports:\n'
+ '    - protocol: UDP\n'
+ '      port: 53')
+Creating: {'limitrangedefaultcpu': '500m', 'limitrangedefaultmem': '500Mi', 'limitrangedefaultrequestcpu': '103m', 'limitrangedefaultrequestmem': '103Mi', 'limitrangemaxcpu': '1000m', 'limitrangemaxmem': '1Gi', 'limitrangemincpu': '51m', 'limitrangeminmem': '51Mi', 'resourcequotacountingresses': '2k', 'resourcequotacountjobsbatch': '4k', 'resourcequotalimitscpu': '3', 'resourcequotalimitsmemory': '4Gi', 'resourcequotapods': 109, 'resourcequotarequestscpu': '5', 'resourcequotarequestsmemory': '5Gi', 'resourcequotaservices': 109}
+Exception when calling CoreV1Api->create_namespace: (409)
+Reason: Conflict
+HTTP response headers: HTTPHeaderDict({'Cache-Control': 'no-cache, private', 'Content-Type': 'application/json', 'X-Kubernetes-Pf-Flowschema-Uid': '428267ef-6fa1-4faa-8753-6c582d05a74e', 'X-Kubernetes-Pf-Prioritylevel-Uid': '3581234f-58f6-4016-b2c5-e8df59280d9f', 'Date': 'Mon, 02 Aug 2021 14:36:49 GMT', 'Content-Length': '214'})
+HTTP response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"namespaces \"my-namespace\" already exists","reason":"AlreadyExists","details":{"name":"my-namespace","kind":"namespaces"},"code":409}
+
+
+
+{'api_version': 'v1',
+ 'kind': 'ResourceQuota',
+ 'metadata': {'annotations': None,
+              'cluster_name': None,
+              'creation_timestamp': datetime.datetime(2021, 8, 2, 14, 36, 49, tzinfo=tzlocal()),
+              'deletion_grace_period_seconds': None,
+              'deletion_timestamp': None,
+              'finalizers': None,
+              'generate_name': None,
+              'generation': None,
+              'initializers': None,
+              'labels': None,
+              'managed_fields': [{'api_version': 'v1',
+                                  'fields': None,
+                                  'manager': 'Swagger-Codegen',
+                                  'operation': 'Update',
+                                  'time': datetime.datetime(2021, 8, 2, 14, 36, 49, tzinfo=tzlocal())}],
+              'name': 'my-namespace',
+              'namespace': 'my-namespace',
+              'owner_references': [{'api_version': 'djkormo.github/v1alpha1',
+                                    'block_owner_deletion': True,
+                                    'controller': True,
+                                    'kind': 'Project',
+                                    'name': 'my-namespace',
+                                    'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}],
+              'resource_version': '30494',
+              'self_link': None,
+              'uid': '230dbc0b-357e-4534-8395-9dbea2c86d9f'},
+ 'spec': {'hard': {'count/ingresses.extensions': '2k',
+                   'count/jobs.batch': '4k',
+                   'limits.cpu': '3',
+                   'limits.memory': '4Gi',
+                   'pods': '109',
+                   'requests.cpu': '5',
+                   'requests.memory': '5Gi'},
+          'scope_selector': None,
+          'scopes': None},
+ 'status': {'hard': None, 'used': None}}
+Exception when calling CoreV1Api->create_namespaced_limit_range: (409)
+Reason: Conflict
+HTTP response headers: HTTPHeaderDict({'Cache-Control': 'no-cache, private', 'Content-Type': 'application/json', 'X-Kubernetes-Pf-Flowschema-Uid': '428267ef-6fa1-4faa-8753-6c582d05a74e', 'X-Kubernetes-Pf-Prioritylevel-Uid': '3581234f-58f6-4016-b2c5-e8df59280d9f', 'Date': 'Mon, 02 Aug 2021 14:36:50 GMT', 'Content-Length': '216'})
+HTTP response body: {"kind":"Status","apiVersion":"v1","metadata":{},"status":"Failure","message":"limitranges \"my-namespace\" already exists","reason":"AlreadyExists","details":{"name":"my-namespace","kind":"limitranges"},"code":409}
+
+
+
+('apiVersion: networking.k8s.io/v1\n'
+ 'kind: NetworkPolicy\n'
+ 'metadata:\n'
+ '  name: allow-dns-access\n'
+ '  namespace: "{name}"\n'
+ 'spec:\n'
+ '  podSelector:\n'
+ '    matchLabels: {}\n'
+ '  policyTypes:\n'
+[2021-08-02 14:36:50,342] asyncio              [WARNING ] Executing <Handle _SelectorSocketTransport._read_ready() created at /usr/local/lib/python3.7/asyncio/selector_events.py:254> took 0.194 seconds
+[2021-08-02 14:36:50,347] kopf.objects         [ERROR   ] [project-operator/my-namespace] Handler 'create_fn' failed with an exception. Will retry.
+Traceback (most recent call last):
+  File "/home/worker/.local/lib/python3.7/site-packages/kopf/_core/actions/execution.py", line 292, in execute_handler_once
+    subrefs=subrefs,
+  File "/home/worker/.local/lib/python3.7/site-packages/kopf/_core/actions/execution.py", line 386, in invoke_handler
+    runtime=runtime,
+  File "/home/worker/.local/lib/python3.7/site-packages/kopf/_core/actions/invocation.py", line 140, in invoke
+    await asyncio.shield(future)  # slightly expensive: creates tasks
+  File "/usr/local/lib/python3.7/concurrent/futures/thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/worker/app/operator.py", line 152, in create_fn
+    text = tmpl.format(name=name)
+IndexError: tuple index out of range
+[2021-08-02 14:36:50,349] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Patching with: {'metadata': {'annotations': {'kopf.zalando.org/create_fn': '{"started":"2021-08-02T14:35:46.652374","delayed":"2021-08-02T14:37:50.348201","purpose":"create","retries":2,"success":false,"failure":false,"message":"tuple index out of range"}', 'kopf.zalando.org/touch-dummy': None}}, 'status': {'kopf': {'progress': {'create_fn': {'started': '2021-08-02T14:35:46.652374', 'stopped': None, 'delayed': '2021-08-02T14:37:50.348201', 'purpose': 'create', 'retries': 2, 'success': False, 'failure': False, 'message': 'tuple index out of range', 'subrefs': None}}, 'dummy': None}}}
+[2021-08-02 14:36:50,448] asyncio              [DEBUG   ] connect <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> to ('10.96.0.1', 443)
+[2021-08-02 14:36:50,449] asyncio              [DEBUG   ] poll 14491.816 ms took 0.020 ms: 1 events
+[2021-08-02 14:36:50,543] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe0f3f90> starts SSL handshake
+[2021-08-02 14:36:50,646] asyncio              [DEBUG   ] <asyncio.sslproto.SSLProtocol object at 0x7f68fe0f3f90>: SSL handshake took 103.0 ms
+[2021-08-02 14:36:50,648] asyncio              [DEBUG   ] <socket.socket fd=8, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 37296), raddr=('10.96.0.1', 443)> connected to 10.96.0.1:443: (<asyncio.sslproto._SSLProtocolTransport object at 0x7f68fd6a72d0>, <aiohttp.client_proto.ResponseHandler object at 0x7f68fe1f9f30>)
+[2021-08-02 14:36:50,842] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Sleeping was skipped because of the patch, 59.999011 seconds left.
+[2021-08-02 14:36:50,954] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Creation is in progress: {'apiVersion': 'djkormo.github/v1alpha1', 'kind': 'Project', 'metadata': {'annotations': {'kopf.zalando.org/create_fn': '{"started":"2021-08-02T14:35:46.652374","delayed":"2021-08-02T14:37:50.348201","purpose":"create","retries":2,"success":false,"failure":false,"message":"tuple index out of range"}', 'kubectl.kubernetes.io/last-applied-configuration': '{"apiVersion":"djkormo.github/v1alpha1","kind":"Project","metadata":{"annotations":{},"name":"my-namespace","namespace":"project-operator"},"spec":{"limitrangedefaultcpu":"500m","limitrangedefaultmem":"500Mi","limitrangedefaultrequestcpu":"103m","limitrangedefaultrequestmem":"103Mi","limitrangemaxcpu":"1000m","limitrangemaxmem":"1Gi","limitrangemincpu":"51m","limitrangeminmem":"51Mi","resourcequotacountingresses":"2k","resourcequotacountjobsbatch":"4k","resourcequotalimitscpu":"3","resourcequotalimitsmemory":"4Gi","resourcequotapods":109,"resourcequotarequestscpu":"5","resourcequotarequestsmemory":"5Gi","resourcequotaservices":109}}\n'}, 'creationTimestamp': '2021-08-02T14:35:46Z', 'finalizers': ['kopf.zalando.org/KopfFinalizerMarker'], 'generation': 1, 'managedFields': [{'apiVersion': 'djkormo.github/v1alpha1', 'fieldsType': 'FieldsV1', 'fieldsV1': {'f:metadata': {'f:annotations': {'.': {}, 'f:kubectl.kubernetes.io/last-applied-configuration': {}}}, 'f:spec': {'.': {}, 'f:limitrangedefaultcpu': {}, 'f:limitrangedefaultmem': {}, 'f:limitrangedefaultrequestcpu': {}, 'f:limitrangedefaultrequestmem': {}, 'f:limitrangemaxcpu': {}, 'f:limitrangemaxmem': {}, 'f:limitrangemincpu': {}, 'f:limitrangeminmem': {}, 'f:resourcequotacountingresses': {}, 'f:resourcequotacountjobsbatch': {}, 'f:resourcequotalimitscpu': {}, 'f:resourcequotalimitsmemory': {}, 'f:resourcequotapods': {}, 'f:resourcequotarequestscpu': {}, 'f:resourcequotarequestsmemory': {}, 'f:resourcequotaservices': {}}}, 'manager': 'kubectl.exe', 'operation': 'Update', 'time': '2021-08-02T14:35:46Z'}, {'apiVersion': 'djkormo.github/v1alpha1', 'fieldsType': 'FieldsV1', 'fieldsV1': {'f:metadata': {'f:annotations': {'f:kopf.zalando.org/create_fn': {}}, 'f:finalizers': {'.': {}, 'v:"kopf.zalando.org/KopfFinalizerMarker"': {}}}, 'f:status': {'.': {}, 'f:kopf': {'.': {}, 'f:progress': {'.': {}, 'f:create_fn': {'.': {}, 'f:delayed': {}, 'f:failure': {}, 'f:message': {}, 'f:purpose': {}, 'f:retries': {}, 'f:started': {}, 'f:success': {}}}}}}, 'manager': 'kopf', 'operation': 'Update', 'time': '2021-08-02T14:36:50Z'}], 'name': 'my-namespace', 'namespace': 'project-operator', 'resourceVersion': '30500', 'uid': '6edd6094-70f6-41a4-b1d7-bcbdf1da1b7d'}, 'spec': {'limitrangedefaultcpu': '500m', 'limitrangedefaultmem': '500Mi', 'limitrangedefaultrequestcpu': '103m', 'limitrangedefaultrequestmem': '103Mi', 'limitrangemaxcpu': '1000m', 'limitrangemaxmem': '1Gi', 'limitrangemincpu': '51m', 'limitrangeminmem': '51Mi', 'resourcequotacountingresses': '2k', 'resourcequotacountjobsbatch': '4k', 'resourcequotalimitscpu': '3', 'resourcequotalimitsmemory': '4Gi', 'resourcequotapods': 109, 'resourcequotarequestscpu': '5', 'resourcequotarequestsmemory': '5Gi', 'resourcequotaservices': 109}, 'status': {'kopf': {'progress': {'create_fn': {'delayed': '2021-08-02T14:37:50.348201', 'failure': False, 'message': 'tuple index out of range', 'purpose': 'create', 'retries': 2, 'started': '2021-08-02T14:35:46.652374', 'success': False}}}}}
+[2021-08-02 14:36:50,955] kopf.objects         [DEBUG   ] [project-operator/my-namespace] Sleeping for 59.393191 seconds for the delayed handlers.
+[2021-08-02 14:36:53,720] asyncio              [INFO    ] poll 13985.499 ms took 2764.547 ms: 1 events
+[2021-08-02 14:36:53,721] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 46476): <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 46476)>
+[2021-08-02 14:36:53,741] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:36:53 +0000] "GET /healthz HTTP/1.1" 200 236 "-" "kube-probe/1.21"
+[2021-08-02 14:37:03,721] asyncio              [INFO    ] poll 11198.644 ms took 9978.302 ms: 1 events
+[2021-08-02 14:37:03,722] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 46556): <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 46556)>
+[2021-08-02 14:37:03,729] kopf.activities.prob [DEBUG   ] Activity 'now' is invoked.
+[2021-08-02 14:37:03,747] kopf.activities.prob [INFO    ] Activity 'now' succeeded.
+[2021-08-02 14:37:03,747] kopf.activities.prob [DEBUG   ] Activity 'random' is invoked.
+[2021-08-02 14:37:03,844] kopf.activities.prob [INFO    ] Activity 'random' succeeded.
+[2021-08-02 14:37:03,846] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:37:03 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"
+[2021-08-02 14:37:04,943] asyncio              [INFO    ] poll 1093.180 ms took 1095.270 ms: timeout
+[2021-08-02 14:37:13,720] asyncio              [INFO    ] poll 15995.866 ms took 8774.315 ms: 1 events
+[2021-08-02 14:37:13,720] asyncio              [DEBUG   ] <Server sockets=[<socket.socket fd=6, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 8080)>]> got a new connection from ('10.1.0.1', 46636): <socket.socket fd=9, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('10.1.0.19', 8080), raddr=('10.1.0.1', 46636)>
+[2021-08-02 14:37:13,725] aiohttp.access       [INFO    ] 10.1.0.1 [02/Aug/2021:14:37:13 +0000] "GET /healthz HTTP/1.1" 200 237 "-" "kube-probe/1.21"

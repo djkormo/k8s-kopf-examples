@@ -18,9 +18,8 @@ def get_current_timestamp(**kwargs):
 def get_random_value(**kwargs):
     return random.randint(0, 1_000_000)
 
-
 # When creating object
-
+@kopf.on.resume('djkormo.github', 'v1alpha1', 'project')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
 def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")
@@ -150,22 +149,22 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-allow-dns-access.yaml')
     tmpl = open(path, 'rt').read()
     pprint(tmpl)
-    #text = tmpl.format(name=name)
+    text = tmpl.format(name=name)
     
-    #data = yaml.safe_load(text)
+    data = yaml.safe_load(text)
 
-    #pprint(data)
-    #try:
-    #  obj = api.create_namespaced_network_policy(
-    #      namespace=name,
-    #      body=data,
-    #  )
-    #  pprint(obj)
-    #  logger.info(f"NetworkPolicy child is created: {obj}")
-    #except ApiException as e:
-    #  print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
+    pprint(data)
+    try:
+      obj = api.create_namespaced_network_policy(
+          namespace=name,
+          body=data,
+      )
+      pprint(obj)
+      logger.info(f"NetworkPolicy child is created: {obj}")
+    except ApiException as e:
+      print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
-    #kopf.adopt(data)
+    kopf.adopt(data)
 
     return {'project-name': obj.metadata.name}
 

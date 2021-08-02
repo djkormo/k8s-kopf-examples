@@ -42,19 +42,20 @@ kubectl apply -f test/project.yaml
 
 ### Check 
 
-```console 
-kubectl get pod,svc -n project-operator 
+``` 
+kubectl get deploy,pod -n project-operator 
 ```
 
 #### In case of troubles look into operator logs
 
-```console
+```
 operator_pod=$(kubectl get pod -n project-operator -L app=op -o name | grep operator | head -n1)
 kubectl -n project-operator logs ${operator_pod} -f 
 ```
 
-
+```
 kubectl -n project-operator describe ${operator_pod}
+```
 
 ```
 kubectl -n project-operator exec ${operator_pod} -it -- bash

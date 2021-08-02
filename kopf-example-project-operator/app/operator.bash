@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 #set -u
-file ="/home/worker/app/operator.py"
+file="/home/worker/app/operator.py"
 command="kopf run --standalone --verbose --debug --liveness=http://0.0.0.0:8080/healthz /home/worker/app/operator.py"
 #[[ "$VERBOSE" = "true" ]] && command+=("--verbose")
 

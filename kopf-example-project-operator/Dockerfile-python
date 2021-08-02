@@ -1,11 +1,9 @@
-FROM python:3.7-alpine
-
-RUN apk --no-cache add  gcc musl-dev curl bash
+FROM python:3.7
 
 RUN pip install --upgrade pip
 
-
 ADD app /app
+
 RUN addgroup -S worker && adduser -D -h /home/worker -s /bin/bash worker -G worker
 
 USER worker
@@ -25,6 +23,6 @@ RUN chmod u+x /home/worker/app/operator.bash
 
 LABEL maintainer="Krzysztof Pudlowski <djkormo@gmail.com>" version="1.0.0"
 
-CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone --verbose --debug /home/worker/app/on_create.py
+CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone --verbose --debug /home/worker/app/operator.py
 
 #ENTRYPOINT ["/home/worker/app/operator.bash"]
