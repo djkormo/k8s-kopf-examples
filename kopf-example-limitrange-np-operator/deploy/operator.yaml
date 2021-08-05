@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-operator
+  namespace: project-operator
+  labels:
+    app: op
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      application: project-operator
+  template:
+    metadata:
+      labels:
+        application: project-operator
+    spec:
+      serviceAccountName: project-operator
+      securityContext:
+        runAsUser:
+          1000
+      containers:
+      - env:
+        - name: VERBOSE
+          value: "true"
+        - name: DEBUG
+          value: "true"
+        - name: NAMESPACE
+          value: project-operator
+        - name: LIVENESS
+          value: "true"
+        name: op
+        image: djkormo/op-project
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "20m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
