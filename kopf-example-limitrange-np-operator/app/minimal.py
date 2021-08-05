@@ -2,6 +2,7 @@ import time
 import kopf
 import kubernetes
 import yaml
+import json
 import os
 from kubernetes.client.rest import ApiException
 from pprint import pprint
@@ -25,6 +26,16 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")
 
     api = kubernetes.client.CoreV1Api()
+
+    # check for excluded namespace
+
+    namespace_list = json.loads(os.environ['EXCLUDED_NAMESPACES'])
+    print(namespace_list)
+    print(type(namespace_list))
+    if namespace in namespace_list:
+      print(f"Excluded namespace found {namespace}:")
+      return      
+
 
     # create limitrange 
     # get context of yaml manifest for limitrange
