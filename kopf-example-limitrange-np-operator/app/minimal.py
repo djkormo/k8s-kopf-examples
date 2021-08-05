@@ -32,11 +32,10 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     env = Env()
     env.read_env()  # read .env file, if it exists
     namespace_list = env.list('EXCLUDED_NAMESPACES')
-    print(namespace_list)
-    if namespace in namespace_list:
-      print(f"Excluded namespace found {namespace}:")
-      return      
-
+    print(f"Excluded namespace list: {namespace_list} ")
+    if name in namespace_list:
+      print(f"Excluded namespace found: {namespace}")
+      return {'limitrange-np-name': name}   
 
     # create limitrange 
     # get context of yaml manifest for limitrange
