@@ -16,7 +16,7 @@ rules:
     verbs: [create]
 
   # Application: watching & handling for the custom resource we declare.
-  - apiGroups: [*]
+  - apiGroups: ["*"]
     resources: [namespace]
     verbs: [list, watch,patch]
 

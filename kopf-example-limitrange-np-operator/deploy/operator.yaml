@@ -40,7 +40,8 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "100m"
-        livenessProbe:
-          httpGet:
+#        livenessProbe:
+#          httpGet:
             path: /healthz
             port: 8080
+  
