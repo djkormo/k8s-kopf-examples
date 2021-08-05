@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: project-operator
+  name: limitrange-np-operator
   namespace: project-operator
   labels:
-    app: op
+    application: limitrange-np-operator
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      application: project-operator
+      app: limitrange-np-operator
   template:
     metadata:
       labels:
-        application: project-operator
+        app: limitrange-np-operator
     spec:
-      serviceAccountName: project-operator
+      serviceAccountName: limitrange-np-operator
       securityContext:
         runAsUser:
           1000
@@ -32,7 +32,7 @@ spec:
         - name: LIVENESS
           value: "true"
         name: op
-        image: djkormo/op-project
+        image: djkormo/op-limitrange-np
         resources:
           requests:
             memory: "64Mi"

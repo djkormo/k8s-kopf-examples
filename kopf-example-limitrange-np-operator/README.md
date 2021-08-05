@@ -48,7 +48,7 @@ kubectl get deploy,pod -n project-operator
 #### In case of troubles look into operator logs
 
 ```
-operator_pod=$(kubectl get pod -n project-operator -L app=op -o name | grep operator | head -n1)
+operator_pod=$(kubectl get pod -n project-operator -L app=limitrange-np-operator -o name | grep operator | head -n1)
 kubectl -n project-operator logs ${operator_pod} -f 
 ```
 

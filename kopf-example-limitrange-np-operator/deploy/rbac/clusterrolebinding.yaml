@@ -1,12 +1,12 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: project-operator-rolebinding-cluster
+  name: limitrange-np-operator-rolebinding-cluster
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: project-operator-role-cluster
+  name: limitrange-np-operator-role-cluster
 subjects:
   - kind: ServiceAccount
-    name: project-operator
+    name: limitrange-np-operator
     namespace: project-operator

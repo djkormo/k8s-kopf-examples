@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: project-operator-role-cluster
+  name: limitrange-np-operator-role-cluster
 rules:
 
   # Framework: knowing which other operators are running (i.e. peering).
@@ -22,17 +22,13 @@ rules:
     resources: [validatingwebhookconfigurations, mutatingwebhookconfigurations]
     verbs: [create, patch]
 
-  # Application: read-only access for watching cluster-wide.
-  - apiGroups: [djkormo.github]
-    resources: [projects,projects/status]
-    verbs: [list, watch]
   # for controlling namespace  
   - apiGroups: [""]
     resources: [namespaces]
     verbs: [list, watch,patch,create,delete]
-  # for controlling resourcequotas and limitranges  
+  # for controlling limitranges  
   - apiGroups: [""]
-    resources: [resourcequotas,limitranges]
+    resources: [limitranges]
     verbs: [list, watch,patch,create,delete]
   # for controlling networkpolicies    
   - apiGroups: [""]

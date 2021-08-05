@@ -19,12 +19,12 @@ def get_random_value(**kwargs):
     return random.randint(0, 1_000_000)
 
 # When creating object
-@kopf.on.create('v1', 'namespace')
+@kopf.on.create('namespace')
 def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")
 
 # When updating object
-@kopf.on.create('v1', 'namespace')
+@kopf.on.update('namespace')
 def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     print(f"Updating: {spec}")
     

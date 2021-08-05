@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: project-operator
-  name: project-operator-role-namespaced
+  name: limitrange-np-operator-role-namespaced
 rules:
 
   # Framework: knowing which other operators are running (i.e. peering).
@@ -16,8 +16,8 @@ rules:
     verbs: [create]
 
   # Application: watching & handling for the custom resource we declare.
-  - apiGroups: [djkormo.github]
-    resources: [projects,projects/status]
+  - apiGroups: [*]
+    resources: [namespace]
     verbs: [list, watch,patch]
 
   # Application: other resources it produces and manipulates.
