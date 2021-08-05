@@ -2,7 +2,7 @@ import time
 import kopf
 import kubernetes
 import yaml
-import json
+from environs import Env
 import os
 from kubernetes.client.rest import ApiException
 from pprint import pprint
@@ -29,7 +29,9 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     # check for excluded namespace
 
-    namespace_list = json.loads(os.environ['EXCLUDED_NAMESPACES'])
+    env = Env()
+    env.read_env()  # read .env file, if it exists
+    namespace_list = env.list('EXCLUDED_NAMESPACES')
     print(namespace_list)
     print(type(namespace_list))
     if namespace in namespace_list:
