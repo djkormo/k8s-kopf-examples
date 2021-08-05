@@ -61,7 +61,8 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
     kopf.adopt(data)
-    return {'project-name': obj.metadata.name}
+    #return {'project-name': obj.metadata.name}
+
     # create network policy
 
     api = kubernetes.client.NetworkingV1Api()
@@ -83,7 +84,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     kopf.adopt(data)
 
-    return {'project-name': obj.metadata.name}
+    #return {'project-name': obj.metadata.name}
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-ingress.yaml')
     tmpl = open(path, 'rt').read()
@@ -102,7 +103,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     kopf.adopt(data)
 
-    return {'project-name': obj.metadata.name}
+    #return {'project-name': obj.metadata.name}
 
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-egress.yaml')
@@ -130,7 +131,8 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     print(f"Updating: {spec}")
     
- # When deleting object
+
+# When deleting object
 @kopf.on.delete('v1', 'namespace')
 def delete_fn(spec, name, status, namespace, logger, **kwargs):
     print(f"Deleting: {spec}")
