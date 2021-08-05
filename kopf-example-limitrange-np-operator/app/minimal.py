@@ -38,7 +38,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     limitrangedefaultmem = spec.get('limitrangedefaultmem',"1000Mi")
     limitrangedefaultrequestcpu = spec.get('limitrangedefaultrequestcpu',"100m")
     limitrangedefaultrequestmem = spec.get('limitrangedefaultrequestmem',"100Mi")
-    
+
     text = tmpl.format(name=name,limitrangemaxmem=limitrangemaxmem,
            limitrangemaxcpu=limitrangemaxcpu, 
            limitrangemincpu=limitrangemincpu,
@@ -62,6 +62,30 @@ def create_fn(spec, name, namespace, logger, **kwargs):
       print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
     kopf.adopt(data)
 
+    # create network policy
+
+    api = kubernetes.client.NetworkingV1Api()
+    path = os.path.join(os.path.dirname(__file__), 'networkpolicy-allow-dns-access.yaml')
+    tmpl = open(path, 'rt').read()
+    pprint(tmpl)
+    text = tmpl.format(namespace=name)
+    
+    data = yaml.safe_load(text)
+
+    pprint(data)
+    try:
+      obj = api.create_namespaced_network_policy(
+          namespace=name,
+          body=data,
+      )
+      pprint(obj)
+      logger.info(f"NetworkPolicy child is created: {obj}")
+    except ApiException as e:
+      print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
+    
+    kopf.adopt(data)
+
+    return {'project-name': obj.metadata.name}
 
 # When updating object
 @kopf.on.update('namespace')
