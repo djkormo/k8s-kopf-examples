@@ -34,7 +34,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     namespace_list = env.list('EXCLUDED_NAMESPACES')
     print(f"Excluded namespace list: {namespace_list} ")
     if name in namespace_list:
-      print(f"Excluded namespace found: {namespace}")
+      print(f"Excluded namespace found: {name}")
       return {'limitrange-np-name': name}   
 
     # create limitrange 
