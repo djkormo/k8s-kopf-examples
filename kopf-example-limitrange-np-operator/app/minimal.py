@@ -33,7 +33,6 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     env.read_env()  # read .env file, if it exists
     namespace_list = env.list('EXCLUDED_NAMESPACES')
     print(namespace_list)
-    print(type(namespace_list))
     if namespace in namespace_list:
       print(f"Excluded namespace found {namespace}:")
       return      

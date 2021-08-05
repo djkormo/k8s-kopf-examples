@@ -32,7 +32,7 @@ spec:
         - name: LIVENESS
           value: "true"
         - name: EXCLUDED_NAMESPACES
-          value: "['kube-system','kube-public','kube-node-lease']"  
+          value: "kube-system,kube-public,kube-node-lease" 
         name: op
         image: djkormo/op-limitrange-np
         resources:
