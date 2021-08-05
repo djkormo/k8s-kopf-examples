@@ -1,4 +1,4 @@
-name: Project operator for DockerHub
+name: Limitrange operator for DockerHub
 
 on:
   push:
@@ -23,6 +23,6 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile
-        workdir: kopf-example-project-operator
+        workdir: kopf-example-limitrange-np-operator
 
 
