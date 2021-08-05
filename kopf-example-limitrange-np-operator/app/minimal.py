@@ -18,7 +18,8 @@ def get_current_timestamp(**kwargs):
 def get_random_value(**kwargs):
     return random.randint(0, 1_000_000)
 
-# When creating object
+# When creating or resuming object 
+@kopf.on.resume('namespace')
 @kopf.on.create('namespace')
 def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")
@@ -55,7 +56,6 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           namespace=name,
           body=data,
       )
-      #pprint(obj)
       kopf.append_owner_reference(obj)
       logger.info(f"LimitRange child is created: {obj}")
     except ApiException as e:
@@ -71,18 +71,18 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     tmpl = open(path, 'rt').read()
     pprint(tmpl)
     data = yaml.safe_load(tmpl)
-
+    kopf.adopt(data)
     try:
       obj = api.create_namespaced_network_policy(
           namespace=name,
           body=data,
       )
       pprint(obj)
+      kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is created: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
-    kopf.adopt(data)
 
     #return {'project-name': obj.metadata.name}
 
@@ -90,19 +90,18 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     tmpl = open(path, 'rt').read()
     pprint(tmpl)
     data = yaml.safe_load(tmpl)
-
+    kopf.adopt(data)
     try:
       obj = api.create_namespaced_network_policy(
           namespace=name,
           body=data,
       )
       pprint(obj)
+      kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is created: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
-    kopf.adopt(data)
-
     #return {'project-name': obj.metadata.name}
 
 
@@ -110,13 +109,14 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     tmpl = open(path, 'rt').read()
     pprint(tmpl)
     data = yaml.safe_load(tmpl)
-
+    kopf.adopt(data)
     try:
       obj = api.create_namespaced_network_policy(
           namespace=name,
           body=data,
       )
       pprint(obj)
+      kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is created: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
