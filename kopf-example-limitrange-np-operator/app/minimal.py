@@ -157,6 +157,13 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
 @kopf.on.update('namespace')
 def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     print(f"Updating: {spec}")
+    env = Env()
+    env.read_env()  # read .env file, if it exists
+    namespace_list = env.list('EXCLUDED_NAMESPACES')
+    if name in namespace_list:
+      print(f"Excluded namespace list: {namespace_list} ")    
+      print(f"Excluded namespace found: {name}")
+      return {'limitrange-np-name': name} 
 
     # update/patch limitrange 
 
