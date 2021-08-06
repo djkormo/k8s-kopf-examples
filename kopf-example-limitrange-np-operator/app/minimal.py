@@ -185,7 +185,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
 
     data = yaml.safe_load(text)
     try:
-      obj = api.patch_namespaced_limit_range(
+      obj = api.replace_namespaced_limit_range(
           namespace=name,
           name=name,
           body=data,
@@ -193,7 +193,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
       kopf.append_owner_reference(obj)
       logger.info(f"LimitRange child is patched/updated: {obj}")
     except ApiException as e:
-      print("Exception when calling CoreV1Api->patch_namespaced_limit_range: %s\n" % e)
+      print("Exception when calling CoreV1Api->replace_namespaced_limit_range: %s\n" % e)
     kopf.adopt(data)
         
 

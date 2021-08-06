@@ -19,7 +19,6 @@ def get_random_value(**kwargs):
     return random.randint(0, 1_000_000)
 
 # When creating object
-@kopf.on.resume('djkormo.github', 'v1alpha1', 'project')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
 def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating: {spec}")

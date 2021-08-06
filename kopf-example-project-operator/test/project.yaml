@@ -5,7 +5,7 @@ metadata:
   namespace: project-operator
 spec:
   # Add fields here
-  resourcequotarequestscpu: "5"
+  resourcequotarequestscpu: "4"
   resourcequotarequestsmemory: 5Gi
   resourcequotalimitscpu: "3"
   resourcequotalimitsmemory: 4Gi
