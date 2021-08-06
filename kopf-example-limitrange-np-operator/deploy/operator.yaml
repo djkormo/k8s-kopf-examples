@@ -21,6 +21,7 @@ spec:
       securityContext:
         runAsUser:
           1000
+        readOnlyRootFilesystem: true
       containers:
       - env:
         - name: VERBOSE

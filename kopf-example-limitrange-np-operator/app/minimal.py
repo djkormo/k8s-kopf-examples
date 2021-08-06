@@ -32,14 +32,16 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     env = Env()
     env.read_env()  # read .env file, if it exists
     namespace_list = env.list('EXCLUDED_NAMESPACES')
-    print(f"Excluded namespace list: {namespace_list} ")
     if name in namespace_list:
+      print(f"Excluded namespace list: {namespace_list} ")    
       print(f"Excluded namespace found: {name}")
       return {'limitrange-np-name': name}   
+      # end of story 
 
     # create limitrange 
+    
     # get context of yaml manifest for limitrange
-
+     
     path = os.path.join(os.path.dirname(__file__), 'limitrange.yaml')
     tmpl = open(path, 'rt').read()
     limitrangemaxcpu = spec.get('limitrangemaxcpu',"20000m")
@@ -80,7 +82,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-allow-dns-access.yaml')
     tmpl = open(path, 'rt').read()
-    pprint(tmpl)
+    #pprint(tmpl)
     data = yaml.safe_load(tmpl)
     kopf.adopt(data)
     try:
@@ -88,7 +90,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           namespace=name,
           body=data,
       )
-      pprint(obj)
+      #pprint(obj)
       kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is created: {obj}")
     except ApiException as e:
@@ -99,7 +101,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-ingress.yaml')
     tmpl = open(path, 'rt').read()
-    pprint(tmpl)
+    #pprint(tmpl)
     data = yaml.safe_load(tmpl)
     kopf.adopt(data)
     try:
@@ -107,7 +109,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           namespace=name,
           body=data,
       )
-      pprint(obj)
+      #pprint(obj)
       kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is created: {obj}")
     except ApiException as e:
@@ -118,7 +120,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-egress.yaml')
     tmpl = open(path, 'rt').read()
-    pprint(tmpl)
+    #pprint(tmpl)
     data = yaml.safe_load(tmpl)
     kopf.adopt(data)
     try:
@@ -126,7 +128,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
           namespace=name,
           body=data,
       )
-      pprint(obj)
+      #pprint(obj)
       kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is created: {obj}")
     except ApiException as e:
@@ -136,6 +138,10 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     return {'project-name': obj.metadata.name}
 
+@kopf.timer('namespace', interval=60.0,sharp=True)
+def ping_kex(spec,logger, **kwargs):
+    logger.info(f"Timer: {spec} is invoked")
+    pass
 
 # When updating object
 @kopf.on.update('namespace')

@@ -1,4 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: limitrange-np-1
+  name: limitrange-np-2
