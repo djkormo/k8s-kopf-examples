@@ -187,6 +187,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     try:
       obj = api.patch_namespaced_limit_range(
           namespace=name,
+          name=name,
           body=data,
       )
       kopf.append_owner_reference(obj)
