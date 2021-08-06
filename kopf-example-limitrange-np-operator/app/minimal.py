@@ -136,11 +136,16 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     kopf.adopt(data)
 
-
 @kopf.timer('namespace', interval=60.0,sharp=True)
-def ping_kex(spec,logger, **kwargs):
+def check_object_on_time(spec, name, namespace, logger, **kwargs):
     logger.info(f"Timer: {spec} is invoked")
-    pass
+    env = Env()
+    env.read_env()  # read .env file, if it exists
+    namespace_list = env.list('EXCLUDED_NAMESPACES')
+    if name in namespace_list:
+      print(f"Excluded namespace list: {namespace_list} ")    
+      print(f"Excluded namespace found: {name}")
+      return {'limitrange-np-name': name} 
 
 # When updating object
 @kopf.on.update('namespace')
