@@ -136,7 +136,6 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     kopf.adopt(data)
 
-    return {'project-name': obj.metadata.name}
 
 @kopf.timer('namespace', interval=60.0,sharp=True)
 def ping_kex(spec,logger, **kwargs):

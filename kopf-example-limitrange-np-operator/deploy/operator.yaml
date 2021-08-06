@@ -21,7 +21,6 @@ spec:
       securityContext:
         runAsUser:
           1000
-        readOnlyRootFilesystem: true
       containers:
       - env:
         - name: VERBOSE
@@ -50,3 +49,5 @@ spec:
           initialDelaySeconds: 15
           failureThreshold: 30
           periodSeconds: 10
+        securityContext:
+          readOnlyRootFilesystem: true
