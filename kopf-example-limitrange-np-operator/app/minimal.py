@@ -74,8 +74,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
     kopf.adopt(data)
-    #return {'project-name': obj.metadata.name}
-
+  
     # create network policy
 
     api = kubernetes.client.NetworkingV1Api()
@@ -115,8 +114,6 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
-    #return {'project-name': obj.metadata.name}
-
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-egress.yaml')
     tmpl = open(path, 'rt').read()
@@ -152,8 +149,8 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     # TODO check if network policies are missing  
 
 
-
 # When updating object
+
 @kopf.on.update('namespace')
 def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     print(f"Updating: {spec}")
@@ -201,6 +198,65 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
       logger.info(f"LimitRange child is patched/updated: {obj}")
     except ApiException as e:
       print("Exception when calling CoreV1Api->replace_namespaced_limit_range: %s\n" % e)
+    kopf.adopt(data)
+
+
+    # create network policy
+
+    api = kubernetes.client.NetworkingV1Api()
+
+    path = os.path.join(os.path.dirname(__file__), 'networkpolicy-allow-dns-access.yaml')
+    tmpl = open(path, 'rt').read()
+    #pprint(tmpl)
+    data = yaml.safe_load(tmpl)
+    kopf.adopt(data)
+    try:
+      obj = api.replace_namespaced_network_policy(
+          namespace=name,
+          name='allow-dns-access',
+          body=data,
+      )
+      #pprint(obj)
+      kopf.append_owner_reference(obj)
+      logger.info(f"NetworkPolicy child is created: {obj}")
+    except ApiException as e:
+      print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
+    
+    path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-ingress.yaml')
+    tmpl = open(path, 'rt').read()
+    #pprint(tmpl)
+    data = yaml.safe_load(tmpl)
+    kopf.adopt(data)
+    try:
+      obj = api.replace_namespaced_network_policy(
+          namespace=name,
+          name='default-deny-ingress',
+          body=data,
+      )
+      #pprint(obj)
+      kopf.append_owner_reference(obj)
+      logger.info(f"NetworkPolicy child is created: {obj}")
+    except ApiException as e:
+      print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
+    
+
+    path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-egress.yaml')
+    tmpl = open(path, 'rt').read()
+    #pprint(tmpl)
+    data = yaml.safe_load(tmpl)
+    kopf.adopt(data)
+    try:
+      obj = api.replace_namespaced_network_policy(
+          namespace=name,
+          name='default-deny-egress',
+          body=data,
+      )
+      #pprint(obj)
+      kopf.append_owner_reference(obj)
+      logger.info(f"NetworkPolicy child is created: {obj}")
+    except ApiException as e:
+      print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
+    
     kopf.adopt(data)
         
 
