@@ -211,16 +211,15 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     data = yaml.safe_load(tmpl)
     kopf.adopt(data)
     try:
-      obj = api.replace_namespaced_network_policy(
+      obj = api.create_namespaced_network_policy(
           namespace=name,
-          name='allow-dns-access',
           body=data,
       )
       pprint(obj)
       kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is updated/patched: {obj}")
     except ApiException as e:
-      print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
+      print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-ingress.yaml')
     tmpl = open(path, 'rt').read()
@@ -228,16 +227,15 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     data = yaml.safe_load(tmpl)
     kopf.adopt(data)
     try:
-      obj = api.replace_namespaced_network_policy(
+      obj = api.create_namespaced_network_policy(
           namespace=name,
-          name='default-deny-ingress',
           body=data,
       )
       #pprint(obj)
       kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is updated/patched: {obj}")
     except ApiException as e:
-      print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
+      print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-egress.yaml')
@@ -246,16 +244,15 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     data = yaml.safe_load(tmpl)
     kopf.adopt(data)
     try:
-      obj = api.replace_namespaced_network_policy(
+      obj = api.create_namespaced_network_policy(
           namespace=name,
-          name='default-deny-egress',
           body=data,
       )
       #pprint(obj)
       kopf.append_owner_reference(obj)
       logger.info(f"NetworkPolicy child is updated/patched: {obj}")
     except ApiException as e:
-      print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
+      print("Exception when calling NetworkingV1Api->create_namespaced_network_policygit add : %s\n" % e)
     
     kopf.adopt(data)
         
