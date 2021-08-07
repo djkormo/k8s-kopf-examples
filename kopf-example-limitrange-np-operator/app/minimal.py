@@ -236,6 +236,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
       logger.info(f"NetworkPolicy child is updated/patched: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
+      
     
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-default-deny-egress.yaml')
