@@ -207,7 +207,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
 
     path = os.path.join(os.path.dirname(__file__), 'networkpolicy-allow-dns-access.yaml')
     tmpl = open(path, 'rt').read()
-    #pprint(tmpl)
+    pprint(tmpl)
     data = yaml.safe_load(tmpl)
     kopf.adopt(data)
     try:
@@ -216,9 +216,9 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
           name='allow-dns-access',
           body=data,
       )
-      #pprint(obj)
+      pprint(obj)
       kopf.append_owner_reference(obj)
-      logger.info(f"NetworkPolicy child is created: {obj}")
+      logger.info(f"NetworkPolicy child is updated/patched: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
     
@@ -235,7 +235,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
       )
       #pprint(obj)
       kopf.append_owner_reference(obj)
-      logger.info(f"NetworkPolicy child is created: {obj}")
+      logger.info(f"NetworkPolicy child is updated/patched: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
     
@@ -253,7 +253,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
       )
       #pprint(obj)
       kopf.append_owner_reference(obj)
-      logger.info(f"NetworkPolicy child is created: {obj}")
+      logger.info(f"NetworkPolicy child is updated/patched: {obj}")
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
     
