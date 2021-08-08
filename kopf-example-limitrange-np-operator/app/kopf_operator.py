@@ -141,9 +141,11 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     try: 
       api_response = api.list_namespaced_limit_range(namespace=name) #, pretty=pretty, field_selector=field_selector, include_uninitialized=include_uninitialized, label_selector=label_selector, resource_version=resource_version, timeout_seconds=timeout_seconds, watch=watch)
       #pprint(api_response)
+      l_limitrange=[]
       for i in api_response.items:
         print("Limitrange namespace: %s\t name: %s" %
           (i.metadata.namespace, i.metadata.name))
+        l_limitrange.append(i.metadata.name)
     except ApiException as e:
       print("Exception when calling CoreV1Api->list_namespaced_limit_range: %s\n" % e)
 
@@ -154,16 +156,24 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     try: 
       api_response = api.list_namespaced_network_policy(namespace=name) #, pretty=pretty, field_selector=field_selector, include_uninitialized=include_uninitialized, label_selector=label_selector, resource_version=resource_version, timeout_seconds=timeout_seconds, watch=watch)
       #pprint(api_response)
+      l_netpol=[]
       for i in api_response.items:
         print("NetworkPolicy namespace: %s\t name: %s" %
           (i.metadata.namespace, i.metadata.name))
+        l_netpol.append(i.metadata.name) 
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->list_namespaced_network_policy: %s\n" % e)
 
-    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
-    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
-    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
+      # update/patch networkpolicy
+    if "allow-dns-access" not in l_netpol:
+      create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
 
+    if "default-deny-egress" not in l_netpol:
+      create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
+   
+    if "default-deny-ingress" not in l_netpol:
+      create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
+     
     return {'limitrange-np-name': name} 
 
 # use env variable to control loop interval in seconds 
@@ -189,23 +199,23 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     try: 
       api_response = api.list_namespaced_network_policy(namespace=name) #, pretty=pretty, field_selector=field_selector, include_uninitialized=include_uninitialized, label_selector=label_selector, resource_version=resource_version, timeout_seconds=timeout_seconds, watch=watch)
       #pprint(api_response.items)
-      netpol=[]
+      l_netpol=[]
       for i in api_response.items:
         print("NetworkPolicy namespace: %s\t name: %s" %
           (i.metadata.namespace, i.metadata.name))
-        netpol.append(i.metadata.name)  
+        l_netpol.append(i.metadata.name)  
 
     except ApiException as e:
       print("Exception when calling NetworkingV1Api->list_namespaced_network_policy: %s\n" % e)
 
     # update/patch networkpolicy
-    if "allow-dns-access" not in netpol:
+    if "allow-dns-access" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
 
-    if "default-deny-egress" not in netpol:
+    if "default-deny-egress" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
    
-    if "default-deny-ingress" not in netpol:
+    if "default-deny-ingress" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
      
 
@@ -227,9 +237,28 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     # update/patch networkpolicy
 
     api = kubernetes.client.NetworkingV1Api()
-    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
-    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
-    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
+    # check if network policies are missing  
+    try: 
+      api_response = api.list_namespaced_network_policy(namespace=name) #, pretty=pretty, field_selector=field_selector, include_uninitialized=include_uninitialized, label_selector=label_selector, resource_version=resource_version, timeout_seconds=timeout_seconds, watch=watch)
+      #pprint(api_response.items)
+      l_netpol=[]
+      for i in api_response.items:
+        print("NetworkPolicy namespace: %s\t name: %s" %
+          (i.metadata.namespace, i.metadata.name))
+        l_netpol.append(i.metadata.name)  
+
+    except ApiException as e:
+      print("Exception when calling NetworkingV1Api->list_namespaced_network_policy: %s\n" % e)
+
+    # update/patch networkpolicy
+    if "allow-dns-access" not in l_netpol:
+      create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
+
+    if "default-deny-egress" not in l_netpol:
+      create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
+   
+    if "default-deny-ingress" not in l_netpol:
+      create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
 
     return {'limitrange-np-name': name} 
 
