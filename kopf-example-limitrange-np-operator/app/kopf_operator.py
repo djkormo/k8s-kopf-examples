@@ -61,7 +61,7 @@ def create_limitrange(kopf,name,spec,logger,api,filename):
         body=data,
       )
     kopf.append_owner_reference(obj)
-    logger.info(f"LimitRange child is created: {obj}")
+    #logger.info(f"LimitRange child is created: {obj}")
   except ApiException as e:
     print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
   kopf.adopt(data)
@@ -97,7 +97,7 @@ def replace_limitrange(kopf,name,spec,logger,api,filename):
         body=data,
       )
     kopf.append_owner_reference(obj)
-    logger.info(f"LimitRange child is created: {obj}")
+    #logger.info(f"LimitRange child is created: {obj}")
   except ApiException as e:
     print("Exception when calling CoreV1Api->replace_namespaced_limit_range: %s\n" % e)
   kopf.adopt(data)  
@@ -116,11 +116,13 @@ def create_networkpolicy(kopf,name,spec,logger,api,filename):
       )
     #pprint(obj)
     kopf.append_owner_reference(obj)
-    logger.info(f"NetworkPolicy child is created: {obj}")
+    #logger.info(f"NetworkPolicy child is created: {obj}")
   except ApiException as e:
     print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
 
    
+
+
 # When creating or resuming object 
 @kopf.on.resume('namespace')
 @kopf.on.create('namespace')
@@ -251,6 +253,7 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
       print("Exception when calling NetworkingV1Api->list_namespaced_network_policy: %s\n" % e)
 
     # update/patch networkpolicy
+
     if "allow-dns-access" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
 
