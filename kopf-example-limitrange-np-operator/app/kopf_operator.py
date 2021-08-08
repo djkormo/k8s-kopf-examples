@@ -77,7 +77,7 @@ def create_networkpolicy(kopf,name,spec,logger,api,filename):
   try:
     obj = api.create_namespaced_network_policy(
         namespace=name,
-        dody=data,
+        body=data,
       )
     #pprint(obj)
     kopf.append_owner_reference(obj)
