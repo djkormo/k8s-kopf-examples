@@ -101,9 +101,10 @@ def create_fn(spec, name, namespace, logger, **kwargs):
       # end of story 
 
     # create limitrange 
-    
+    api = kubernetes.client.CoreV1Api()
     create_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
-     
+    
+    api = kubernetes.client.NetworkingV1Api()
     create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
     create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
     create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
@@ -202,7 +203,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
     kopf.adopt(data)
-    
+
 
 @kopf.timer('namespace', interval=60.0,sharp=True)
 def check_object_on_time(spec, name, namespace, logger, **kwargs):
