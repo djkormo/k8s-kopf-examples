@@ -93,6 +93,7 @@ def replace_limitrange(kopf,name,spec,logger,api,filename):
   try:
     obj = api.replace_namespaced_limit_range(
         namespace=name,
+        name=name,
         body=data,
       )
     kopf.append_owner_reference(obj)
