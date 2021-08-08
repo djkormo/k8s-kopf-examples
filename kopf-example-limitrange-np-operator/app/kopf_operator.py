@@ -31,6 +31,8 @@ def check_namespace(name,excluded_namespaces):
   else:
      return False  
 
+# create limitrange based on yaml manifest
+
 def create_limitrange(kopf,name,spec,logger,api,filename):
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
@@ -65,6 +67,7 @@ def create_limitrange(kopf,name,spec,logger,api,filename):
     print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
   kopf.adopt(data)
   
+# create networkpolicy based on yaml manifest  
 def create_networkpolicy(kopf,name,spec,logger,api,filename):
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
@@ -101,11 +104,12 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     
     create_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
      
-    return {'limitrange-np-name': name}  
-
     create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
+    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
+    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
 
     return {'limitrange-np-name': name} 
+
     # get context of yaml manifest for limitrange
      
     path = os.path.join(os.path.dirname(__file__), 'limitrange.yaml')
@@ -198,6 +202,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
       print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
     
     kopf.adopt(data)
+    
 
 @kopf.timer('namespace', interval=60.0,sharp=True)
 def check_object_on_time(spec, name, namespace, logger, **kwargs):
