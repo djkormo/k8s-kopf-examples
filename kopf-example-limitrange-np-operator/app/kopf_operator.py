@@ -196,13 +196,13 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       print("Exception when calling NetworkingV1Api->list_namespaced_network_policy: %s\n" % e)
     
     # update/patch networkpolicy
-    if "allow-dns-access" not in api_response.items.metadata.name:
+    if "allow-dns-access" not in api_response.items:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
 
-    if "default-deny-egress" not in api_response.items.metadata.name:
+    if "default-deny-egress" not in api_response.items:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
    
-    if "default-deny-ingress" not in api_response.items.metadata.name:
+    if "default-deny-ingress" not in api_response.items:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
      
 
