@@ -151,7 +151,8 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling CoreV1Api->list_namespaced_limit_range: %s\n" % e)
 
-    create_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+    if name not in l_limitrange:
+      create_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
     
     api = kubernetes.client.NetworkingV1Api()
 
@@ -194,7 +195,23 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     # update/patch limitrange 
 
     api = kubernetes.client.CoreV1Api()
-    replace_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+    
+    try: 
+      api_response = api.list_namespaced_limit_range(namespace=name) #, pretty=pretty, field_selector=field_selector, include_uninitialized=include_uninitialized, label_selector=label_selector, resource_version=resource_version, timeout_seconds=timeout_seconds, watch=watch)
+      #pprint(api_response)
+      l_limitrange=[]
+      for i in api_response.items:
+        print("Limitrange namespace: %s\t name: %s" %
+          (i.metadata.namespace, i.metadata.name))
+        l_limitrange.append(i.metadata.name)
+    except ApiException as e:
+      print("Exception when calling CoreV1Api->list_namespaced_limit_range: %s\n" % e)
+
+    if name not in l_limitrange:
+      create_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+    else:  
+      replace_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+
 
     api = kubernetes.client.NetworkingV1Api()
     # TODO check if network policies are missing  
@@ -234,7 +251,21 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     # update/patch limitrange 
 
     api = kubernetes.client.CoreV1Api()
-    replace_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+    try: 
+      api_response = api.list_namespaced_limit_range(namespace=name) #, pretty=pretty, field_selector=field_selector, include_uninitialized=include_uninitialized, label_selector=label_selector, resource_version=resource_version, timeout_seconds=timeout_seconds, watch=watch)
+      #pprint(api_response)
+      l_limitrange=[]
+      for i in api_response.items:
+        print("Limitrange namespace: %s\t name: %s" %
+          (i.metadata.namespace, i.metadata.name))
+        l_limitrange.append(i.metadata.name)
+    except ApiException as e:
+      print("Exception when calling CoreV1Api->list_namespaced_limit_range: %s\n" % e)
+
+    if name not in l_limitrange:
+      create_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+    else:  
+      replace_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
     
     # update/patch networkpolicy
 
