@@ -19,6 +19,18 @@ def get_current_timestamp(**kwargs):
 def get_random_value(**kwargs):
     return random.randint(0, 1_000_000)
 
+
+def check_namespace(name):
+  env = Env()
+  env.read_env()  # read .env file, if it exists
+  namespace_list = env.list('EXCLUDED_NAMESPACES')
+  if name in namespace_list:
+    print(f"Excluded namespace list: {namespace_list} ")    
+    print(f"Excluded namespace found: {name}")
+    return True
+  else:
+     return False  
+   
 # When creating or resuming object 
 @kopf.on.resume('namespace')
 @kopf.on.create('namespace')
@@ -31,10 +43,11 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     env = Env()
     env.read_env()  # read .env file, if it exists
-    namespace_list = env.list('EXCLUDED_NAMESPACES')
-    if name in namespace_list:
-      print(f"Excluded namespace list: {namespace_list} ")    
-      print(f"Excluded namespace found: {name}")
+#    namespace_list = env.list('EXCLUDED_NAMESPACES')
+#    if name in namespace_list:
+#      print(f"Excluded namespace list: {namespace_list} ")    
+#      print(f"Excluded namespace found: {name}")
+    if check_namespace(name):
       return {'limitrange-np-name': name}   
       # end of story 
 
