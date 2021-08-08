@@ -163,9 +163,14 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     api = kubernetes.client.CoreV1Api()
     replace_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
 
-
-
     # TODO check if network policies are missing  
+
+    # update/patch networkpolicy
+
+    api = kubernetes.client.NetworkingV1Api()
+    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
+    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
+    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
      
 
 # When updating object
