@@ -146,8 +146,8 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     return {'limitrange-np-name': name} 
 
-
-@kopf.timer('namespace', interval=60.0,sharp=True)
+LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
+@kopf.timer('namespace', interval=LOOP_INTERVAL,sharp=True)
 def check_object_on_time(spec, name, namespace, logger, **kwargs):
     logger.info(f"Timer: {spec} is invoked")
 

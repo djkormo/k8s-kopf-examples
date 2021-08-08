@@ -31,6 +31,8 @@ spec:
           value: project-operator
         - name: LIVENESS
           value: "true"
+        - name: LOOP_INTERVAL
+          value: "60"
         - name: EXCLUDED_NAMESPACES
           value: "kube-system,kube-public,kube-node-lease" 
         name: op
