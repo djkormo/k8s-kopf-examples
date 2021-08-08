@@ -19,17 +19,69 @@ def get_current_timestamp(**kwargs):
 def get_random_value(**kwargs):
     return random.randint(0, 1_000_000)
 
-
-def check_namespace(name):
+# check if namespace should be under operator controll
+def check_namespace(name,excluded_namespaces):
   env = Env()
   env.read_env()  # read .env file, if it exists
-  namespace_list = env.list('EXCLUDED_NAMESPACES')
+  namespace_list = env.list(excluded_namespaces)
   if name in namespace_list:
     print(f"Excluded namespace list: {namespace_list} ")    
     print(f"Excluded namespace found: {name}")
     return True
   else:
      return False  
+
+def create_limitrange(kopf,name,spec,logger,api,filename):
+  path = os.path.join(os.path.dirname(__file__), filename)
+  tmpl = open(path, 'rt').read()
+  limitrangemaxcpu = spec.get('limitrangemaxcpu',"20000m")
+  limitrangemaxmem = spec.get('limitrangemaxmem',"30Gi")
+  limitrangemincpu = spec.get('limitrangemincpu',"50m")
+  limitrangeminmem = spec.get('limitrangeminmem',"50Mi")
+  limitrangedefaultcpu = spec.get('limitrangedefaultcpu',"1000m")
+  limitrangedefaultmem = spec.get('limitrangedefaultmem',"1000Mi")
+  limitrangedefaultrequestcpu = spec.get('limitrangedefaultrequestcpu',"100m")
+  limitrangedefaultrequestmem = spec.get('limitrangedefaultrequestmem',"100Mi")
+
+  text = tmpl.format(name=name,limitrangemaxmem=limitrangemaxmem,
+           limitrangemaxcpu=limitrangemaxcpu, 
+           limitrangemincpu=limitrangemincpu,
+           limitrangeminmem=limitrangeminmem,
+           limitrangedefaultcpu=limitrangedefaultcpu,
+           limitrangedefaultmem=limitrangedefaultmem,
+           limitrangedefaultrequestcpu=limitrangedefaultrequestcpu,
+           limitrangedefaultrequestmem=limitrangedefaultrequestmem,
+    )
+
+  data = yaml.safe_load(text)
+  try:
+    obj = api.create_namespaced_limit_range(
+        namespace=name,
+        body=data,
+      )
+    kopf.append_owner_reference(obj)
+    logger.info(f"LimitRange child is created: {obj}")
+  except ApiException as e:
+    print("Exception when calling CoreV1Api->create_namespaced_limit_range: %s\n" % e)
+  kopf.adopt(data)
+  
+def create_networkpolicy(kopf,name,spec,logger,api,filename):
+  path = os.path.join(os.path.dirname(__file__), filename)
+  tmpl = open(path, 'rt').read()
+  #pprint(tmpl)
+  data = yaml.safe_load(tmpl)
+  kopf.adopt(data)
+  try:
+    obj = api.create_namespaced_network_policy(
+        namespace=name,
+        dody=data,
+      )
+    #pprint(obj)
+    kopf.append_owner_reference(obj)
+    logger.info(f"NetworkPolicy child is created: {obj}")
+  except ApiException as e:
+    print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
+
    
 # When creating or resuming object 
 @kopf.on.resume('namespace')
@@ -41,18 +93,19 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     # check for excluded namespace
 
-    env = Env()
-    env.read_env()  # read .env file, if it exists
-#    namespace_list = env.list('EXCLUDED_NAMESPACES')
-#    if name in namespace_list:
-#      print(f"Excluded namespace list: {namespace_list} ")    
-#      print(f"Excluded namespace found: {name}")
-    if check_namespace(name):
+    if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
       return {'limitrange-np-name': name}   
       # end of story 
 
     # create limitrange 
     
+    create_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+     
+    return {'limitrange-np-name': name}  
+
+    create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
+
+    return {'limitrange-np-name': name} 
     # get context of yaml manifest for limitrange
      
     path = os.path.join(os.path.dirname(__file__), 'limitrange.yaml')
@@ -149,13 +202,11 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 @kopf.timer('namespace', interval=60.0,sharp=True)
 def check_object_on_time(spec, name, namespace, logger, **kwargs):
     logger.info(f"Timer: {spec} is invoked")
-    env = Env()
-    env.read_env()  # read .env file, if it exists
-    namespace_list = env.list('EXCLUDED_NAMESPACES')
-    if name in namespace_list:
-      print(f"Excluded namespace list: {namespace_list} ")    
-      print(f"Excluded namespace found: {name}")
-      return {'limitrange-np-name': name} 
+
+    # check for excluded namespace
+
+    if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
+      return {'limitrange-np-name': name}   
 
     # TODO check if limitrange is missing
 
