@@ -120,8 +120,25 @@ def create_networkpolicy(kopf,name,spec,logger,api,filename):
   except ApiException as e:
     print("Exception when calling NetworkingV1Api->create_namespaced_network_policy: %s\n" % e)
 
+# replace networkpolicy based on yaml manifest  
+def replace_networkpolicy(kopf,name,spec,logger,api,filename,policyname):
+  path = os.path.join(os.path.dirname(__file__), filename)
+  tmpl = open(path, 'rt').read()
+  #pprint(tmpl)
+  data = yaml.safe_load(tmpl)
+  kopf.adopt(data)
+  try:
+    obj = api.replace_namespaced_network_policy(
+        namespace=name,
+        name=policyname,
+        body=data,
+      )
+    #pprint(obj)
+    kopf.append_owner_reference(obj)
+    #logger.info(f"NetworkPolicy child is created: {obj}")
+  except ApiException as e:
+    print("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
    
-
 
 # When creating or resuming object 
 @kopf.on.resume('namespace')
@@ -153,7 +170,9 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 
     if name not in l_limitrange:
       create_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
-    
+    else:
+      replace_limitrange(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+
     api = kubernetes.client.NetworkingV1Api()
 
     try: 
@@ -190,7 +209,6 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
       return {'limitrange-np-name': name}   
 
-    # TODO check if limitrange is missing
 
     # update/patch limitrange 
 
@@ -230,13 +248,20 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     # update/patch networkpolicy
     if "allow-dns-access" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
-
+    else:
+      replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml',policyname='allow-dns-access')   
+    
     if "default-deny-egress" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
-   
+    else:
+      replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml',policyname='default-deny-egress')   
+    
+
     if "default-deny-ingress" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
-     
+    else:
+      replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml',policyname='default-deny-ingress')   
+    
 
 # When updating object
 @kopf.on.update('namespace')
@@ -287,13 +312,20 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
 
     if "allow-dns-access" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml')
-
+    else:
+      replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-dns-access.yaml',policyname='allow-dns-access')   
+    
     if "default-deny-egress" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml')
-   
+    else:
+      replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-egress.yaml',policyname='default-deny-egress')   
+    
+
     if "default-deny-ingress" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
-
+    else:
+      replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml',policyname='default-deny-ingress')   
+    
     return {'limitrange-np-name': name} 
 
 
