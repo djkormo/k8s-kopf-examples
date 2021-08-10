@@ -21,16 +21,24 @@ rules:
   - apiGroups: [admissionregistration.k8s.io/v1, admissionregistration.k8s.io/v1beta1]
     resources: [validatingwebhookconfigurations, mutatingwebhookconfigurations]
     verbs: [create, patch]
+  # events   
+  - apiGroups: [""]
+    resources: [events]
+    verbs: [create]
+
 
   # for controlling namespace  
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources: [namespaces]
     verbs: [list, watch,patch,create,delete]
+  - apiGroups: ["*"]
+    resources: [namespaces/status]
+    verbs: [list, watch,patch,create,delete]
   # for controlling limitranges  
-  - apiGroups: [""]
+  - apiGroups: ["*"]
     resources: [limitranges]
-    verbs: [list, watch,patch,create,delete]
+    verbs: [list, watch,patch,create,update,delete]
   # for controlling networkpolicies    
-  - apiGroups: [""]
+  - apiGroups: ["networking.k8s.io"]
     resources: [networkpolicies]
-    verbs: [list, watch,patch,create,delete]
+    verbs: [list, watch,patch,create,update,delete]
