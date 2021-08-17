@@ -49,3 +49,4 @@ websocket-client==1.0.1
 wrapt==1.11.2
 yarl==1.6.3
 zipp==3.4.1
+environs==9.3.2 
