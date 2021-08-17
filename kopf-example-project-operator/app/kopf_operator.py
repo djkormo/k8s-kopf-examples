@@ -175,7 +175,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
       print("Exception when calling CoreV1Api->list_namespaced_limit_range: %s\n" % e)
 
     if name not in l_namespace:
-      create_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      create_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     else:
       replace_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
