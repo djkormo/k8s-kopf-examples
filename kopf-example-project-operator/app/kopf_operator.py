@@ -57,7 +57,7 @@ def create_namespace(kopf,name,namespace,spec,logger,api,filename):
 
   ## Create namespace
   try:
-    obj = api.create_namespace(
+    obj = api.create_namespace(namespace=name,
           body=data,
       )
     pprint(obj)
@@ -69,7 +69,7 @@ def create_namespace(kopf,name,namespace,spec,logger,api,filename):
   return {'project-name': obj.metadata.name}
 
 # replace namespace      
-def replace_namespace(kopf,name,spec,logger,api,filename):
+def replace_namespace(kopf,name,namespace,spec,logger,api,filename):
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
 
