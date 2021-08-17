@@ -207,10 +207,8 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     else:
       replace_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
-
-
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
-@kopf.on.delete('djkormo.github', 'v1alpha1', 'project',interval=LOOP_INTERVAL,sharp=True)
+@kopf.on.timer('djkormo.github', 'v1alpha1', 'project',interval=LOOP_INTERVAL,sharp=True)
 def check_object_on_time(spec, name, namespace, logger, **kwargs):
     logger.info(f"Timer: {spec} is invoked")
 
