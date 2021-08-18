@@ -57,7 +57,7 @@ def create_namespace(kopf,name,namespace,spec,logger,api,filename):
 
   ## Create namespace
   try:
-    obj = api.create_namespace(namespace=name,
+    obj = api.create_namespace(
           body=data,
       )
     pprint(obj)
@@ -177,7 +177,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     if name not in l_namespace:
       create_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     else:
-      replace_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      replace_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
 
 # When updating object
@@ -203,9 +203,9 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
       print("Exception when calling CoreV1Api->list_namespace: %s\n" % e)
 
     if name not in l_namespace:
-      create_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      create_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     else:
-      replace_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      replace_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'project',interval=LOOP_INTERVAL,sharp=True)
@@ -231,9 +231,9 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       print("Exception when calling CoreV1Api->list_namespace: %s\n" % e)
 
     if name not in l_namespace:
-      create_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      create_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     else:
-      replace_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      replace_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'project')
