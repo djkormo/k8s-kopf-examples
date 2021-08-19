@@ -84,7 +84,7 @@ def create_resourcequota(kopf,name,spec,logger,api,filename):
   resourcequotapods=spec.get('resourcequotapods',1)
   resourcequotaservices=spec.get('resourcequotaservices',1)
   resourcequotaconfigmaps=spec.get('resourcequotaconfigmaps',1)
-  resourcequotapersistentvolumeclaims=spec.get('resourcequotapersistentvolumeclaims',1),
+  resourcequotapersistentvolumeclaims=spec.get('resourcequotapersistentvolumeclaims',1)
   resourcequotareplicationcontrollers=spec.get('resourcequotareplicationcontrollers',1)
   resourcequotasecrets=spec.get('resourcequotasecrets',1)
   resourcequotaservicesloadbalancers=spec.get('resourcequotaservicesloadbalancers',1)
