@@ -104,7 +104,7 @@ def create_resourcequota(kopf,name,spec,logger,api,filename):
            resourcequotaservicesloadbalancers=resourcequotaservicesloadbalancers
     )
 
-  pprint(text)
+  #pprint(text)
     
   data = yaml.safe_load(text)
   try:
@@ -227,7 +227,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     if name not in l_resoucequota:
       create_resourcequota(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
     else:
-      replace_resourcequota(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='limitrange.yaml')
+      replace_resourcequota(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
  
     
 
@@ -259,7 +259,26 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
     else:
       replace_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
-   # create or update resourcequota TODO
+   # create or update resourcequota
+    
+    api = kubernetes.client.CoreV1Api()
+
+    try: 
+      api_response = api.list_namespaced_resource_quota(namespace=name) 
+      #pprint(api_response)
+      l_resoucequota=[]
+      for i in api_response.items:
+        print("ResourceQuota namespace: %s\t name: %s" %
+          (i.metadata.namespace, i.metadata.name))
+        l_resoucequota.append(i.metadata.name)
+    except ApiException as e:
+      print("Exception when calling CoreV1Api->list_namespaced_resource_quota: %s\n" % e)
+
+    if name not in l_resoucequota:
+      create_resourcequota(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+    else:
+      replace_resourcequota(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+ 
 
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'project',interval=LOOP_INTERVAL,sharp=True)
@@ -290,6 +309,28 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       replace_namespace(kopf=kopf,name=name,namespace=namespace,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
 
+    # create or update resourcequota
+    
+    api = kubernetes.client.CoreV1Api()
+
+    try: 
+      api_response = api.list_namespaced_resource_quota(namespace=name) 
+      #pprint(api_response)
+      l_resoucequota=[]
+      for i in api_response.items:
+        print("ResourceQuota namespace: %s\t name: %s" %
+          (i.metadata.namespace, i.metadata.name))
+        l_resoucequota.append(i.metadata.name)
+    except ApiException as e:
+      print("Exception when calling CoreV1Api->list_namespaced_resource_quota: %s\n" % e)
+
+    if name not in l_resoucequota:
+      create_resourcequota(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+    else:
+      replace_resourcequota(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+ 
+
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'project')
 def delete_fn(spec, name, status, namespace, logger, **kwargs):
     print(f"Deleting: {spec}")
+    
