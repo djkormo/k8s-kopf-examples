@@ -18,3 +18,5 @@ spec:
     replicationcontrollers: "{resourcequotareplicationcontrollers}"
     secrets: "{resourcequotasecrets}"
     services.loadbalancers: "{resourcequotaservicesloadbalancers}"
+
+
