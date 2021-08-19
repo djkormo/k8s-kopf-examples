@@ -34,7 +34,3 @@ rules:
   - apiGroups: [""]
     resources: [resourcequotas,limitranges]
     verbs: [list, watch,patch,create,delete]
-  # for controlling networkpolicies    
-  - apiGroups: [""]
-    resources: [networkpolicies]
-    verbs: [list, watch,patch,create,delete]

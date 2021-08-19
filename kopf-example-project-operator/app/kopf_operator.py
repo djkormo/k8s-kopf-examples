@@ -103,6 +103,8 @@ def create_resourcequota(kopf,name,spec,logger,api,filename):
            resourcequotasecrets=resourcequotasecrets,
            resourcequotaservicesloadbalancers=resourcequotaservicesloadbalancers
     )
+
+  pprint(text)
     
   data = yaml.safe_load(text)
   try:
@@ -111,7 +113,7 @@ def create_resourcequota(kopf,name,spec,logger,api,filename):
         body=data,
       )
     kopf.append_owner_reference(obj)
-    #logger.info(f"ResourceQuota child is created: {obj}")
+    logger.info(f"ResourceQuota child is created: {obj}")
   except ApiException as e:
     print("Exception when calling CoreV1Api->create_namespaced_resource_quota: %s\n" % e)
   kopf.adopt(data)

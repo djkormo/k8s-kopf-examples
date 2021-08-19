@@ -13,16 +13,8 @@ spec:
   resourcequotacountingresses: 2k
   resourcequotapods: 109
   resourcequotaservices: 109
-#  resourcequotaconfigmaps: 99
-#  resourcequotapersistentvolumeclaims: "98"
-#  resourcequotareplicationcontrollers: 97
-#  resourcequotasecrets: 96
-#  resourcequotaservicesloadbalancers: 95
-  limitrangemaxmem: 1Gi
-  limitrangemaxcpu: 1000m
-  limitrangemincpu: 51m
-  limitrangeminmem: 51Mi
-  limitrangedefaultcpu: 500m
-  limitrangedefaultmem: "500Mi"
-  limitrangedefaultrequestcpu: 103m
-  limitrangedefaultrequestmem: 103Mi
+  resourcequotaconfigmaps: 99
+  resourcequotapersistentvolumeclaims: "98"
+  resourcequotareplicationcontrollers: 97
+  resourcequotasecrets: 96
+  resourcequotaservicesloadbalancers: 95
