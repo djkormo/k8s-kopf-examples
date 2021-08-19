@@ -11,10 +11,10 @@ spec:
   resourcequotalimitsmemory: 4Gi
   resourcequotacountjobsbatch: 4k
   resourcequotacountingresses: 2k
-  resourcequotapods: 109
-  resourcequotaservices: 109
-  resourcequotaconfigmaps: 99
+  resourcequotapods: "109"
+  resourcequotaservices: "109"
+  resourcequotaconfigmaps: "99"
   resourcequotapersistentvolumeclaims: "98"
-  resourcequotareplicationcontrollers: 97
-  resourcequotasecrets: 96
-  resourcequotaservicesloadbalancers: 95
+  resourcequotareplicationcontrollers: "97"
+  resourcequotasecrets: "96"
+  resourcequotaservicesloadbalancers: "95"
