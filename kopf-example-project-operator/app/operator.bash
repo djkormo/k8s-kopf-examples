@@ -2,7 +2,7 @@
 set -e
 #set -u
 file="/home/worker/app/kopf_operator.py"
-command="/home/worker/.local/bin/kopf run --standalone ${file}"
+command="/home/worker/.local/bin/kopf run --standalone /home/worker/app/kopf_operator.py"
 #[[ "$VERBOSE" = "true" ]] && command+=("--verbose")
 
 if [[ "$VERBOSE" -eq "true" ]]; then
