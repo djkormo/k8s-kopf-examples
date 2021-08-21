@@ -25,7 +25,7 @@ RUN chmod u+x /home/worker/app/operator.bash
 
 LABEL maintainer="Krzysztof Pudlowski <djkormo@gmail.com>" version="1.0.0"
 
-#CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone  /home/worker/app/kopf_operator.py
-ENTRYPOINT ["/bin/bash", "-c", "/home/worker/app/operator.bash"]
+CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone  /home/worker/app/kopf_operator.py
+# ENTRYPOINT ["/bin/bash", "-c", "/home/worker/app/operator.bash"]
 
 
