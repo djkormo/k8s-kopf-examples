@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 #set -u
-file="/home/worker/app/operator.py"
-command="/home/worker/.local/bin/kopf run --standalone --verbose --debug --liveness=http://0.0.0.0:8080/healthz /home/worker/app/operator.py "
+file="/home/worker/app/kopf_operator.py"
+command="/home/worker/.local/bin/kopf run --standalone --verbose --debug --liveness=http://0.0.0.0:8080/healthz /home/worker/app/kopf_operator.py "
 #[[ "$VERBOSE" = "true" ]] && command+=("--verbose")
 
 if [[ "$VERBOSE" -eq "true" ]]; then
@@ -29,4 +29,4 @@ USER=$(id -u)
 echo "Setting USER environment variable to ${USER}"
 export USER=$USER
 echo " Executing ${command}"
-exec "${command}"
+eval "${command}"
