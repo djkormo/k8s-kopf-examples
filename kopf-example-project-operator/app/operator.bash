@@ -7,14 +7,16 @@ command="/home/worker/.local/bin/kopf run --standalone "
 
 if [[ "$VERBOSE" -eq "true" ]]; then
     echo "VERBOSE is set true"
-    command= "${command} --verbose"
+    cli=" --verbose "
+    command+=${cli}
 fi
 
 # [[ "$DEBUG" = "true" ]] && command+=("--debug")
 
 if [[ "$DEBUG" -eq "true" ]]; then
     echo "DEBUG is set true"
-    command= "${command} --debug"
+    cli=" --debug "
+    command+=${cli}
 fi
 
 #[ -n "$NAMESPACE" ] && [ "$NAMESPACE" != "ALL" ] && echo "Only watching resources from the ${NAMESPACE} namespace" && command+=("--namespace=${NAMESPACE}")
@@ -23,11 +25,12 @@ fi
 
 if [[ "$LIVENESS" -eq "true" ]]; then
     echo "LIVENESS is set true"
-   command= "${command} --liveness=http://0.0.0.0:8080/healthz"
+    cli=" --liveness=http://0.0.0.0:8080/healthz "
+    command+=${cli}
 fi
 
 # add the name of operator file
-command= "${command} ${file}"
+command+=${file}"
 
 USER=$(id -u)
 echo "Setting USER environment variable to ${USER}"
