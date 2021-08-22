@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 set -e
 #set -u
 file="/home/worker/app/kopf_operator.py"
@@ -32,7 +32,7 @@ fi
 
 if [[ $LIVENESS = "true" ]]; then
     echo "LIVENESS is set true"
-    cli_parameters="${cli_parameters} ----liveness=http://0.0.0.0:8080/healthz"
+    cli_parameters="${cli_parameters} --liveness=http://0.0.0.0:8080/healthz"
 fi
 
 echo "Parameters: ${cli_parameters}"
