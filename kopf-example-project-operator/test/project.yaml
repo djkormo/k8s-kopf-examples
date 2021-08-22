@@ -17,4 +17,4 @@ spec:
   resourcequotapersistentvolumeclaims: "98"
   resourcequotareplicationcontrollers: "97"
   resourcequotasecrets: "96"
-  resourcequotaservicesloadbalancers: "95"
+  resourcequotaservicesloadbalancers: "102"

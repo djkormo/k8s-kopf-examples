@@ -2,7 +2,7 @@ FROM python:3.7-alpine
 
 RUN apk --no-cache add  gcc musl-dev curl bash
 
-RUN pip install --upgrade pip
+RUN pip install --no-cache-dir --upgrade pip
 
 
 ADD app /app
@@ -25,5 +25,6 @@ RUN chmod u+x /home/worker/app/operator.bash
 
 LABEL maintainer="Krzysztof Pudlowski <djkormo@gmail.com>" version="1.0.0"
 
-CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone  /home/worker/app/kopf_operator.py
+#CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone  /home/worker/app/kopf_operator.py
 
+ENTRYPOINT ["/bin/bash", "-c", "/home/worker/app/operator.bash"]
