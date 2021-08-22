@@ -28,7 +28,7 @@ spec:
         - name: DEBUG
           value: "true"
         - name: NAMESPACE
-          value: project-operator
+          value: ALL
         - name: LIVENESS
           value: "true"
         - name: LOOP_INTERVAL
