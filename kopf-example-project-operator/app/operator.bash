@@ -8,7 +8,7 @@ command="/home/worker/.local/bin/kopf run --standalone "
 if [[ "$VERBOSE" -eq "true" ]]; then
     echo "VERBOSE is set true"
     cli=" --verbose "
-    #command+=${cli}
+    command= "${command}  ${cli}"
 fi
 
 # [[ "$DEBUG" = "true" ]] && command+=("--debug")
@@ -16,7 +16,7 @@ fi
 if [[ "$DEBUG" -eq "true" ]]; then
     echo "DEBUG is set true"
     cli=" --debug "
-    #command+=${cli}
+    command= "${command}  ${cli}"
 fi
 
 #[ -n "$NAMESPACE" ] && [ "$NAMESPACE" != "ALL" ] && echo "Only watching resources from the ${NAMESPACE} namespace" && command+=("--namespace=${NAMESPACE}")
@@ -26,7 +26,7 @@ fi
 if [[ "$LIVENESS" -eq "true" ]]; then
     echo "LIVENESS is set true"
     cli=" --liveness=http://0.0.0.0:8080/healthz "
-    #command+=${cli}
+    command= "${command}  ${cli}"
 fi
 
 # add the name of operator file
