@@ -8,10 +8,9 @@ command="/home/worker/.local/bin/kopf run  --standalone "
 if [[ "$VERBOSE" -eq "true" ]]; then
     echo "VERBOSE is set true"
     cli=" --verbose "
-    command= "${command}  --verbose"
+    #command= "${command}  --verbose"
+    command+=(" --verbose")
 fi
-
-# [[ "$DEBUG" = "true" ]] && command+=("--debug")
 
 if [[ "$DEBUG" -eq "true" ]]; then
     echo "DEBUG is set true"
