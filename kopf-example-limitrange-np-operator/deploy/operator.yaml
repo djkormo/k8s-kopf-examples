@@ -24,15 +24,15 @@ spec:
       containers:
       - env:
         - name: VERBOSE
-          value: "true"
+          value: "false"
         - name: DEBUG
-          value: "true"
+          value: "false"
         - name: NAMESPACE
-          value: project-operator
+          value: ALL
         - name: LIVENESS
           value: "true"
         - name: LOOP_INTERVAL
-          value: "30"
+          value: "60"
         - name: EXCLUDED_NAMESPACES
           value: "kube-system,kube-public,kube-node-lease" 
         name: op
