@@ -2,12 +2,12 @@
 set -e
 #set -u
 file="/home/worker/app/kopf_operator.py"
-command="/home/worker/.local/bin/kopf run --standalone /home/worker/app/kopf_operator.py"
+command="/home/worker/.local/bin/kopf run --standalone "
 #[[ "$VERBOSE" = "true" ]] && command+=("--verbose")
 
 if [[ "$VERBOSE" -eq "true" ]]; then
     echo "VERBOSE is set true"
-    #cli=" --verbose "
+    cli=" --verbose "
     #command+=${cli}
 fi
 
@@ -15,7 +15,7 @@ fi
 
 if [[ "$DEBUG" -eq "true" ]]; then
     echo "DEBUG is set true"
-    #cli=" --debug "
+    cli=" --debug "
     #command+=${cli}
 fi
 
@@ -25,12 +25,12 @@ fi
 
 if [[ "$LIVENESS" -eq "true" ]]; then
     echo "LIVENESS is set true"
-    #cli=" --liveness=http://0.0.0.0:8080/healthz "
+    cli=" --liveness=http://0.0.0.0:8080/healthz "
     #command+=${cli}
 fi
 
 # add the name of operator file
-#command+=${file}"
+command="${command}  ${file}"
 
 USER=$(id -u)
 echo "Setting USER environment variable to ${USER}"
