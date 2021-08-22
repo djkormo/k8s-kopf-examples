@@ -3,19 +3,19 @@ set -e
 #set -u
 file="/home/worker/app/kopf_operator.py"
 command="/home/worker/.local/bin/kopf run  --standalone "
+cli_parameters=""
 #[[ "$VERBOSE" = "true" ]] && command+=("--verbose")
 
 if [[ "$VERBOSE" -eq "true" ]]; then
     echo "VERBOSE is set true"
-    cli=" --verbose "
     #command= "${command}  --verbose"
-    command+=(" --verbose")
+    cli_parameters+=(" --verbose")
 fi
 
 if [[ "$DEBUG" -eq "true" ]]; then
     echo "DEBUG is set true"
     cli=" --debug "
-    #command= "${command}  ${cli}"
+    cli_parameters+=(" --debug") 
 fi
 
 #[ -n "$NAMESPACE" ] && [ "$NAMESPACE" != "ALL" ] && echo "Only watching resources from the ${NAMESPACE} namespace" && command+=("--namespace=${NAMESPACE}")
@@ -25,11 +25,13 @@ fi
 if [[ "$LIVENESS" -eq "true" ]]; then
     echo "LIVENESS is set true"
     cli=" --liveness=http://0.0.0.0:8080/healthz "
-    #command= "${command}  ${cli}"
+    cli_parameters+=(" --liveness=http://0.0.0.0:8080/healthz") 
 fi
 
+echo "Parameters: ${cli_parameters}"
+
 # add the name of operator file
-command="${command}  ${file}"
+command="${command} ${cli_parameters} ${file}"
 
 USER=$(id -u)
 echo "Setting USER environment variable to ${USER}"
