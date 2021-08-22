@@ -44,4 +44,4 @@ USER=$(id -u)
 echo "Setting USER environment variable to ${USER}"
 export USER=$USER
 echo " Executing ${command}"
-#eval "${command}"
+eval "${command}"
