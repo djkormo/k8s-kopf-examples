@@ -72,6 +72,3 @@ https://kopf.readthedocs.io/en/latest/walkthrough/creation/
 
 
 
-  File "/home/worker/app/kopf_operator.py", line 234, in check_object_on_time
-    create_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
-TypeError: create_namespace() missing 1 required positional argument: 'namespace'
