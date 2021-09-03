@@ -18,7 +18,7 @@ kubectl apply -f crd/crd.yaml
 ### Create namespace for the operator
 
 ```console 
-kubectl create ns project-operator
+kubectl create ns chaos-operator
 ```
 
 
@@ -37,28 +37,34 @@ kubectl apply -f deploy/operator.yaml
 ### Deploy sample CR (project object)
 
 ```console 
-kubectl apply -f test/project.yaml 
+kubectl apply -f test/chaos.yaml 
 ```
 
 ### Check 
 
 ``` 
-kubectl get deploy,pod -n project-operator 
+kubectl get deploy,pod -n chaos-operator 
 ```
 
 #### In case of troubles look into operator logs
 
 ```
-operator_pod=$(kubectl get pod -n project-operator -L app=project-operator -o name | grep operator | head -n1)
-kubectl -n project-operator logs ${operator_pod} -f 
+operator_pod=$(kubectl get pod -n chaos-operator -L app=chaos-operator -o name | grep operator | head -n1)
+kubectl -n chaos-operator logs ${operator_pod} -f 
 ```
 
 ```
-kubectl -n project-operator describe ${operator_pod}
+kubectl -n chaos-operator describe ${operator_pod}
+```
+
+Check events
+
+```
+kubectl get events -n chaos-operator --sort-by=.metadata.creationTimestamp
 ```
 
 ```
-kubectl -n project-operator exec ${operator_pod} -it -- bash
+kubectl -n chaos-operator exec ${operator_pod} -it -- bash
 curl http://localhost:8080/healthz
 
 ```
@@ -66,12 +72,6 @@ curl http://localhost:8080/healthz
 
 Based on 
 
-https://github.com/lukasz-bielinski/project-operator
-
 https://kopf.readthedocs.io/en/latest/walkthrough/creation/
 
 
-
-  File "/home/worker/app/kopf_operator.py", line 234, in check_object_on_time
-    create_namespace(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='namespace.yaml')
-TypeError: create_namespace() missing 1 required positional argument: 'namespace'

@@ -37,7 +37,6 @@ def check_namespace(name,excluded_namespaces):
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'chaos')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'chaos')
 def create_fn(spec, name, namespace, logger, **kwargs):
-    
     print(f"Creating: {spec}")
 
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
