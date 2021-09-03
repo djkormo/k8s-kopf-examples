@@ -1,0 +1,7 @@
+apiVersion: djkormo.github/v1alpha1
+kind: Chaos
+metadata:
+  name: my-namespace
+  namespace: chaos-operator
+spec:
+  # Add fields here
