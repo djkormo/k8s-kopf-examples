@@ -92,6 +92,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     # choose one pod to delete
     if pod_count>0:
       [pod_name,pod_namespace] = list_pods(kopf=kopf,api=api,namespace=name,logger=logger)
+      print(f"There is: {pod_name} in {pod_namespace} to kill")
     ## TODO  delete pod 
      
 
