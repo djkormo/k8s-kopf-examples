@@ -70,12 +70,12 @@ def list_pods(kopf,api,namespace,logger):
             #    random.shuffle(ret.items)
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
-            POD_PHASE = ret.items[0].pod.status.phase
-            logger.info("There is %s in %s to kill",POD_TO_KILL,POD_NAMESPACE)
+            POD_PHASE = ret.items[0].status.phase
+            logger.info("There is %s in %s to kill",POD_NAME,POD_NAMESPACE)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
         except Exception as e:
             logger.error("Unable to list pods: %s", (e))
-            return([0],[0])
+            return([0],[0],[0])
 
 def delete_pod(kopf,api,name, namespace,logger):
     # Configs can be set in Configuration class directly or using helper utility
