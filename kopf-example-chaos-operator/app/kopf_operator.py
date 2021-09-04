@@ -39,7 +39,7 @@ def count_pods(kopf,api,namespace,logger):
     
     api_response = api.list_namespaced_pod(namespace)
     POD_COUNT = len(api_response.items)
-    logger.info("Number of pods: %s in %s", POD_COUNT,namespace)
+    logger.info("Number of pods %s in %s", POD_COUNT,namespace)
 
     return(POD_COUNT)  
 
@@ -66,11 +66,33 @@ def list_pods(kopf,api,namespace,logger):
             #    random.shuffle(ret.items)
             POD_TO_KILL = ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
-            logger.info("There is: %s in %s to kill",POD_TO_KILL,POD_NAMESPACE)
+            logger.info("There is %s in %s to kill",POD_TO_KILL,POD_NAMESPACE)
             return([POD_TO_KILL, POD_NAMESPACE])
         except Exception as e:
             logger.error("Unable to list pods: %s", (e))
             return([0],[0])
+
+def delete_pod(kopf,api,name, namespace,logger):
+    # Configs can be set in Configuration class directly or using helper utility
+    if False: #constants.OFFLINE_MODE == True:
+        logging.info("Crate destroyed! Offline mode, so not actually killing any pods")
+        return(" ")
+    else:
+        try:
+ 
+            logger.info("Killing Random pod: %s from namespace: %s", name, namespace)
+            
+            # Delete random pod
+            #delete_options = client.V1DeleteOptions()
+            api_response = api.delete_namespaced_pod(
+                name=name,
+                namespace=namespace,
+                #body=delete_options
+                )
+            return(name)  #TODO: Check response for successs? 
+        except:
+            logger.error("Unable to delete pod")
+            return("Error")
 
 
 # When creating or resuming object
@@ -93,7 +115,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     if pod_count>0:
       [pod_name,pod_namespace] = list_pods(kopf=kopf,api=api,namespace=name,logger=logger)
     ## TODO  delete pod 
-     
+      delete_pod(kopf=kopf,api=api,name=pod_name, namespace=pod_namespace,logger=logger)
 
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'chaos',interval=LOOP_INTERVAL,sharp=True)
@@ -112,7 +134,10 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     # choose one pod to delete
     if pod_count>0:
       [pod_name,pod_namespace] = list_pods(kopf=kopf,api=api,namespace=name,logger=logger)
-    ## TODO  delete pod 
+      ## TODO  delete pod 
+      api = kubernetes.client.CoreV1Api()
+
+      delete_pod(kopf=kopf,api=api,name=pod_name, namespace=pod_namespace,logger=logger)
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'chaos')
 def delete_fn(spec, name, status, namespace, logger, **kwargs):
