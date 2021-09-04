@@ -57,6 +57,8 @@ kubectl -n chaos-operator logs ${operator_pod} -f
 kubectl -n chaos-operator describe ${operator_pod}
 ```
 
+
+
 Check events
 
 ```
@@ -69,6 +71,11 @@ curl http://localhost:8080/healthz
 
 ```
 
+
+Redeploy operator
+```
+kubectl replace -R -f deploy/ --force
+```
 
 Based on 
 

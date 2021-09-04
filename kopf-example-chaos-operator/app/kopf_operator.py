@@ -39,7 +39,7 @@ def count_pods(kopf,api,namespace,logger):
     
     api_response = api.list_namespaced_pod(namespace)
     POD_COUNT = len(api_response.items)
-    logger.info("Number of pods: %s", POD_COUNT)
+    logger.info("Number of pods: %s in %s", POD_COUNT,namespace)
 
     return(POD_COUNT)  
 
@@ -56,7 +56,7 @@ def list_pods(kopf,api,namespace,logger):
         try:
             ret = api.list_namespaced_pod(namespace)
             POD_COUNT = len(ret.items)
-            logger.info("Number of pods: %s", POD_COUNT)
+            logger.info("There are/is %s pods/pod in %s", POD_COUNT,namespace)
 
             # Select random pod
             # print(ret.items[0].metadata.namespace)
@@ -66,6 +66,7 @@ def list_pods(kopf,api,namespace,logger):
             #    random.shuffle(ret.items)
             POD_TO_KILL = ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
+            logger.info("There is: %s in %s to kill",POD_TO_KILL,POD_NAMESPACE)
             return([POD_TO_KILL, POD_NAMESPACE])
         except Exception as e:
             logger.error("Unable to list pods: %s", (e))
@@ -88,11 +89,9 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     api = kubernetes.client.CoreV1Api()
 
     pod_count=count_pods(kopf=kopf,api=api,namespace=name,logger=logger)
-    print(f"The are: {pod_count} pods in {name} namespace")
     # choose one pod to delete
     if pod_count>0:
       [pod_name,pod_namespace] = list_pods(kopf=kopf,api=api,namespace=name,logger=logger)
-      print(f"There is: {pod_name} in {pod_namespace} to kill")
     ## TODO  delete pod 
      
 
@@ -110,11 +109,9 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     api = kubernetes.client.CoreV1Api()
 
     pod_count=count_pods(kopf=kopf,api=api,namespace=name,logger=logger)
-    print(f"The are: {pod_count} pods in {name} namespace")
     # choose one pod to delete
     if pod_count>0:
       [pod_name,pod_namespace] = list_pods(kopf=kopf,api=api,namespace=name,logger=logger)
-      print(f"There is: {pod_name} in {pod_namespace} to kill")
     ## TODO  delete pod 
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'chaos')
