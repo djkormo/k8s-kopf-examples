@@ -63,8 +63,8 @@ def list_pods(kopf,api,namespace,logger):
             # Select random pod
             # print(ret.items[0].metadata.namespace)
             random.shuffle(ret.items)
-            while ret.items[0].status.phase not in"Running":
-                logger.info("Pod in excluded phase n, shuffling")
+            while ret.items[0].status.phase not in "Running":
+                logger.info("Pod in excluded phase, shuffling")
                 random.shuffle(ret.items)
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
@@ -83,7 +83,7 @@ def delete_pod(kopf,api,name, namespace,logger):
     else:
         try:
  
-            logger.info("Killing pandom pod: %s from namespace: %s", name, namespace)
+            logger.info("Killing random pod: %s from namespace: %s", name, namespace)
             
             # Delete random pod
             #delete_options = client.V1DeleteOptions()
