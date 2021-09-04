@@ -1,10 +1,11 @@
 apiVersion: djkormo.github/v1alpha1
 kind: Chaos
 metadata:
-  name: my-namespace
-  namespace: chaos-operator
+  name: my-namespace #namespacee to controll
+  namespace: chaos-operator 
 spec:
-  # Add fields here
-  pods: "true"
-  deployments: "true"
-  daemonsets: "true"
+  
+  pods: "true" # deleting pods
+  deployments: "true" # deleting pods with deployment as the owner
+  daemonsets: "true" # deleting pods with daemonset as the owner
+  statefulsets: "true" # deleting pods with statefulset the as owner
