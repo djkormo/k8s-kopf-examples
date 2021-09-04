@@ -63,8 +63,8 @@ def list_pods(kopf,api,namespace,logger):
             # Select random pod
             # print(ret.items[0].metadata.namespace)
             random.shuffle(ret.items)
-            while ret.items[0].status.phase in "Running":
-                logger.info("Pod in excluded namespace, shuffling")
+            while ret.items[0].status.phase not in"Running":
+                logger.info("Pod in excluded phase n, shuffling")
                 random.shuffle(ret.items)
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
