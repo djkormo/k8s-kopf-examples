@@ -29,8 +29,8 @@ rules:
   # for controlling namespace  
   - apiGroups: [""]
     resources: [namespaces]
-    verbs: [list, watch,patch,create,delete]
-  # for controlling resourcequotas and limitranges  
+    verbs: [list, watch,patch]
+  # for controlling pods  
   - apiGroups: [""]
-    resources: [resourcequotas]
+    resources: [pods]
     verbs: [list, watch,patch,create,delete,update]

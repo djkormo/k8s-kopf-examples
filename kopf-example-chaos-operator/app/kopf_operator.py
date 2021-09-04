@@ -38,7 +38,6 @@ def check_namespace(name,excluded_namespaces):
 def count_pods(kopf,api,namespace,logger):
     
     api_response = api.list_namespaced_pod(namespace)
-    logger.info("Connected to Kubernetes host: %s", v1.api_client.configuration.host)
     POD_COUNT = len(api_response.items)
     logger.info("Number of pods: %s", POD_COUNT)
 
