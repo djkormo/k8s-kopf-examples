@@ -41,9 +41,7 @@ def count_pods(kopf,api,namespace,logger):
     POD_COUNT = len(api_response.items)
     logger.info("Number of pods %s in %s namespace", POD_COUNT,namespace)
     for pod in api_response.items:
-        print("%s\t%s\t%s" % (pod.metadata.name,
-                              pod.status.phase,
-                              pod.status.pod_ip))   
+        logger.info("Pod item: %s\t%s\t%s",pod.metadata.name,pod.status.phase,pod.status.pod_ip)  
 
     return(POD_COUNT)  
 
@@ -71,7 +69,7 @@ def list_pods(kopf,api,namespace,logger):
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
             POD_PHASE = ret.items[0].status.phase
-            logger.info("There is %s in %s to kill",POD_NAME,POD_NAMESPACE)
+            logger.info("There is %s in %s in phase %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
         except Exception as e:
             logger.error("Unable to list pods: %s", (e))
