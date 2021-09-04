@@ -99,7 +99,23 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'chaos',interval=LOOP_INTERVAL,sharp=True)
 def check_object_on_time(spec, name, namespace, logger, **kwargs):
-    logger.info(f"Timer: {spec} is invoked")
+    logger.info(f"Timer: for {name} with {spec} is invoked")
+        # check for excluded namespace
+
+    if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
+      return {'chaos-operator-name': namespace}    
+
+    # count pods in our namespace
+    
+    api = kubernetes.client.CoreV1Api()
+
+    pod_count=count_pods(kopf=kopf,api=api,namespace=name,logger=logger)
+    print(f"The are: {pod_count} pods in {name} namespace")
+    # choose one pod to delete
+    if pod_count>0:
+      [pod_name,pod_namespace] = list_pods(kopf=kopf,api=api,namespace=name,logger=logger)
+      print(f"There is: {pod_name} in {pod_namespace} to kill")
+    ## TODO  delete pod 
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'chaos')
 def delete_fn(spec, name, status, namespace, logger, **kwargs):
