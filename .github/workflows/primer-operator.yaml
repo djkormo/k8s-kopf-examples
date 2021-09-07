@@ -1,4 +1,4 @@
-name: chaos operator for DockerHub
+name: primer operator for DockerHub
 
 on:
   push:

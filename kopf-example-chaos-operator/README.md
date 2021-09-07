@@ -5,8 +5,8 @@
 ### Build and push image 
 
 ```bash
-docker image build . -t djkormo/op-project:latest 
-docker image push djkormo/op-project:latest
+docker image build . -t djkormo/op-chaos:latest 
+docker image push djkormo/op-chaos:latest
 ```
 
 ### Deploy crd
@@ -34,7 +34,7 @@ kubectl apply -f deploy/rbac
 kubectl apply -f deploy/operator.yaml 
 ```
 
-### Deploy sample CR (project object)
+### Deploy sample CR (chaos object)
 
 ```console 
 kubectl apply -f test/chaos.yaml 
