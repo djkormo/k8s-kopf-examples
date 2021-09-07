@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: primer-operator
+  name: primer-operator-rolebinding-namespaced
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: primer-operator-role-namespaced
+subjects:
+  - kind: ServiceAccount
+    name: primer-operator
