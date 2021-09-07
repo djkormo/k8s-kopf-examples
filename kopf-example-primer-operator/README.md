@@ -50,7 +50,7 @@ kubectl get deploy,pod -n primer-operator
 
 ```
 operator_pod=$(kubectl get pod -n primer-operator -L app=primer-operator -o name | grep operator | head -n1)
-kubectl -n chaos-operator logs ${operator_pod} -f 
+kubectl -n primer-operator logs ${operator_pod} -f 
 ```
 
 ```
