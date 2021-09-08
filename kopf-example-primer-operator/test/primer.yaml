@@ -2,7 +2,7 @@ apiVersion: djkormo.github/v1alpha1
 kind: Primer
 metadata:
   name: my-namespace #namespacee to patch
-  namespace: chaos-operator 
+  namespace: primer-operator 
 spec:
   number: 4
   

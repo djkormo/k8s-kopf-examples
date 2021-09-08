@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: chaos-operator-role-cluster
+  name: primer-operator-role-cluster
 rules:
 
   # Framework: knowing which other operators are running (i.e. peering).

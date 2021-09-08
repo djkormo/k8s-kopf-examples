@@ -77,8 +77,16 @@ Redeploy operator
 kubectl replace -R -f deploy/ --force
 ```
 
+Check RBAC
+
+```
+kubectl auth can-i -n primer-operator create events --as=system:serviceaccount:primer-operator:primer-operator
+```
+
+
 Based on 
 
 https://kopf.readthedocs.io/en/latest/walkthrough/creation/
+
 
 
