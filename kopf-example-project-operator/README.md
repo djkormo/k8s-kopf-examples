@@ -71,4 +71,3 @@ https://github.com/lukasz-bielinski/project-operator
 https://kopf.readthedocs.io/en/latest/walkthrough/creation/
 
 
-
