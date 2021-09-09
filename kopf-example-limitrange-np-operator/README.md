@@ -62,7 +62,6 @@ curl http://localhost:8080/healthz
 
 ```
 
-
 Based on 
 
 https://github.com/lukasz-bielinski/project-operator
