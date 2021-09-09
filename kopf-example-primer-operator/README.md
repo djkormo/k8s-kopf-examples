@@ -84,6 +84,7 @@ kubectl auth can-i -n primer-operator create events --as=system:serviceaccount:p
 ```
 
 
+
 Based on 
 
 https://kopf.readthedocs.io/en/latest/walkthrough/creation/
