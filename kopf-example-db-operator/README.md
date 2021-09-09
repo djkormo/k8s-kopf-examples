@@ -52,3 +52,4 @@ kubectl get pod,svc -n db-operator
 operator_pod=$(kubectl get pod -n db-operator -L app=op -o name)
 kubectl -n db-operator logs ${operator_pod}
 ```
+
