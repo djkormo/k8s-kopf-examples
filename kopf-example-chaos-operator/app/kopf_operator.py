@@ -71,7 +71,7 @@ def choose_pods(kopf,api,namespace,logger):
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
             POD_PHASE = ret.items[0].status.phase
-            POD_OWNER= ret.items[0].metadata.ownerReferences[0].kind
+            POD_OWNER= ret.items[0].metadata.ownerReferences.kind
             logger.info("There is %s in %s in phase %s controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_OWNER)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
         except Exception as e:
