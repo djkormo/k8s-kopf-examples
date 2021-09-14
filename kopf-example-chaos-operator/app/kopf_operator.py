@@ -61,7 +61,7 @@ def choose_pods(kopf,api,namespace,logger):
             logger.info("There are/is %s pods/pod in %s", POD_COUNT,namespace)
 
             # Select random pod
-            print(ret.items[0].metadata.namespace)
+            print(ret.items[0].metadata)
             random.shuffle(ret.items)
             # exlude not Running Pods
             while ret.items[0].status.phase not in "Running":
@@ -71,8 +71,8 @@ def choose_pods(kopf,api,namespace,logger):
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
             POD_PHASE = ret.items[0].status.phase
-            POD_OWNER= ret.items[0].metadata.ownerReferences.kind
-            logger.info("There is %s in %s in phase %s controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_OWNER)
+            #POD_OWNER= ret.items[0].metadata.ownerReferences.kind
+            logger.info("There is %s in %s in phase %s controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
         except Exception as e:
             logger.error("Unable to list pods: %s", (e))
