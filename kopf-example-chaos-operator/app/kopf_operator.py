@@ -51,7 +51,7 @@ def count_pods(kopf,api,namespace,logger):
                               pod.status.phase,
                               pod.status.pod_ip))   
 
-def list_pods(kopf,api,namespace,logger):
+def choose_pods(kopf,api,namespace,logger):
     if  False: #constants.OFFLINE_MODE == True:
         return([0],[0])
     else:
@@ -61,15 +61,18 @@ def list_pods(kopf,api,namespace,logger):
             logger.info("There are/is %s pods/pod in %s", POD_COUNT,namespace)
 
             # Select random pod
-            # print(ret.items[0].metadata.namespace)
+            print(ret.items[0].metadata.namespace)
             random.shuffle(ret.items)
+            # exlude not Running Pods
             while ret.items[0].status.phase not in "Running":
                 logger.info("Pod in excluded phase, shuffling")
                 random.shuffle(ret.items)
+            # check     
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
             POD_PHASE = ret.items[0].status.phase
-            logger.info("There is %s in %s in phase %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE)
+            POD_OWNER= ret.items[0].metadata.ownerReferences[0].kind
+            logger.info("There is %s in %s in phase %s controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_OWNER)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
         except Exception as e:
             logger.error("Unable to list pods: %s", (e))
@@ -116,7 +119,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     pod_count=count_pods(kopf=kopf,api=api,namespace=name,logger=logger)
     # choose one pod to delete
     if pod_count>0:
-      [pod_name,pod_namespace,pod_phase] = list_pods(kopf=kopf,api=api,namespace=name,logger=logger)
+      [pod_name,pod_namespace,pod_phase] = choose_pods(kopf=kopf,api=api,namespace=name,logger=logger)
     ## TODO  delete pod 
       delete_pod(kopf=kopf,api=api,name=pod_name, namespace=pod_namespace,logger=logger)
 
@@ -136,7 +139,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     pod_count=count_pods(kopf=kopf,api=api,namespace=name,logger=logger)
     # choose one pod to delete
     if pod_count>0:
-      [pod_name,pod_namespace,pod_phase] = list_pods(kopf=kopf,api=api,namespace=name,logger=logger)
+      [pod_name,pod_namespace,pod_phase] = choose_pods(kopf=kopf,api=api,namespace=name,logger=logger)
       ## TODO  delete pod 
       api = kubernetes.client.CoreV1Api()
 
