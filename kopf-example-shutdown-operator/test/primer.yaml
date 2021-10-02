@@ -1,0 +1,8 @@
+apiVersion: djkormo.github/v1alpha1
+kind: Shutdown
+metadata:
+  name: my-namespace #namespace to patch
+  namespace: shutdown-operator 
+spec:
+  number: 4
+  

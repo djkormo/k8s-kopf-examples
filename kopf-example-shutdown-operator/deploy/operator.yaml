@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shutdown-operator
+  namespace: shutdown-operator
+  labels:
+    app: shutdown-operator
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: shutdown-operator
+  template:
+    metadata:
+      labels:
+        app: shutdown-operator
+    spec:
+      serviceAccountName: shutdown-operator
+      securityContext:
+        runAsUser:
+          1000
+      containers:
+      - env:
+        - name: VERBOSE
+          value: "false"
+        - name: DEBUG
+          value: "false"
+        - name: NAMESPACE
+          value: ALL
+        - name: LIVENESS
+          value: "true"
+        - name: LOOP_INTERVAL
+          value: "30"
+        - name: EXCLUDED_NAMESPACES
+          value: "kube-system,kube-public,kube-node-lease"
+        name: op
+        image: djkormo/op-shutdown
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
