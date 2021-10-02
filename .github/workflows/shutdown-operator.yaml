@@ -23,7 +23,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: Dockerfile
-        workdir: kopf-example-primer-operator
+        workdir: kopf-example-shutdown-operator
         
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master

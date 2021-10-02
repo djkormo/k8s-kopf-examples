@@ -50,6 +50,7 @@ kubectl get deploy,pod -n shutdown-operator
 
 ```
 operator_pod=$(kubectl get pod -n shutdown-operator -L app=shutdown-operator -o name | grep operator | head -n1)
+kubectl get ${operator_pod} -n shutdown-operator
 kubectl -n shutdown-operator logs ${operator_pod} -f 
 ```
 
