@@ -1,8 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  namespace: primer-operator
-  name: primer-operator-role-namespaced
+  namespace: shutdown-operator
+  name: shutdown-operator-role-namespaced
 rules:
 
   # Framework: knowing which other operators are running (i.e. peering).
@@ -17,7 +17,7 @@ rules:
 
   # Application: watching & handling for the custom resource we declare.
   - apiGroups: [djkormo.github]
-    resources: [primers,primers/status]
+    resources: [shutdowns,shutdowns/status]
     verbs: [list, watch, patch]
 
   # Application: other resources it produces and manipulates.

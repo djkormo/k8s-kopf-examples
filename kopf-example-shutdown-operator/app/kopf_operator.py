@@ -55,7 +55,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       return {'shutdown-operator-name': namespace}    
 
 
-@kopf.on.delete('djkormo.github', 'v1alpha1', 'primer')
+@kopf.on.delete('djkormo.github', 'v1alpha1', 'shutdown')
 def delete_fn(spec, name, status, namespace, logger, **kwargs):
     print(f"Deleting: {name} with {spec}")
     
