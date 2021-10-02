@@ -72,7 +72,7 @@ def choose_pods(kopf,api,namespace,logger):
             POD_NAMESPACE = ret.items[0].metadata.namespace
             POD_PHASE = ret.items[0].status.phase
             #POD_OWNER= ret.items[0].metadata.ownerReferences.kind
-            POD_OWNER=ret.items[0].metadata.owner_references.kind
+            POD_OWNER=ret.items[0].metadata.owner_references
             POD_CREATED=ret.items[0].metadata.creation_timestamp
             logger.info("There is %s in %s in phase %s created %s and controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_CREATED,POD_OWNER)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
