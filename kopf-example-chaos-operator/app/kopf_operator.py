@@ -50,7 +50,13 @@ def count_pods(kopf,api,namespace,logger):
         print("%s\t%s\t%s" % (pod.metadata.name,
                               pod.status.phase,
                               pod.status.pod_ip))   
-                              
+
+
+#def get_owner_type(kopf,api,name,namespace,logger):
+
+
+
+
 # https://github.com/kubernetes-client/python/issues/946
 
 def choose_pods(kopf,api,namespace,logger):
@@ -81,7 +87,8 @@ def choose_pods(kopf,api,namespace,logger):
               owner_kind = owner_references[0].kind
               # owner  StatefulSet
               if owner_kind == 'ReplicaSet':
-                replica_set = api.read_namespaced_replica_set(name=owner_name, namespace=namespace)
+                apis_api = kubernetes.AppsV1Api()  
+                replica_set = apis_api.read_namespaced_replica_set(name=owner_name, namespace=namespace)
                 owner_references2 = replica_set.metadata.owner_references
                 if isinstance(owner_references2, list):
                   print(owner_references2[0].name)
@@ -92,7 +99,7 @@ def choose_pods(kopf,api,namespace,logger):
               else:
                  print(owner_name)
                  POD_OWNER='Deployment'
-
+                
             logger.info("There is %s in %s in phase %s created %s and controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_CREATED,POD_OWNER)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
         except Exception as e:
