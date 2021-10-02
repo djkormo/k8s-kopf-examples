@@ -87,7 +87,7 @@ def choose_pods(kopf,api,namespace,logger):
               owner_kind = owner_references[0].kind
               # owner  StatefulSet
               if owner_kind == 'ReplicaSet':
-                apis_api = kubernetes.AppsV1Api()  
+                apis_api = kubernetes.client.AppsV1Api()  
                 replica_set = apis_api.read_namespaced_replica_set(name=owner_name, namespace=namespace)
                 owner_references2 = replica_set.metadata.owner_references
                 if isinstance(owner_references2, list):
