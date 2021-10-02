@@ -35,7 +35,17 @@ def check_namespace(name,excluded_namespaces):
      return False  
 
 
+def turn_off_deployment(name,namespace,logger):
+  logger.info("Turning off Deployment %s in namespace %s", name,namespace)
+  pass
 
+def turn_off_daemonset(name,namespace,logger):
+  logger.info("Turning off Daemonset %s in namespace %s", name,namespace)    
+  pass
+
+def turn_off_statefulset(name,namespace,logger):
+  logger.info("Turning off Statefulset %s in namespace %s", name,namespace)    
+  pass
 
 # When creating or resuming object
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'shutdown')
@@ -66,6 +76,8 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     api_response = api.list_namespaced_deployment(namespace=name)
     for d in api_response.items:
         logger.info("Deployment %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
+        if d.spec.replicas>0 :
+          turn_off_deployment(name=d.metadata.name,namespace=d.metadata.namespace)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
 
@@ -78,7 +90,8 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   api = kubernetes.client.AppsV1Api()
   try:
     api_response = api.list_namespaced_daemon_set(namespace=name)
-
+    for d in api_response.items:
+        logger.info("Daemonset %s ", d.metadata.name)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
@@ -88,7 +101,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   try:
     api_response = api.list_namespaced_stateful_set(namespace=name)
     for d in api_response.items:
-        logger.info("Statefulset %s has %s of %s replicas", d.metadata.name,d.spec.replicas)
+        logger.info("Statefulset %s has %s replicas", d.metadata.name,d.spec.replicas)
 
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_stateful_set: %s\n" % e)
