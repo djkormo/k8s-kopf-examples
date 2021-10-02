@@ -72,7 +72,7 @@ def choose_pods(kopf,api,namespace,logger):
             POD_NAMESPACE = ret.items[0].metadata.namespace
             POD_PHASE = ret.items[0].status.phase
             #POD_OWNER= ret.items[0].metadata.ownerReferences.kind
-            POD_OWNER=ret.items[0].metadata.owner_references
+            POD_OWNER=ret.items[0].metadata.owner_references.kind
             POD_CREATED=ret.items[0].metadata.creation_timestamp
             logger.info("There is %s in %s in phase %s created %s and controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_CREATED,POD_OWNER)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
@@ -121,7 +121,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     pod_count=count_pods(kopf=kopf,api=api,namespace=name,logger=logger)
     # choose one pod to delete
     if pod_count>0:
-      [pod_name,pod_namespace,pod_phase] = choose_pods(kopf=kopf,api=api,namespace=name,logger=logger)
+      [pod_name,pod_namespace,pod_phase] = choose_pods(kopf=kopf,api=api,namespace=name,logger=logger)  
     ## TODO  delete pod 
       delete_pod(kopf=kopf,api=api,name=pod_name, namespace=pod_namespace,logger=logger)
 

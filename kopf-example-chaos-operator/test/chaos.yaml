@@ -5,7 +5,7 @@ metadata:
   namespace: chaos-operator 
 spec:
   
-  pods: "true" # deleting pods
+  pods: "true" # deleting alone pods
   deployments: "true" # deleting pods with deployment as the owner
   daemonsets: "true" # deleting pods with daemonset as the owner
   statefulsets: "true" # deleting pods with statefulset the as owner
