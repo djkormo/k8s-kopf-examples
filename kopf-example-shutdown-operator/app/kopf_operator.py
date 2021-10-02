@@ -88,7 +88,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   try:
     api_response = api.list_namespaced_stateful_set(namespace=name)
     for d in api_response.items:
-        logger.info("Statefulset %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
+        logger.info("Statefulset %s has %s of %s replicas", d.metadata.name,d.spec.replicas)
 
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_stateful_set: %s\n" % e)
