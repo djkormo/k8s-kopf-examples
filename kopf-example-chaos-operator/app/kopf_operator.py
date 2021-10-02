@@ -106,6 +106,10 @@ def choose_pods(kopf,api,namespace,logger):
                 print(owner_name)
                 POD_OWNER='DaemonSet'
                 
+              if owner_kind == 'StatefulSet':   
+                print(owner_name)
+                POD_OWNER='DaemonSet'   
+                
             logger.info("There is %s in %s in phase %s created %s and controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_CREATED,POD_OWNER)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
         except Exception as e:
