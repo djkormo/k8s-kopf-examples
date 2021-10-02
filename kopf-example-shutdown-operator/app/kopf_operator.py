@@ -65,8 +65,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   try:
     api_response = api.list_namespaced_deployment(namespace=namespace)
     for d in api_response.items:
-        logger.info("Deployment has '{s}' available replicas".format(
-            s=d.status.available_replicas))
+        logger.info("Deployment %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
 
@@ -89,8 +88,8 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   try:
     api_response = api.list_namespaced_stateful_set(namespace=namespace)
     for d in api_response.items:
-      logger.info("Statefulset has '{s}' available replicas".format(
-      s=d.status.available_replicas))
+        logger.info("Statefulset %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
+
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_stateful_set: %s\n" % e)
 
