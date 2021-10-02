@@ -77,6 +77,14 @@ Redeploy operator
 kubectl replace -R -f deploy/ --force
 ```
 
+Testing RBAC
+kubectl auth can-i delete pod -n my-namepace --as system:serviceaccount:chaos-operator:chaos-operator
+kubectl auth can-i get deployment -n my-namepace --as system:serviceaccount:chaos-operator:chaos-operator
+kubectl auth can-i get replicaset -n my-namepace --as system:serviceaccount:chaos-operator:chaos-operator
+kubectl auth can-i get daemonset -n my-namepace --as system:serviceaccount:chaos-operator:chaos-operator
+kubectl auth can-i get statefulset -n my-namepace --as system:serviceaccount:chaos-operator:chaos-operator
+
+
 Based on 
 
 https://kopf.readthedocs.io/en/latest/walkthrough/creation/

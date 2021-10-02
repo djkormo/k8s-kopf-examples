@@ -75,13 +75,15 @@ def choose_pods(kopf,api,namespace,logger):
             while ret.items[0].status.phase not in "Running":
                 logger.info("Pod in excluded phase, shuffling")
                 random.shuffle(ret.items)
+
             # check     
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
             POD_PHASE = ret.items[0].status.phase
             POD_CREATED=ret.items[0].metadata.creation_timestamp
-
+            POD_OWNER=ret.items[0].metadata.owner_references
             owner_references = ret.items[0].metadata.owner_references
+            logger.info("Owner reference %s",owner_references)
             if isinstance(owner_references, list):
               owner_name = owner_references[0].name
               owner_kind = owner_references[0].kind
@@ -99,6 +101,10 @@ def choose_pods(kopf,api,namespace,logger):
               else:
                  print(owner_name)
                  POD_OWNER='Deployment'
+
+              if owner_kind == 'DaemonSet':   
+                print(owner_name)
+                POD_OWNER='DaemonSet'
                 
             logger.info("There is %s in %s in phase %s created %s and controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_CREATED,POD_OWNER)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])

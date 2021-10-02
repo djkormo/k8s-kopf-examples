@@ -29,7 +29,11 @@ rules:
   # for controlling namespace  
   - apiGroups: [""]
     resources: [namespaces]
-    verbs: [list, watch,patch]
+    verbs: [get,list, watch,patch]
+  - apiGroups: ["apps",""]
+  # for reading replicasets , deployments,statefulsets,daemonsets
+    resources: [replicasets,deployments,statefulsets,daemonsets]
+    verbs: [get,list, watch]
   # for controlling pods  
   - apiGroups: [""]
     resources: [pods]
