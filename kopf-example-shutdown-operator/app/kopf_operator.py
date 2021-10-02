@@ -34,6 +34,9 @@ def check_namespace(name,excluded_namespaces):
   else:
      return False  
 
+
+
+
 # When creating or resuming object
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'shutdown')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'shutdown')
@@ -48,11 +51,48 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'shutdown',interval=LOOP_INTERVAL,sharp=True)
 def check_object_on_time(spec, name, namespace, logger, **kwargs):
-    logger.info(f"Timer: for {name} with {spec} is invoked")
+  logger.info(f"Timer: for {name} with {spec} is invoked")
         
-    # check for excluded namespace
-    if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
-      return {'shutdown-operator-name': namespace}    
+  # check for excluded namespace
+  if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
+    return {'shutdown-operator-name': namespace}   
+     
+  # check if deployment is turned on
+  # TODO
+  # list all deployments
+
+  api = kubernetes.client.AppsV1Api()
+  try:
+    api_response = api.list_namespaced_deployment(namespace=namespace)
+    for d in api_response.items:
+        logger.info("Deployment has '{s}' available replicas".format(
+            s=d.status.available_replicas))
+  except ApiException as e:
+    print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
+
+
+
+  # check if daemonset is turned on
+  # TODO
+  # list all daemonsets
+
+  api = kubernetes.client.AppsV1Api()
+  try:
+    api_response = api.list_namespaced_daemon_set(namespace=namespace)
+
+  except ApiException as e:
+    print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
+
+  # check if statefulset is turned on
+  # TODO
+  # list all statefulset
+  try:
+    api_response = api.list_namespaced_stateful_set(namespace=namespace)
+    for d in api_response.items:
+      logger.info("Statefulset has '{s}' available replicas".format(
+      s=d.status.available_replicas))
+  except ApiException as e:
+    print("Exception when calling AppsV1Api->list_namespaced_stateful_set: %s\n" % e)
 
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'shutdown')

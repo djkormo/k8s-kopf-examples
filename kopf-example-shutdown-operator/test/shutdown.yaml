@@ -4,5 +4,8 @@ metadata:
   name: my-namespace #namespace to patch
   namespace: shutdown-operator 
 spec:
-  number: 4
+  dry-run: "true"
+  deployments: "true" # turn off deployments
+  daemonsets: "true" # turn off daemonsets
+  statefulsets: "true" # turn off daemonsets statefulset
   
