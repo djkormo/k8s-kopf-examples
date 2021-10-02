@@ -50,6 +50,8 @@ def count_pods(kopf,api,namespace,logger):
         print("%s\t%s\t%s" % (pod.metadata.name,
                               pod.status.phase,
                               pod.status.pod_ip))   
+                              
+# https://github.com/kubernetes-client/python/issues/946
 
 def choose_pods(kopf,api,namespace,logger):
     if  False: #constants.OFFLINE_MODE == True:
@@ -71,9 +73,26 @@ def choose_pods(kopf,api,namespace,logger):
             POD_NAME= ret.items[0].metadata.name
             POD_NAMESPACE = ret.items[0].metadata.namespace
             POD_PHASE = ret.items[0].status.phase
-            #POD_OWNER= ret.items[0].metadata.ownerReferences.kind
-            POD_OWNER=ret.items[0].metadata.owner_references
             POD_CREATED=ret.items[0].metadata.creation_timestamp
+
+            owner_references = ret.items[0].metadata.owner_references
+            if isinstance(owner_references, list):
+              owner_name = owner_references[0].name
+              owner_kind = owner_references[0].kind
+              # owner  StatefulSet
+              if owner_kind == 'ReplicaSet':
+                replica_set = api.read_namespaced_replica_set(name=owner_name, namespace=namespace)
+                owner_references2 = replica_set.metadata.owner_references
+                if isinstance(owner_references2, list):
+                  print(owner_references2[0].name)
+                else:
+                  print(owner_name)
+                  POD_OWNER='StatefulSet'
+               # owner Deployment
+              else:
+                 print(owner_name)
+                 POD_OWNER='Deployment'
+
             logger.info("There is %s in %s in phase %s created %s and controlled by %s to kill",POD_NAME,POD_NAMESPACE,POD_PHASE,POD_CREATED,POD_OWNER)
             return([POD_NAME, POD_NAMESPACE,POD_PHASE])
         except Exception as e:
