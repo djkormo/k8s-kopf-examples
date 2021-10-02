@@ -92,6 +92,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     api_response = api.list_namespaced_daemon_set(namespace=name)
     for d in api_response.items:
         logger.info("Daemonset %s ", d.metadata.name)
+        turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
