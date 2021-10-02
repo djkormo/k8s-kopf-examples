@@ -63,7 +63,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
 
   api = kubernetes.client.AppsV1Api()
   try:
-    api_response = api.list_namespaced_deployment(namespace=namespace)
+    api_response = api.list_namespaced_deployment(namespace=name)
     for d in api_response.items:
         logger.info("Deployment %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
   except ApiException as e:
@@ -77,7 +77,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
 
   api = kubernetes.client.AppsV1Api()
   try:
-    api_response = api.list_namespaced_daemon_set(namespace=namespace)
+    api_response = api.list_namespaced_daemon_set(namespace=name)
 
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
@@ -86,7 +86,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   # TODO
   # list all statefulset
   try:
-    api_response = api.list_namespaced_stateful_set(namespace=namespace)
+    api_response = api.list_namespaced_stateful_set(namespace=name)
     for d in api_response.items:
         logger.info("Statefulset %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
 
