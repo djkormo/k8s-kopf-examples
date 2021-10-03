@@ -37,6 +37,15 @@ def check_namespace(name,excluded_namespaces):
 
 def turn_off_deployment(name,namespace,logger,kopf,spec,api):
   logger.info("Turning off Deployment %s in namespace %s", name,namespace)
+  # how many replicas we have
+  # set replicas to zero
+  body = {"spec": {"replicas": 0}}
+  try:
+    api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
+    pprint(api_response)
+  except ApiException as e:
+    print("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
+  
   pass
 
 def turn_off_daemonset(name,namespace,logger,kopf,spec,api):
@@ -80,7 +89,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     for d in api_response.items:
         logger.info("Deployment %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
         if d.spec.replicas>0 :
-          turn_off_deployment(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,logger=logger,kopf=kopf,spec=spec,api=api)
+          turn_off_deployment(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
 
