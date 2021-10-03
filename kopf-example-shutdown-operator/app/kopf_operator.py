@@ -38,6 +38,8 @@ def check_namespace(name,excluded_namespaces):
 def turn_off_deployment(name,namespace,logger,kopf,spec,api):
   logger.info("Turning off Deployment %s in namespace %s", name,namespace)
   
+  replicas = api.read_namespaced_deployment_scale(name=name, namespace=namespace)
+ 
   # how many replicas we have
   replicas = spec.get('replicas')  
 
@@ -52,9 +54,13 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api):
     api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
     pprint(api_response)
   except ApiException as e:
-    print("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
+    if e.status == 404:
+        print("No deployment found")
+    else:
+      print("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
   
 
+  
 def turn_off_daemonset(name,namespace,logger,kopf,spec,api):
   logger.info("Turning off Daemonset %s in namespace %s", name,namespace)    
   pass
