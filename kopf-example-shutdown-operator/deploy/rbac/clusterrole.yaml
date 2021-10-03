@@ -32,5 +32,5 @@ rules:
     verbs: [list, watch,patch]
   # for reading replicasets , deployments,statefulsets,daemonsets
   - apiGroups: ["apps",""]
-    resources: [replicasets,deployments,statefulsets,daemonsets]
+    resources: [replicasets,deployments,deployments/scale,statefulsets,daemonsets]
     verbs: [get,list, watch,patch]
