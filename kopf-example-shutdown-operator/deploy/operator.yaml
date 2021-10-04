@@ -24,7 +24,7 @@ spec:
       containers:
       - env:
         - name: VERBOSE
-          value: "false"
+          value: "true"
         - name: DEBUG
           value: "false"
         - name: NAMESPACE

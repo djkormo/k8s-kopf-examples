@@ -38,13 +38,15 @@ def check_namespace(name,excluded_namespaces):
 def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
   logger.info("Turning off Deployment %s in namespace %s", name,namespace)
   
-  replicas = api.read_namespaced_deployment_scale(name=name, namespace=namespace)
+  #replicas = api.read_namespaced_deployment_scale(name=name, namespace=namespace)
  
   # how many replicas we have
   replicas = spec.get('replicas')  
 
   logger.info("Deployment %s in %s namespace has %s replicas", name,namespace,replicas)
-  # save replicas to proper annotation 
+  
+  # save replicas and timestamp to proper annotations
+  
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
   body = {
@@ -57,13 +59,12 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
     }
 
   try:
-    api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
-    pprint(api_response)
+    api_response =api.patch_namespaced_deployment(name, namespace, body=body)
   except ApiException as e:
     if e.status == 404:
         logger.info("No deployment found")
     else:
-      logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
+      logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment: %s\n" % e)
 
   # TODO 
 
@@ -73,7 +74,6 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
     body = {"spec": {"replicas": 0}}
     try:
       api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
-      pprint(api_response)
     except ApiException as e:
       if e.status == 404:
          logger.info("No deployment found")
@@ -81,7 +81,6 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
         logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
   
 
-  
 def turn_off_daemonset(name,namespace,logger,kopf,spec,api,dry_run):
   logger.info("Turning off Daemonset %s in namespace %s", name,namespace)    
   pass
@@ -106,7 +105,7 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
     }
 
   try:
-    api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
+    api_response =api.patch_namespaced_stateful_set(name, namespace, body=body)
     pprint(api_response)
   except ApiException as e:
     if e.status == 404:
