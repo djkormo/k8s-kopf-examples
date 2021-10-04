@@ -48,16 +48,13 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api):
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
   body = {
-        'spec': {
-            'template':{
+
                 'metadata': {
                     'annotations': {
                         'shutdown.djkormo.github/replicas': replicas,
                         'shutdown.djkormo.github/changedAt': now
                     }
                 }
-            }
-        }
     }
 
   try:
@@ -79,9 +76,9 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api):
     pprint(api_response)
   except ApiException as e:
     if e.status == 404:
-        print("No deployment found")
+        logger.info("No deployment found")
     else:
-      print("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
+      logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
   
 
   
@@ -99,16 +96,13 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api):
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
   body = {
-        'spec': {
-            'template':{
+
                 'metadata': {
                     'annotations': {
                         'shutdown.djkormo.github/replicas': replicas,
                         'shutdown.djkormo.github/changedAt': now
                     }
                 }
-            }
-        }
     }
 
   try:
@@ -116,9 +110,9 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api):
     pprint(api_response)
   except ApiException as e:
     if e.status == 404:
-        print("No statefulset found")
+        logger.info("No statefulset found")
     else:
-      print("Exception when calling AppsV1Api->patch_namespaced_statefulset_scale: %s\n" % e)
+      logger.info("Exception when calling AppsV1Api->patch_namespaced_statefulset_scale: %s\n" % e)
 
   # TODO 
 
@@ -130,9 +124,9 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api):
     pprint(api_response)
   except ApiException as e:
     if e.status == 404:
-        print("No deployment found")
+        logger.info("No deployment found")
     else:
-      print("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale: %s\n" % e)
+      logger.info("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale: %s\n" % e)
      
 
 # When creating or resuming object
