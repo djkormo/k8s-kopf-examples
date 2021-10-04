@@ -147,6 +147,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   logger.info(f"Timer: for {name} with {spec} is invoked")
         
   object_namespace = spec.get('namespace')   
+  dry_run = spec.get('dry-run',False)
 
   # check for excluded namespace
   if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
@@ -163,7 +164,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     for d in api_response.items:
         logger.info("Deployment %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
         if d.spec.replicas>0 :
-          turn_off_deployment(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=True)
+          turn_off_deployment(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
 
@@ -178,7 +179,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     api_response = api.list_namespaced_daemon_set(namespace=object_namespace)
     for d in api_response.items:
         logger.info("Daemonset %s ", d.metadata.name)
-        turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=True)
+        turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
@@ -191,7 +192,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     for d in api_response.items:
       logger.info("Statefulset %s has %s replicas", d.metadata.name,d.spec.replicas)
       if d.spec.replicas>0 :
-        turn_off_statefulset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=True)
+        turn_off_statefulset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_stateful_set: %s\n" % e)
 
