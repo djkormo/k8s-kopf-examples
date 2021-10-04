@@ -85,10 +85,15 @@ kubectl auth can-i -n shutdown-operator create events --as=system:serviceaccount
 ```
 
 
-
 Based on 
 
 https://kopf.readthedocs.io/en/latest/walkthrough/creation/
+
+https://github.com/kubernetes-client/python/blob/master/examples/deployment_crud.py
+https://github.com/kubernetes-client/python/issues/1378
+https://stackoverflow.com/questions/53929693/how-to-scale-kubernetes-daemonset-to-0
+
+
 
 
 
