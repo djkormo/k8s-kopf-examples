@@ -58,6 +58,14 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
                 }
     }
 
+  body = {
+                'metadata': {
+                    'annotations': {
+                        'shutdown.djkormo.github/replicas': replicas
+                    }
+                }
+    }
+
   try:
     api_response =api.patch_namespaced_deployment(name, namespace, body=body)
   except ApiException as e:
@@ -103,6 +111,15 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
                     }
                 }
     }
+  body = {
+
+                'metadata': {
+                    'annotations': {
+                        'shutdown.djkormo.github/replicas': replicas
+                    }
+                }
+    }
+  
 
   try:
     api_response =api.patch_namespaced_stateful_set(name, namespace, body=body)
