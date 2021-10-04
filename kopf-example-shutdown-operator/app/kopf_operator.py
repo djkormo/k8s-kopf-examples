@@ -45,6 +45,30 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api):
 
   logger.info("Deployment %s in %s namespace has %s replicas", name,namespace,replicas)
   # save replicas to proper annotation 
+  now = datetime.datetime.utcnow()
+  now = str(now.isoformat("T") + "Z")
+  body = {
+        'spec': {
+            'template':{
+                'metadata': {
+                    'annotations': {
+                        'shutdown.djkormo.github/replicas': replicas,
+                        'shutdown.djkormo.github/changedAt': now
+                    }
+                }
+            }
+        }
+    }
+
+  try:
+    api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
+    pprint(api_response)
+  except ApiException as e:
+    if e.status == 404:
+        print("No deployment found")
+    else:
+      print("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
+
   # TODO 
 
   # set replicas to zero
@@ -66,8 +90,50 @@ def turn_off_daemonset(name,namespace,logger,kopf,spec,api):
   pass
 
 def turn_off_statefulset(name,namespace,logger,kopf,spec,api):
-  logger.info("Turning off Statefulset %s in namespace %s", name,namespace)    
-  pass
+  logger.info("Turning off Statefulset %s in namespace %s", name,namespace) 
+  # how many replicas we have
+  replicas = spec.get('replicas')  
+
+  logger.info("Statefulset %s in %s namespace has %s replicas", name,namespace,replicas)
+  # save replicas to proper annotation 
+  now = datetime.datetime.utcnow()
+  now = str(now.isoformat("T") + "Z")
+  body = {
+        'spec': {
+            'template':{
+                'metadata': {
+                    'annotations': {
+                        'shutdown.djkormo.github/replicas': replicas,
+                        'shutdown.djkormo.github/changedAt': now
+                    }
+                }
+            }
+        }
+    }
+
+  try:
+    api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
+    pprint(api_response)
+  except ApiException as e:
+    if e.status == 404:
+        print("No statefulset found")
+    else:
+      print("Exception when calling AppsV1Api->patch_namespaced_statefulset_scale: %s\n" % e)
+
+  # TODO 
+
+  # set replicas to zero
+  logger.info("Setting Statefulset %s in %s namespace to zero replicas",name,namespace)
+  body = {"spec": {"replicas": 0}}
+  try:
+    api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
+    pprint(api_response)
+  except ApiException as e:
+    if e.status == 404:
+        print("No deployment found")
+    else:
+      print("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale: %s\n" % e)
+     
 
 # When creating or resuming object
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'shutdown')
