@@ -58,7 +58,7 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
                 }
     }
 
-  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": 1 }}}
+  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": "1" }}}
   if (not dry_run):
     try:
       api_response =api.patch_namespaced_deployment(name, namespace, body=body)
@@ -94,7 +94,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,spec,api,dry_run):
   body = {
             'metadata': {
               'annotations': {
-                  'shutdown.djkormo.github/replicas': 102,
+                  'shutdown.djkormo.github/replicas': "1",
                     'shutdown.djkormo.github/changedAt': now
                     }
                 }
@@ -147,7 +147,7 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
                     }
                 }
     }
-  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": 1 }}}
+  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": "1" }}}
   
   if (not dry_run):
     try:
