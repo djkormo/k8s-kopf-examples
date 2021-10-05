@@ -1,3 +1,4 @@
+![schema](shutdown-k8s-applications.png)
 
 
 ## Step for running operator in our k8s cluster
