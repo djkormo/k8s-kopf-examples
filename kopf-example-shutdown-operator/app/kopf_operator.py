@@ -73,6 +73,16 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
   if (not dry_run):
     # set replicas to zero
     logger.info("Setting Deployment %s in %s namespace to zero replicas",name,namespace)
+
+    body = {
+                'metadata': {
+                    'annotations': {
+                        'shutdown.djkormo.github/replicas': replicas,
+                        'shutdown.djkormo.github/changedAt': now
+                    }
+                }
+    }
+    
     body = {"spec": {"replicas": 0}}
     try:
       api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
@@ -83,9 +93,49 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
         logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
   
 
+
+
 def turn_off_daemonset(name,namespace,logger,kopf,spec,api,dry_run):
-  logger.info("Turning off Daemonset %s in namespace %s", name,namespace)    
-  pass
+  logger.info("Turning off Daemonset %s in namespace %s", name,namespace)  
+  now = datetime.datetime.utcnow()
+  now = str(now.isoformat("T") + "Z")
+
+  body = {
+            'metadata': {
+              'annotations': {
+                  'shutdown.djkormo.github/replicas': 102,
+                    'shutdown.djkormo.github/changedAt': now
+                    }
+                }
+    }
+    
+
+  if (not dry_run):
+    try:
+      api_response =api.patch_namespaced_daemonset_set(name, namespace, body=body)
+      pprint(api_response)
+    except ApiException as e:
+      if e.status == 404:
+        logger.info("No statefulset found")
+      else:
+        logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set: %s\n" % e)
+  
+ 
+  body={"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}
+  if (not dry_run):
+    try:
+      api_response =api.patch_namespaced_daemonset_set(name, namespace, body=body)
+      pprint(api_response)
+    except ApiException as e:
+      if e.status == 404:
+        logger.info("No daemonset found")
+      else:
+        logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set: %s\n" % e)
+
+
+  ##kubectl -n <namespace> patch daemonset <name-of-daemon-set> -p '{"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}
+
+
 
 def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
   logger.info("Turning off Statefulset %s in namespace %s", name,namespace) 
@@ -165,7 +215,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   try:
     api_response = api.list_namespaced_deployment(namespace=object_namespace)
     for d in api_response.items:
-        logger.info("Deployment %s has %s available replicas of %s replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
+        logger.info("Deployment %s has %s available replicas of %s desired replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
         if d.spec.replicas>0 :
           turn_off_deployment(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
   except ApiException as e:
@@ -181,8 +231,9 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   try:
     api_response = api.list_namespaced_daemon_set(namespace=object_namespace)
     for d in api_response.items:
-        logger.info("Daemonset %s ", d.metadata.name)
-        turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
+        logger.info("Daemonset %s has %s desired replicas", d.metadata.name,d.state.desiredNumberScheduled)
+        if d.state.desiredNumberScheduled>0 :
+          turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
