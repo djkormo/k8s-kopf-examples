@@ -231,8 +231,8 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   try:
     api_response = api.list_namespaced_daemon_set(namespace=object_namespace)
     for d in api_response.items:
-        logger.info("Daemonset %s has %s desired replicas", d.metadata.name,d.state.desiredNumberScheduled)
-        if d.state.desiredNumberScheduled>0 :
+        logger.info("Daemonset %s has %s desired replicas", d.metadata.name,d.status.desired_number_scheduled)
+        if d.status.desired_number_scheduled>0 :
           turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
   except ApiException as e:
     print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
