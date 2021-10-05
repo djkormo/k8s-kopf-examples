@@ -150,7 +150,7 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
                     }
                 }
     }
-  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": "1" }}}
+  #body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": "1" }}}
   
   if (not dry_run):
     try:
