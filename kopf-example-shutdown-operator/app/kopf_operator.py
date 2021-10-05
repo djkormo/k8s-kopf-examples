@@ -52,21 +52,21 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
   body = {
                 'metadata': {
                     'annotations': {
-                        'shutdown.djkormo.github/replicas': replicas,
+                        'shutdown.djkormo.github/replicas': 1,
                         'shutdown.djkormo.github/changedAt': now
                     }
                 }
     }
 
-  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": replicas }}}
-
-  try:
-    api_response =api.patch_namespaced_deployment(name, namespace, body=body)
-  except ApiException as e:
-    if e.status == 404:
+  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": 1 }}}
+  if (not dry_run):
+    try:
+      api_response =api.patch_namespaced_deployment(name, namespace, body=body)
+    except ApiException as e:
+      if e.status == 404:
         logger.info("No deployment found")
-    else:
-      logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment: %s\n" % e)
+      else:
+        logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment: %s\n" % e)
 
   # TODO 
 
@@ -74,15 +74,6 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
     # set replicas to zero
     logger.info("Setting Deployment %s in %s namespace to zero replicas",name,namespace)
 
-    body = {
-                'metadata': {
-                    'annotations': {
-                        'shutdown.djkormo.github/replicas': replicas,
-                        'shutdown.djkormo.github/changedAt': now
-                    }
-                }
-    }
-    
     body = {"spec": {"replicas": 0}}
     try:
       api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
@@ -116,12 +107,13 @@ def turn_off_daemonset(name,namespace,logger,kopf,spec,api,dry_run):
       pprint(api_response)
     except ApiException as e:
       if e.status == 404:
-        logger.info("No statefulset found")
+        logger.info("No daemonset found")
       else:
         logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set: %s\n" % e)
   
  
   body={"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}
+
   if (not dry_run):
     try:
       api_response =api.patch_namespaced_daemon_set(name, namespace, body=body)
@@ -155,17 +147,17 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
                     }
                 }
     }
-  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": replicas }}}
+  body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": 1 }}}
   
-
-  try:
-    api_response =api.patch_namespaced_stateful_set(name, namespace, body=body)
-    pprint(api_response)
-  except ApiException as e:
-    if e.status == 404:
-      logger.info("No statefulset found")
-    else:
-      logger.info("Exception when calling AppsV1Api->patch_namespaced_statefulset_scale: %s\n" % e)
+  if (not dry_run):
+    try:
+      api_response =api.patch_namespaced_stateful_set(name, namespace, body=body)
+      pprint(api_response)
+    except ApiException as e:
+      if e.status == 404:
+        logger.info("No statefulset found")
+      else:
+        logger.info("Exception when calling AppsV1Api->patch_namespaced_statefulset_scale: %s\n" % e)
 
   # TODO 
   if (not dry_run):
