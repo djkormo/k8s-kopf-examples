@@ -112,7 +112,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,spec,api,dry_run):
 
   if (not dry_run):
     try:
-      api_response =api.patch_namespaced_daemonset_set(name, namespace, body=body)
+      api_response =api.patch_namespaced_daemon_set(name, namespace, body=body)
       pprint(api_response)
     except ApiException as e:
       if e.status == 404:
@@ -124,7 +124,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,spec,api,dry_run):
   body={"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}
   if (not dry_run):
     try:
-      api_response =api.patch_namespaced_daemonset_set(name, namespace, body=body)
+      api_response =api.patch_namespaced_daemon_set(name, namespace, body=body)
       pprint(api_response)
     except ApiException as e:
       if e.status == 404:
