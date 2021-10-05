@@ -193,6 +193,9 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
         
   object_namespace = spec.get('namespace')   
   dry_run = spec.get('dry-run',False)
+  deployments_enabled = spec.get('deployments',False)
+  daemonsets_enabled = spec.get('daemonsets',False)
+  statefulsets_enabled = spec.get('statefulsets',False)
 
   # check for excluded namespace
   if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
@@ -203,44 +206,45 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   # list all deployments
 
   api = kubernetes.client.AppsV1Api()
-
-  try:
-    api_response = api.list_namespaced_deployment(namespace=object_namespace)
-    for d in api_response.items:
+  if deployments_enabled:
+    try:
+      api_response = api.list_namespaced_deployment(namespace=object_namespace)
+      for d in api_response.items:
         logger.info("Deployment %s has %s available replicas of %s desired replicas", d.metadata.name,d.status.available_replicas,d.spec.replicas)
         if d.spec.replicas>0 :
           turn_off_deployment(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
-  except ApiException as e:
-    print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
+    except ApiException as e:
+      print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
 
 
 
   # check if daemonset is turned on
   # TODO
   # list all daemonsets
-
-  api = kubernetes.client.AppsV1Api()
-  try:
-    api_response = api.list_namespaced_daemon_set(namespace=object_namespace)
-    for d in api_response.items:
+  if daemonsets_enabled:
+    api = kubernetes.client.AppsV1Api()
+    try:
+      api_response = api.list_namespaced_daemon_set(namespace=object_namespace)
+      for d in api_response.items:
         logger.info("Daemonset %s has %s desired replicas", d.metadata.name,d.status.desired_number_scheduled)
         if d.status.desired_number_scheduled>0 :
           turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
-  except ApiException as e:
-    print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
+    except ApiException as e:
+      print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
   # check if statefulset is turned on
   # TODO
   # list all statefulset
-  api = kubernetes.client.AppsV1Api()
-  try:
-    api_response = api.list_namespaced_stateful_set(namespace=object_namespace)
-    for d in api_response.items:
-      logger.info("Statefulset %s has %s replicas", d.metadata.name,d.spec.replicas)
-      if d.spec.replicas>0 :
-        turn_off_statefulset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
-  except ApiException as e:
-    print("Exception when calling AppsV1Api->list_namespaced_stateful_set: %s\n" % e)
+  if statefulsets_enabled :
+    api = kubernetes.client.AppsV1Api()
+    try:
+      api_response = api.list_namespaced_stateful_set(namespace=object_namespace)
+      for d in api_response.items:
+        logger.info("Statefulset %s has %s replicas", d.metadata.name,d.spec.replicas)
+        if d.spec.replicas>0 :
+          turn_off_statefulset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,spec=spec,api=api,dry_run=dry_run)
+    except ApiException as e:
+      print("Exception when calling AppsV1Api->list_namespaced_stateful_set: %s\n" % e)
 
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'shutdown')
