@@ -5,8 +5,10 @@ metadata:
   namespace: shutdown-operator 
 spec:
   namespace: my-namespace
-  dry-run: false
-  deployments: true # turn off deployments
-  daemonsets: true # turn off daemonsets
-  statefulsets: true # turn off daemonsets statefulset
+  dry-run: false # dry run mode , default false
+  state: true # turning off mode, default true
+  deployments: true # turn off deployments, default false
+  daemonsets: true # turn off daemonsets , default false
+  statefulsets: true # turn off daemonsets statefulset default false 
+  
   
