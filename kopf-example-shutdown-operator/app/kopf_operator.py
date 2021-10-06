@@ -168,7 +168,7 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
       pprint(api_response)
     except ApiException as e:
       if e.status == 404:
-        logger.info("No deployment found")
+        logger.info("No statefulset found")
       else:
         logger.info("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale: %s\n" % e)
      
@@ -178,7 +178,7 @@ def turn_on_deployment(name,namespace,logger,kopf,spec,api,dry_run):
     if (not dry_run):
       logger.info("Setting Deployment %s in %s namespace to one replicas",name,namespace)
 
-      body = {"spec": {"replicas": 1}}
+      body = {"spec": {"replicas": 1}} # TODO 
       try:
         api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
       except ApiException as e:
@@ -195,8 +195,18 @@ def turn_on_daemonset(name,namespace,logger,kopf,spec,api,dry_run):
 
 def turn_on_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
     logger.info("Turning on Statefulset %s in namespace %s", name,namespace)   
-    pass
-
+    if (not dry_run):
+      # set replicas to zero
+      logger.info("Setting Statefulset %s in %s namespace to one replicas",name,namespace)
+      body = {"spec": {"replicas": 1}}
+      try:
+        api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
+        pprint(api_response)
+      except ApiException as e:
+        if e.status == 404:
+          logger.info("No statefulset found")
+        else:
+          logger.info("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale: %s\n" % e)
 
 
 # When creating or resuming object
