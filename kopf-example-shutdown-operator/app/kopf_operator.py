@@ -51,13 +51,12 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
   body = {
                 'metadata': {
                     'annotations': {
-                        'shutdown.djkormo.github/replicas': replicas,
+                        'shutdown.djkormo.github/replicas': int(spec['replicas']),
                         'shutdown.djkormo.github/changedAt': now
                     }
                 }
     }
 
-  #body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": "1" }}}
   if (not dry_run):
     try:
       api_response =api.patch_namespaced_deployment(name, namespace, body=body)
@@ -125,7 +124,6 @@ def turn_off_daemonset(name,namespace,logger,kopf,spec,api,dry_run):
   ##kubectl -n <namespace> patch daemonset <name-of-daemon-set> -p '{"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}
 
 
-
 def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
   logger.info("Turning off Statefulset %s in namespace %s", name,namespace) 
   # how many replicas we have
@@ -138,10 +136,9 @@ def turn_off_statefulset(name,namespace,logger,kopf,spec,api,dry_run):
   now = str(now.isoformat("T") + "Z")
   replicas=str(replicas)
   body = {
-
                 'metadata': {
                     'annotations': {
-                        'shutdown.djkormo.github/replicas': replicas,
+                        'shutdown.djkormo.github/replicas': int(spec['replicas']),
                         'shutdown.djkormo.github/changedAt': now
                     }
                 }
