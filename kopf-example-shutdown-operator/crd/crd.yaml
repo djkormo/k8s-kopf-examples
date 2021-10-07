@@ -16,7 +16,61 @@ spec:
       openAPIV3Schema:
         type: object
         x-kubernetes-preserve-unknown-fields: true
+        properties:
+          spec:
+            type: object
+            properties:
+              namespace:
+                type: string
+                nullable: false
+              dry-run:
+                type: boolean
+                nullable: false
+                default: false
+              state:
+                type: boolean
+                nullable: false
+                default: true
+              deployments:
+                type: boolean
+                nullable: false
+                default: false
+              daemonsets:
+                type: boolean
+                nullable: false
+                default: false
+              statefulsets:
+                type: boolean
+                nullable: false
+                default: false
+              filter:
+                type: string
+                nullable: false
+                default: ""    
     served: true
     storage: true
-    subresources:
-      status: {}
+    additionalPrinterColumns:
+    - name: namespace
+      type: string
+      description: Namespace to controll
+      jsonPath: .spec.namespace
+    - name: dry-run
+      type: boolean
+      description: Dry run mode. Default to false
+      jsonPath: .spec.dry-run
+    - name: state
+      type: boolean
+      description: State on - turning off, state off - turning on
+      jsonPath: .spec.state
+    - name: deployments
+      type: boolean
+      description: State on - turning off, state off - turning on
+      jsonPath: .spec.deployments
+    - name: statefulsets
+      type: boolean
+      description: State on - turning off, state off - turning on
+      jsonPath: .spec.statefulsets
+    - name: filter
+      type: string
+      description: Filtering resources to controll
+      jsonPath: .spec.filter
