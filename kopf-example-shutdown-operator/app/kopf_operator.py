@@ -51,11 +51,13 @@ def turn_off_deployment(name,namespace,logger,kopf,spec,api,dry_run):
   body = {
                 'metadata': {
                     'annotations': {
-                        'shutdown.djkormo.github/replicas': int(spec['replicas']),
+                        'shutdown.djkormo.github/replicas': str(replicas),
                         'shutdown.djkormo.github/changedAt': now
                     }
                 }
     }
+
+  pprint(body)  
 
   if (not dry_run):
     try:
