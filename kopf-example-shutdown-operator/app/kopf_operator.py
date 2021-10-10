@@ -32,8 +32,8 @@ def turn_off_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   logger.info("Turning off Deployment %s in namespace %s", name,namespace)
   
   # how many replicas we have
-  replicas = spec.get('replicas')  
-
+  replicas = spec['replicas']
+  
   logger.info("Deployment %s in %s namespace has %s replicas", name,namespace,replicas)
   
   # save replicas and timestamp to proper annotations
