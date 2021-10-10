@@ -74,7 +74,7 @@ def turn_off_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
       if e.status == 404:
          logger.info("No deployment found")
       else:
-        logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
+        logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale in turn_off_deployment : %s\n" % e)
   
 
 # turning on deloyment     
@@ -95,7 +95,7 @@ def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
         if e.status == 404:
           logger.info("No deployment found")
         else:
-          logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale: %s\n" % e)
+          logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale in turn_on_deployment: %s\n" % e)
 
 # Deployment end
 
@@ -127,7 +127,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
       if e.status == 404:
         logger.info("No daemonset found")
       else:
-        logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set: %s\n" % e)
+        logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set in turn_off_daemonset : %s\n" % e)
   
   
   body={"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}
@@ -159,7 +159,7 @@ def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
         if e.status == 404:
           logger.info("No daemonset found")
         else:
-          logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set: %s\n" % e)
+          logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set in turn_on_daemonset: %s\n" % e)
   
   
     body={"op": "remove", "path": "/spec/template/spec/nodeSelector/non-existing"}
@@ -174,7 +174,7 @@ def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
         if e.status == 404:
           logger.info("No daemonset found")
         else:
-          logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set: %s\n" % e)
+          logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set in turn_on_daemonset: %s\n" % e)
 
 # Daemonset end  
 
@@ -213,7 +213,7 @@ def turn_off_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
       if e.status == 404:
         logger.info("No statefulset found")
       else:
-        logger.info("Exception when calling AppsV1Api->patch_namespaced_statefulset_scale: %s\n" % e)
+        logger.info("Exception when calling AppsV1Api->patch_namespaced_statefulset_scale in turn_off_statefulset: %s\n" % e)
 
   # TODO 
   if (not dry_run):
@@ -228,7 +228,7 @@ def turn_off_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
       if e.status == 404:
         logger.info("No statefulset found")
       else:
-        logger.info("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale: %s\n" % e)
+        logger.info("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale in turn_off_statefulset : %s\n" % e)
      
 
 # Turning on statefulset
@@ -247,7 +247,7 @@ def turn_on_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
         if e.status == 404:
           logger.info("No statefulset found")
         else:
-          logger.info("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale: %s\n" % e)
+          logger.info("Exception when calling AppsV1Api->patch_namespaced_stateful_set_scale in turn_on_statefulset: %s\n" % e)
 
 # Statefulset end
  
