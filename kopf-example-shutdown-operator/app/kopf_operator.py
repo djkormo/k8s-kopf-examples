@@ -40,7 +40,7 @@ def turn_off_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
-  replicas=str(replicas)
+
   body = {
                 "metadata": {
                     "annotations": {
@@ -81,8 +81,8 @@ def turn_off_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     logger.info("Turning on Deployment %s in namespace %s", name,namespace)
   
-    replicas=1
-    #replicas=str(replicas) 
+    replicas=metadata.annotations['shutdown.djkormo.github/replicas']
+
     if (not dry_run):
       logger.info("Setting Deployment %s in %s namespace to %s replicas",name,namespace,replicas)
 
@@ -106,7 +106,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   logger.info("Turning off Daemonset %s in namespace %s", name,namespace)  
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
-  replicas=str(1)
+  replicas=1
   body = {
             'metadata': {
               'annotations': {
@@ -115,9 +115,8 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
                   }
                 }
     }
-  #body=json.loads(body)
-    
 
+    
   if (not dry_run):
     try:
       api_response =api.patch_namespaced_daemon_set(name, namespace, body=body)
@@ -184,14 +183,14 @@ def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 def turn_off_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   logger.info("Turning off Statefulset %s in namespace %s", name,namespace) 
   # how many replicas we have
-  replicas = spec.get('replicas')  
+  replicas = spec.replicas
 
   logger.info("Statefulset %s in %s namespace has %s replicas", name,namespace,replicas)
 
   # save replicas to proper annotation 
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
-  replicas=str(replicas)
+
   body = {
                 'metadata': {
                     'annotations': {
