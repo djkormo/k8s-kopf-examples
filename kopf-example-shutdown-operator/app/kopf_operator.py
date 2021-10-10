@@ -107,16 +107,16 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   logger.info("Turning off Daemonset %s in namespace %s", name,namespace)  
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
-  
+  replicas=str(1)
   body = {
             'metadata': {
               'annotations': {
-                  'shutdown.djkormo.github/replicas': "1",
-                    'shutdown.djkormo.github/changedAt': now
-                    }
+                  'shutdown.djkormo.github/replicas': replicas,
+                  'shutdown.djkormo.github/changedAt': now
+                  }
                 }
     }
-  body=json.loads(body)
+  #body=json.loads(body)
     
 
   if (not dry_run):
@@ -131,7 +131,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   
   
   body={"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}
-  body=json.loads(body)
+  #body=json.loads(body)
   # kubectl -n <namespace> patch daemonset <name-of-daemon-set> -p '{"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}'
 
 
@@ -163,7 +163,7 @@ def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   
   
     body={"op": "remove", "path": "/spec/template/spec/nodeSelector/non-existing"}
-    body=json.loads(body)
+    #body=json.loads(body)
     #kubectl -n <namespace> patch daemonset <name-of-daemon-set> --type json -p='[{"op": "remove", "path": "/spec/template/spec/nodeSelector/non-existing"}]'
 
     if (not dry_run):
@@ -201,7 +201,7 @@ def turn_off_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
                     }
                 }
     }
-  body=json.loads(body)
+  #body=json.loads(body)
   pprint(body)
   #body = {"metadata": {"annotations": {"shutdown.djkormo.github/replicas": "1" }}}
   
@@ -220,7 +220,7 @@ def turn_off_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     # set replicas to zero
     logger.info("Setting Statefulset %s in %s namespace to zero replicas",name,namespace)
     body = {"spec": {"replicas": 0}}
-    body=json.loads(body)
+    # body=json.loads(body)
     try:
       api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
       pprint(api_response)
@@ -239,7 +239,7 @@ def turn_on_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
       # set replicas to previous number  
       logger.info("Setting Statefulset %s in %s namespace to one replicas",name,namespace)
       body = {"spec": {"replicas": 1}} # TODO
-      body=json.loads(body)
+      #body=json.loads(body)
       try:
         api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
         pprint(api_response)
