@@ -80,13 +80,12 @@ def turn_off_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 # turning on deloyment     
 def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     logger.info("Turning on Deployment %s in namespace %s", name,namespace)
-    
-    replicas = str(1)
-
+  
+    replicas=1
+    replicas=str(replicas) 
     if (not dry_run):
-      logger.info("Setting Deployment %s in %s namespace to one replicas",name,namespace)
+      logger.info("Setting Deployment %s in %s namespace to %s replicas",name,namespace,replicas)
 
-       
       body = '{"spec": {"replicas": replicas}}' 
       #body=json.loads(body)
       try:
@@ -236,9 +235,11 @@ def turn_off_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 def turn_on_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     logger.info("Turning on Statefulset %s in namespace %s", name,namespace)   
     if (not dry_run):
-      # set replicas to previous number  
-      logger.info("Setting Statefulset %s in %s namespace to one replicas",name,namespace)
-      body = {"spec": {"replicas": 1}} # TODO
+      # set replicas to previous number 
+      replicas=1
+      replicas=str(replicas) 
+      logger.info("Setting Statefulset %s in %s namespace to %s replicas",name,namespace,replicas)
+      body = {"spec": {"replicas": replicas}} # TODO
       #body=json.loads(body)
       try:
         api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
