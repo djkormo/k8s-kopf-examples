@@ -42,14 +42,14 @@ def turn_off_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   now = str(now.isoformat("T") + "Z")
   replicas=str(replicas)
   body = {
-                'metadata': {
-                    'annotations': {
-                        'shutdown.djkormo.github/replicas': replicas,
-                        'shutdown.djkormo.github/changedAt': now
+                "metadata": {
+                    "annotations": {
+                        "shutdown.djkormo.github/replicas": replicas,
+                        "shutdown.djkormo.github/changedAt": now
                     }
                 }
     }
-  body=json.loads(body)
+  #body=json.loads(body)
   pprint(body)  
 
   if (not dry_run):
