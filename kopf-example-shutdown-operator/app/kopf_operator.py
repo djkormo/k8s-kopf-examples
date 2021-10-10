@@ -80,8 +80,8 @@ def turn_off_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     logger.info("Turning on Deployment %s in namespace %s", name,namespace)
   
-    replicas=int(metadata.annotations['shutdown.djkormo.github/replicas'])
-    replicas=str(replicas)
+    replicas=metadata.annotations['shutdown.djkormo.github/replicas']
+    #replicas=str(replicas)
     if (not dry_run):
       logger.info("Setting Deployment %s in %s namespace to %s replicas",name,namespace,replicas)
 
@@ -96,6 +96,8 @@ def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
           logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale in turn_on_deployment: %s\n" % e)
 
 # Deployment end
+
+
 
 # Daemonset start   
 
@@ -231,11 +233,9 @@ def turn_on_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     logger.info("Turning on Statefulset %s in namespace %s", name,namespace)   
     if (not dry_run):
       # set replicas to previous number 
-      replicas=1
-      #replicas=str(replicas) 
+      replicas=metadata.annotations['shutdown.djkormo.github/replicas']
       logger.info("Setting Statefulset %s in %s namespace to %s replicas",name,namespace,replicas)
-      body = {"spec": {"replicas": replicas}} # TODO
-      #body=json.loads(body)
+      body = {"spec": {"replicas": replicas}} 
       try:
         api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
         pprint(api_response)
