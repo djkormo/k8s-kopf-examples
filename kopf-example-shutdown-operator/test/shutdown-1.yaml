@@ -6,7 +6,7 @@ metadata:
 spec:
   namespace: my-namespace
   dry-run: false # dry run mode , default false
-  state: false # turning off mode, default true
+  state: true # turning off mode, default true
   deployments: true # turn off deployments, default false
   daemonsets: false # turn off daemonsets , default false
   statefulsets: false # turn off daemonsets statefulset default false 
