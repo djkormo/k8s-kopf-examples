@@ -234,10 +234,11 @@ def turn_on_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     if (not dry_run):
       # set replicas to previous number 
       replicas=metadata.annotations['shutdown.djkormo.github/replicas']
+      replicas=int(replicas)
       logger.info("Setting Statefulset %s in %s namespace to %s replicas",name,namespace,replicas)
       body = {"spec": {"replicas": replicas}} 
       try:
-        api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
+        api_response=api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
         pprint(api_response)
       except ApiException as e:
         if e.status == 404:
