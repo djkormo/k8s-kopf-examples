@@ -85,7 +85,7 @@ def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     if (not dry_run):
       logger.info("Setting Deployment %s in %s namespace to %s replicas",name,namespace,replicas)
 
-      body = '{"spec": {"replicas": replicas}}' 
+      body = {"spec": {"replicas": replicas}}
 
       try:
         api_response =api.patch_namespaced_deployment_scale(name, namespace, body=body)
