@@ -81,7 +81,7 @@ def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     logger.info("Turning on Deployment %s in namespace %s", name,namespace)
   
     replicas=metadata.annotations['shutdown.djkormo.github/replicas']
-    #replicas=str(replicas)
+    replicas=int(replicas)
     if (not dry_run):
       logger.info("Setting Deployment %s in %s namespace to %s replicas",name,namespace,replicas)
 
