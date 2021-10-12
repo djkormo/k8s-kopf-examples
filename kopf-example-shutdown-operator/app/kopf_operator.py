@@ -103,11 +103,12 @@ def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 
 # turning off daemonset
 
-def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node_selector):
+def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_run,node_selector):
   logger.info("Turning off Daemonset %s in namespace %s", name,namespace)  
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
-  replicas=1
+  replicas=status.desired_number_scheduled
+  replicas=str(replicas)
   body = {
             'metadata': {
               'annotations': {
@@ -130,6 +131,8 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node
   
   node_selector=str(node_selector)
   body={"spec": {"template": {"spec": {"nodeSelector": {node_selector: "true"}}}}}
+  pprint(body)
+  
   #body=json.loads(body)
   # kubectl -n <namespace> patch daemonset <name-of-daemon-set> -p '{"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}'
 
@@ -148,7 +151,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node
 
 # turning on daemonset  
 
-def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node_selector):
+def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_run,node_selector):
     logger.info("Turning on Daemonset %s in namespace %s", name,namespace)
     node_selector=str(node_selector)
     path_selector=str('/spec/template/spec/nodeSelector/')+str(node_selector)
@@ -327,7 +330,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       for d in api_response.items:
         logger.info("Daemonset %s has %s desired replicas", d.metadata.name,d.status.desired_number_scheduled)
         if d.status.desired_number_scheduled>0 :
-          turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,metadata=d.metadata,spec=d.spec,api=api,dry_run=dry_run,node_selector=node_selector)
+          turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,metadata=d.metadata,spec=d.spec,status=d.status,api=api,dry_run=dry_run,node_selector=node_selector)
     except ApiException as e:
       print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
@@ -339,7 +342,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       for d in api_response.items:
         logger.info("Daemonset %s has %s desired replicas", d.metadata.name,d.status.desired_number_scheduled)
         if d.status.desired_number_scheduled==0 :
-          turn_on_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,metadata=d.metadata,spec=d.spec,api=api,dry_run=dry_run,node_selector=node_selector)
+          turn_on_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,metadata=d.metadata,spec=d.spec,status=d.status,api=api,dry_run=dry_run,node_selector=node_selector)
     except ApiException as e:
       print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
