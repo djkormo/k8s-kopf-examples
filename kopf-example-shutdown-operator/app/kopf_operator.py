@@ -132,7 +132,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_r
   node_selector=str(node_selector)
   body={"spec": {"template": {"spec": {"nodeSelector": {node_selector: "true"}}}}}
   pprint(body)
-  
+
   #body=json.loads(body)
   # kubectl -n <namespace> patch daemonset <name-of-daemon-set> -p '{"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}'
 
@@ -288,7 +288,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   daemonsets_enabled = spec.get('daemonsets',False)
   statefulsets_enabled = spec.get('statefulsets',False)
   state = spec.get('state',True)
-  node_selector = spec.get('node_selector','shutdown-non-existing')
+  node_selector = spec.get('node-selector','shutdown-non-existing')
 
   # check for excluded namespace
   if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
