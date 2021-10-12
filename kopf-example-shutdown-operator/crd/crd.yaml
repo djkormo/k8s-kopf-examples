@@ -46,7 +46,11 @@ spec:
               filter:
                 type: string
                 nullable: false
-                default: ""    
+                default: "" 
+              node-selector:
+                type: string
+                nullable: false
+                default: "shutdown-non-existing"     
     served: true
     storage: true
     additionalPrinterColumns:

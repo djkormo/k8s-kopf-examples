@@ -103,7 +103,7 @@ def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 
 # turning off daemonset
 
-def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
+def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node_selector):
   logger.info("Turning off Daemonset %s in namespace %s", name,namespace)  
   now = datetime.datetime.utcnow()
   now = str(now.isoformat("T") + "Z")
@@ -128,8 +128,8 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
       else:
         logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set in turn_off_daemonset : %s\n" % e)
   
-  
-  body={"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}
+
+  body={"spec": {"template": {"spec": {"nodeSelector": {"node_selector": "true"}}}}}
   #body=json.loads(body)
   # kubectl -n <namespace> patch daemonset <name-of-daemon-set> -p '{"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}'
 
@@ -148,7 +148,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 
 # turning on daemonset  
 
-def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
+def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node_selector):
     logger.info("Turning on Daemonset %s in namespace %s", name,namespace)
     if (not dry_run):
       try:
@@ -267,9 +267,7 @@ def get_random_value(**kwargs):
 # Operator logic start   
 
 
-# When creating or resuming object
-@kopf.on.resume('djkormo.github', 'v1alpha1', 'shutdown')
-@kopf.on.create('djkormo.github', 'v1alpha1', 'shutdown')
+
 def create_fn(spec, name, namespace, logger, **kwargs):
     print(f"Creating or resuming: {name} with {spec}")
     
@@ -277,10 +275,13 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
       return {'shutdown-operator-name': namespace}    
 
-# trigerring by the loop every LOOP_INTERVAL seconds 
 
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 
+# When creating or resuming object
+# trigerring by the loop every LOOP_INTERVAL seconds 
+@kopf.on.resume('djkormo.github', 'v1alpha1', 'shutdown')
+@kopf.on.create('djkormo.github', 'v1alpha1', 'shutdown')
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'shutdown',interval=LOOP_INTERVAL,sharp=True)
 def check_object_on_time(spec, name, namespace, logger, **kwargs):
   logger.info(f"Timer: for {name} with {spec} is invoked")
@@ -291,7 +292,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
   daemonsets_enabled = spec.get('daemonsets',False)
   statefulsets_enabled = spec.get('statefulsets',False)
   state = spec.get('state',True)
-  ds_annotation = spec.get('ds-annotation','shutdown-non-existing')
+  node_selector = spec.get('node_selector','shutdown-non-existing')
 
   # check for excluded namespace
   if check_namespace(name=name,excluded_namespaces='EXCLUDED_NAMESPACES'):
@@ -333,7 +334,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       for d in api_response.items:
         logger.info("Daemonset %s has %s desired replicas", d.metadata.name,d.status.desired_number_scheduled)
         if d.status.desired_number_scheduled>0 :
-          turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,metadata=d.metadata,spec=d.spec,api=api,dry_run=dry_run)
+          turn_off_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,metadata=d.metadata,spec=d.spec,api=api,dry_run=dry_run,node_selector=node_selector)
     except ApiException as e:
       print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
@@ -345,7 +346,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       for d in api_response.items:
         logger.info("Daemonset %s has %s desired replicas", d.metadata.name,d.status.desired_number_scheduled)
         if d.status.desired_number_scheduled==0 :
-          turn_on_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,metadata=d.metadata,spec=d.spec,api=api,dry_run=dry_run)
+          turn_on_daemonset(name=d.metadata.name,namespace=d.metadata.namespace,logger=logger,kopf=kopf,metadata=d.metadata,spec=d.spec,api=api,dry_run=dry_run,node_selector=node_selector)
     except ApiException as e:
       print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
