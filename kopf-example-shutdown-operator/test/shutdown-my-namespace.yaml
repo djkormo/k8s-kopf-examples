@@ -6,9 +6,9 @@ metadata:
 spec:
   namespace: my-namespace
   dry-run: false # dry run mode , default false
-  state: false # turning off mode, default true
-  deployments: true # turn off deployments, default false
-  daemonsets: false # turn off daemonsets , default false
-  statefulsets: true # turn off daemonsets statefulset default false 
+  state: true # turning off mode, default true
+  deployments: false # turn off deployments, default false
+  daemonsets: true # turn off daemonsets , default false
+  statefulsets: false # turn off daemonsets statefulset default false 
   filter: ""
-  node-selector: "non-existing-abc"  
+  node-selector: "shutdown-non-existing"  

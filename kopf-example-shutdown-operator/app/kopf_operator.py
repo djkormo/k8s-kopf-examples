@@ -121,15 +121,15 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node
   if (not dry_run):
     try:
       api_response =api.patch_namespaced_daemon_set(name, namespace, body=body)
-      pprint(api_response)
+      #pprint(api_response)
     except ApiException as e:
       if e.status == 404:
         logger.info("No daemonset found")
       else:
         logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set in turn_off_daemonset : %s\n" % e)
   
-
-  body={"spec": {"template": {"spec": {"nodeSelector": {"node_selector": "true"}}}}}
+  node_selector=str(node_selector)
+  body={"spec": {"template": {"spec": {"nodeSelector": {node_selector: "true"}}}}}
   #body=json.loads(body)
   # kubectl -n <namespace> patch daemonset <name-of-daemon-set> -p '{"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}'
 
@@ -137,7 +137,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node
   if (not dry_run):
     try:
       api_response =api.patch_namespaced_daemon_set(name, namespace, body=body)
-      pprint(api_response)
+      #pprint(api_response)
     except ApiException as e:
       if e.status == 404:
         logger.info("No daemonset found")
@@ -150,23 +150,13 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node
 
 def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node_selector):
     logger.info("Turning on Daemonset %s in namespace %s", name,namespace)
-    if (not dry_run):
-      try:
-        api_response =api.patch_namespaced_daemon_set(name, namespace, body=body)
-        pprint(api_response)
-      except ApiException as e:
-        if e.status == 404:
-          logger.info("No daemonset found")
-        else:
-          logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set in turn_on_daemonset: %s\n" % e)
-  
-  
-    body={"op": "remove", "path": "/spec/template/spec/nodeSelector/non-existing"}
+    node_selector=str(node_selector)
+    body={"op": "remove", "path": '/spec/template/spec/nodeSelector/'+node_selector}
     #body=json.loads(body)
     #kubectl -n <namespace> patch daemonset <name-of-daemon-set> --type json -p='[{"op": "remove", "path": "/spec/template/spec/nodeSelector/non-existing"}]'
-
     if (not dry_run):
       try:
+
         api_response =api.patch_namespaced_daemon_set(name, namespace, body=body)
         pprint(api_response)
       except ApiException as e:
@@ -174,6 +164,7 @@ def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,api,dry_run,node_
           logger.info("No daemonset found")
         else:
           logger.info("Exception when calling AppsV1Api->patch_namespaced_daemonset_set in turn_on_daemonset: %s\n" % e)
+
 
 # Daemonset end  
 
