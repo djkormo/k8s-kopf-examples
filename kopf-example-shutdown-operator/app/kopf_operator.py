@@ -280,7 +280,7 @@ LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'shutdown')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'shutdown')
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'shutdown',interval=LOOP_INTERVAL,sharp=True)
-def check_object_on_time(spec, name, namespace, logger, **kwargs):
+def check_shutdown_on_time_operator(spec, name, namespace, logger, **kwargs):
   logger.info(f"Timer: for {name} with {spec} is invoked")
         
   object_namespace = spec.get('namespace')   
@@ -299,8 +299,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
 
   api = kubernetes.client.AppsV1Api()
 
-  # Turning off state and deployments are under controll
-
+  # Turning off state and deployments are under control
   if deployments_enabled and state:
     try:
       api_response = api.list_namespaced_deployment(namespace=object_namespace)
@@ -311,7 +310,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
 
-  # Turning on state and deployments are under controll
+  # Turning on state and deployments are under control
   if deployments_enabled and not state:
     try:
       api_response = api.list_namespaced_deployment(namespace=object_namespace)
@@ -323,7 +322,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       print("Exception when calling AppsV1Api->list_namespaced_deployment: %s\n" % e)
 
 
-  # Turning off state and deamonsets are under controll
+  # Turning off state and deamonsets are under control
   if daemonsets_enabled and state:
     api = kubernetes.client.AppsV1Api()
     try:
@@ -335,9 +334,9 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     except ApiException as e:
       print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
-    # Turning on state and deamonsets are under controll
-    if daemonsets_enabled and not state:
-        api = kubernetes.client.AppsV1Api()
+  # Turning on state and deamonsets are under control
+  if daemonsets_enabled and not state:
+    api = kubernetes.client.AppsV1Api()
     try:
       api_response = api.list_namespaced_daemon_set(namespace=object_namespace)
       for d in api_response.items:
@@ -348,7 +347,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
       print("Exception when calling AppsV1Api->list_namespaced_daemon_set: %s\n" % e)
 
 
-  # Turning off state and statefulset are under controll
+  # Turning off state and statefulset are under control
   if statefulsets_enabled and state:
     api = kubernetes.client.AppsV1Api()
     try:
@@ -375,7 +374,7 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
 
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'shutdown')
-def delete_fn(spec, name, status, namespace, logger, **kwargs):
+def delete_shutdown_operator(spec, name, status, namespace, logger, **kwargs):
     print(f"Deleting: {name} with {spec}")
     
 
