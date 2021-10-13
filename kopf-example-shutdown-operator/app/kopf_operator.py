@@ -76,7 +76,7 @@ def turn_off_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
         logger.info("Exception when calling AppsV1Api->patch_namespaced_deployment_scale in turn_off_deployment : %s\n" % e)
   
 
-# turning on deloyment     
+# Turning on deployment     
 def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
     logger.info("Turning on Deployment %s in namespace %s", name,namespace)
   
@@ -101,7 +101,7 @@ def turn_on_deployment(name,namespace,logger,kopf,metadata,spec,api,dry_run):
 
 # Daemonset start   
 
-# turning off daemonset
+# Turning off daemonset
 
 def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_run,node_selector):
   logger.info("Turning off Daemonset %s in namespace %s", name,namespace)  
@@ -131,11 +131,6 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_r
   
   node_selector=str(node_selector)
   body={"spec": {"template": {"spec": {"nodeSelector": {node_selector: "true"}}}}}
-  pprint(body)
-
-  #body=json.loads(body)
-  # kubectl -n <namespace> patch daemonset <name-of-daemon-set> -p '{"spec": {"template": {"spec": {"nodeSelector": {"non-existing": "true"}}}}}'
-
 
   if (not dry_run):
     try:
@@ -149,7 +144,7 @@ def turn_off_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_r
 
  
 
-# turning on daemonset  
+# Turning on daemonset  
 
 def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_run,node_selector):
     logger.info("Turning on Daemonset %s in namespace %s", name,namespace)
@@ -157,9 +152,7 @@ def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_ru
     path_selector=str('/spec/template/spec/nodeSelector/')+str(node_selector)
     body=[{'op': 'remove', 'path': path_selector }]
     logger.info("Turning on Daemonset %s patch %s",name, body)
-    #pprint(body)
-    #body=json.loads(body)
-    #kubectl -n <namespace> patch daemonset <name-of-daemon-set> --type json -p='[{"op": "remove", "path": "/spec/template/spec/nodeSelector/non-existing"}]'
+   
     if (not dry_run):
       try:
 
@@ -201,22 +194,21 @@ def turn_off_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
   if (not dry_run):
     try:
       api_response =api.patch_namespaced_stateful_set(name, namespace, body=body)
-      pprint(api_response)
+      #pprint(api_response)
     except ApiException as e:
       if e.status == 404:
         logger.info("No statefulset found")
       else:
         logger.info("Exception when calling AppsV1Api->patch_namespaced_statefulset_scale in turn_off_statefulset: %s\n" % e)
 
-  # TODO 
+
   if (not dry_run):
     # set replicas to zero
     logger.info("Setting Statefulset %s in %s namespace to zero replicas",name,namespace)
     body = {"spec": {"replicas": 0}}
-    # body=json.loads(body)
     try:
       api_response =api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
-      pprint(api_response)
+      #pprint(api_response)
     except ApiException as e:
       if e.status == 404:
         logger.info("No statefulset found")
@@ -236,7 +228,7 @@ def turn_on_statefulset(name,namespace,logger,kopf,metadata,spec,api,dry_run):
       body = {"spec": {"replicas": replicas}} 
       try:
         api_response=api.patch_namespaced_stateful_set_scale(name, namespace, body=body)
-        pprint(api_response)
+        #pprint(api_response)
       except ApiException as e:
         if e.status == 404:
           logger.info("No statefulset found")
@@ -258,11 +250,11 @@ def get_current_timestamp(**kwargs):
 def get_random_value(**kwargs):
     return random.randint(0, 1_000_000)
 
+
 # Operator configuration end   
 
 
 # Operator logic start   
-
 
 
 def create_fn(spec, name, namespace, logger, **kwargs):
@@ -276,7 +268,7 @@ def create_fn(spec, name, namespace, logger, **kwargs):
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 
 # When creating or resuming object
-# trigerring by the loop every LOOP_INTERVAL seconds 
+# Trigerring by the loop every LOOP_INTERVAL seconds 
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'shutdown')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'shutdown')
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'shutdown',interval=LOOP_INTERVAL,sharp=True)
