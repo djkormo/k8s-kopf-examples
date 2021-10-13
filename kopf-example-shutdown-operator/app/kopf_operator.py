@@ -156,7 +156,8 @@ def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_ru
     node_selector=str(node_selector)
     path_selector=str('/spec/template/spec/nodeSelector/')+str(node_selector)
     body={'op': 'remove', 'path': path_selector }
-    pprint(body)
+    logger.info("Turning on Daemonset %s patch %s",name, body)
+    #pprint(body)
     #body=json.loads(body)
     #kubectl -n <namespace> patch daemonset <name-of-daemon-set> --type json -p='[{"op": "remove", "path": "/spec/template/spec/nodeSelector/non-existing"}]'
     if (not dry_run):

@@ -11,4 +11,4 @@ spec:
   daemonsets: true # turn off daemonsets , default false
   statefulsets: false # turn off daemonsets statefulset default false 
   filter: ""
-  node-selector: "shutdown-non-existing-test"  
+  node-selector: "shutdown-non-existing-test-abc"  
