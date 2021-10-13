@@ -155,7 +155,7 @@ def turn_on_daemonset(name,namespace,logger,kopf,metadata,spec,status,api,dry_ru
     logger.info("Turning on Daemonset %s in namespace %s", name,namespace)
     node_selector=str(node_selector)
     path_selector=str('/spec/template/spec/nodeSelector/')+str(node_selector)
-    body={'op': 'remove', 'path': path_selector }
+    body=[{'op': 'remove', 'path': path_selector }]
     logger.info("Turning on Daemonset %s patch %s",name, body)
     #pprint(body)
     #body=json.loads(body)
