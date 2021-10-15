@@ -53,7 +53,8 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespace: %s\n" % e)  
     
-  annotations=meta.annotation
+  
+  annotations=meta.annotations
 
   body = {"metadata": { annotations } }
 
@@ -77,7 +78,7 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
 
-  annotations=meta.annotation
+  annotations=meta.annotations
 
   body = {"metadata": { annotations } }
 
