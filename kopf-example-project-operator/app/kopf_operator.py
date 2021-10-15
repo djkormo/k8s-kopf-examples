@@ -77,6 +77,22 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
 
+  annotations=meta.annotation
+
+  body = {"metadata": { annotations } }
+
+  logger.info(f"Annotations is created: {annotations}")
+  
+  try:
+    obj = api.patch_namespace(
+          name=name,
+          body=body
+      )
+
+    logger.info(f"Namespace child is patched: {obj}")
+  except ApiException as e:
+      print("Exception when calling CoreV1Api->patch_namespace: %s\n" % e)  
+
 # create resourcequota based on yaml manifest
 def create_resourcequota(kopf,name,meta,spec,logger,api,filename):
 
