@@ -48,12 +48,27 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
     obj = api.create_namespace(
           body=data,
       )
-    pprint(obj)
     kopf.append_owner_reference(obj)
     logger.info(f"Namespace child is created: {obj}")
   except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespace: %s\n" % e)  
     
+  annotations=meta.annotation
+
+  body = {"metadata": { annotations } }
+
+  logger.info(f"Annotations is created: {annotations}")
+  
+  try:
+    obj = api.patch_namespace(
+          name=name,
+          body=body
+      )
+
+    logger.info(f"Namespace child is patched: {obj}")
+  except ApiException as e:
+      print("Exception when calling CoreV1Api->patch_namespace: %s\n" % e)  
+
   return {'project-name': obj.metadata.name}
 
 # replace namespace      
@@ -325,9 +340,9 @@ def check_object_on_time(spec, name, status, namespace,meta, logger, **kwargs):
       print("Exception when calling CoreV1Api->list_namespaced_resource_quota: %s\n" % e)
 
     if name not in l_resoucequota:
-      create_resourcequota(kopf=kopf,name=name,metadata=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+      create_resourcequota(kopf=kopf,name=name,meta=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
     else:
-      replace_resourcequota(kopf=kopf,name=name,metadata=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+      replace_resourcequota(kopf=kopf,name=name,meta=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
  
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'project')

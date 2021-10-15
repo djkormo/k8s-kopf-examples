@@ -50,6 +50,7 @@ kubectl get deploy,pod -n project-operator
 
 ```
 operator_pod=$(kubectl get pod -n project-operator -L app=project-operator -o name | grep operator | head -n1)
+kubectl get pod -n project-operator
 kubectl -n project-operator logs ${operator_pod} -f 
 ```
 
