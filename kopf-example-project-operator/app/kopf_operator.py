@@ -55,6 +55,8 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
     
   
   annotations=meta.annotations
+  pprint(meta)
+  pprint(annotations)
 
   body = {"metadata": { annotations } }
 
@@ -79,7 +81,8 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   tmpl = open(path, 'rt').read()
 
   annotations=meta.annotations
-
+  pprint(meta)
+  pprint(annotations)
   body = {"metadata": { annotations } }
 
   logger.info(f"Annotations is created: {annotations}")
