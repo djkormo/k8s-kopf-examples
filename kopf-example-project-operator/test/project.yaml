@@ -5,10 +5,8 @@ metadata:
   namespace: project-operator
   # sample annotations 
   annotations:
-    co.elastic.logs/multiline.pattern: '^\['
-    co.elastic.logs/multiline.negate: true
-    co.elastic.logs/multiline.match: after
-    co.elastic.logs.sidecar/exclude_lines: '^DBG'
+    project-operator/multiline.pattern: "test"
+    project-operator/multiline.name: "name 2"
 spec:
   # Add fields here
   resourcequotarequestscpu: "4"

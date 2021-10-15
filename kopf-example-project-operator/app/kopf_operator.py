@@ -178,7 +178,7 @@ def replace_resourcequota(kopf,name,metadata,spec,logger,api,filename):
 # When creating or resuming object
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'project')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
-def create_fn(spec, name, namespace,metadata, logger, **kwargs):
+def create_fn(spec, name, status, namespace,metadata, logger,diff, **kwargs):
     
     print(f"Creating: {spec}")
     api = kubernetes.client.CoreV1Api()
@@ -282,7 +282,7 @@ def update_fn(spec, name, status, namespace,metadata, logger,diff, **kwargs):
 
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'project',interval=LOOP_INTERVAL,sharp=True)
-def check_object_on_time(spec, name, namespace,metadata, logger, **kwargs):
+def check_object_on_time(spec, name, status, namespace,metadata, logger, **kwargs):
     logger.info(f"Timer: {spec} is invoked")
 
     api = kubernetes.client.CoreV1Api()
