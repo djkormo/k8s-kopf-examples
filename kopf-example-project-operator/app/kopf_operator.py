@@ -35,7 +35,7 @@ def check_namespace(name,excluded_namespaces):
 
 
 # create namespace
-def create_namespace(kopf,name,namespace,metadata,spec,logger,api,filename):
+def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
   text = tmpl.format(name=name, namespace=namespace)
@@ -57,13 +57,13 @@ def create_namespace(kopf,name,namespace,metadata,spec,logger,api,filename):
   return {'project-name': obj.metadata.name}
 
 # replace namespace      
-def replace_namespace(kopf,name,namespace,metadata,spec,logger,api,filename):
+def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
 
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
 
 # create resourcequota based on yaml manifest
-def create_resourcequota(kopf,name,metadata,spec,logger,api,filename):
+def create_resourcequota(kopf,name,meta,spec,logger,api,filename):
 
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
@@ -119,7 +119,7 @@ def create_resourcequota(kopf,name,metadata,spec,logger,api,filename):
   kopf.adopt(data)
 
 # replace resourcequota based on yaml manifest
-def replace_resourcequota(kopf,name,metadata,spec,logger,api,filename):
+def replace_resourcequota(kopf,name,meta,spec,logger,api,filename):
 
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
@@ -178,7 +178,7 @@ def replace_resourcequota(kopf,name,metadata,spec,logger,api,filename):
 # When creating or resuming object
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'project')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
-def create_fn(spec, name, status, namespace,metadata, logger,diff, **kwargs):
+def create_fn(spec, name, status, namespace,meta, logger,diff, **kwargs):
     
     print(f"Creating: {spec}")
     api = kubernetes.client.CoreV1Api()
@@ -204,9 +204,9 @@ def create_fn(spec, name, status, namespace,metadata, logger,diff, **kwargs):
       print("Exception when calling CoreV1Api->list_namespaced_limit_range: %s\n" % e)
 
     if name not in l_namespace:
-      create_namespace(kopf=kopf,name=name,namespace=namespace,metadata=metadata,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      create_namespace(kopf=kopf,name=name,namespace=namespace,meta=meta,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     else:
-      replace_namespace(kopf=kopf,name=name,namespace=namespace,metadata=metadata,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      replace_namespace(kopf=kopf,name=name,namespace=namespace,meta=meta,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
 
     # create resource quota
@@ -225,15 +225,15 @@ def create_fn(spec, name, status, namespace,metadata, logger,diff, **kwargs):
       print("Exception when calling CoreV1Api->list_namespaced_resource_quota: %s\n" % e)
 
     if name not in l_resoucequota:
-      create_resourcequota(kopf=kopf,name=name,metadata=metadata,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+      create_resourcequota(kopf=kopf,name=name,meta=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
     else:
-      replace_resourcequota(kopf=kopf,name=name,metadata=metadata,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+      replace_resourcequota(kopf=kopf,name=name,meta=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
  
     
 
 # When updating object
 @kopf.on.update('djkormo.github', 'v1alpha1', 'project')
-def update_fn(spec, name, status, namespace,metadata, logger,diff, **kwargs):
+def update_fn(spec, name, status, namespace,meta, logger,diff, **kwargs):
     print(f"Updating: {spec}")
     api = kubernetes.client.CoreV1Api()
     
@@ -255,9 +255,9 @@ def update_fn(spec, name, status, namespace,metadata, logger,diff, **kwargs):
 
     # create or update namespace
     if name not in l_namespace:
-      create_namespace(kopf=kopf,name=name,namespace=namespace,metadata=metadata,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      create_namespace(kopf=kopf,name=name,namespace=namespace,meta=meta,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     else:
-      replace_namespace(kopf=kopf,name=name,namespace=namespace,metadata=metadata,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      replace_namespace(kopf=kopf,name=name,namespace=namespace,meta=meta,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
    # create or update resourcequota
     
@@ -275,14 +275,14 @@ def update_fn(spec, name, status, namespace,metadata, logger,diff, **kwargs):
       print("Exception when calling CoreV1Api->list_namespaced_resource_quota: %s\n" % e)
 
     if name not in l_resoucequota:
-      create_resourcequota(kopf=kopf,name=name,metadata=metadata,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+      create_resourcequota(kopf=kopf,name=name,meta=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
     else:
-      replace_resourcequota(kopf=kopf,name=name,metadata=metadata,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+      replace_resourcequota(kopf=kopf,name=name,meta=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
  
 
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'project',interval=LOOP_INTERVAL,sharp=True)
-def check_object_on_time(spec, name, status, namespace,metadata, logger, **kwargs):
+def check_object_on_time(spec, name, status, namespace,meta, logger, **kwargs):
     logger.info(f"Timer: {spec} is invoked")
 
     api = kubernetes.client.CoreV1Api()
@@ -304,9 +304,9 @@ def check_object_on_time(spec, name, status, namespace,metadata, logger, **kwarg
       print("Exception when calling CoreV1Api->list_namespace: %s\n" % e)
 
     if name not in l_namespace:
-      create_namespace(kopf=kopf,name=name,namespace=namespace,metadata=metadata,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      create_namespace(kopf=kopf,name=name,namespace=namespace,meta=meta,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     else:
-      replace_namespace(kopf=kopf,name=name,namespace=namespace,metadata=metadata,spec=spec,logger=logger,api=api,filename='namespace.yaml')
+      replace_namespace(kopf=kopf,name=name,namespace=namespace,meta=meta,spec=spec,logger=logger,api=api,filename='namespace.yaml')
     
 
     # create or update resourcequota
@@ -325,9 +325,9 @@ def check_object_on_time(spec, name, status, namespace,metadata, logger, **kwarg
       print("Exception when calling CoreV1Api->list_namespaced_resource_quota: %s\n" % e)
 
     if name not in l_resoucequota:
-      create_resourcequota(kopf=kopf,name=name,metadata=metadata,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+      create_resourcequota(kopf=kopf,name=name,metadata=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
     else:
-      replace_resourcequota(kopf=kopf,name=name,metadata=metadata,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
+      replace_resourcequota(kopf=kopf,name=name,metadata=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
  
 
 @kopf.on.delete('djkormo.github', 'v1alpha1', 'project')
