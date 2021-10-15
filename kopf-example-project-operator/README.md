@@ -64,6 +64,17 @@ curl http://localhost:8080/healthz
 ```
 
 
+Redeploy operator
+```
+kubectl replace -R -f deploy/ --force
+```
+
+Check RBAC
+
+```
+kubectl auth can-i -n project-operator create events --as=system:serviceaccount:project-operator:project-operator
+```
+
 Based on 
 
 https://github.com/lukasz-bielinski/project-operator

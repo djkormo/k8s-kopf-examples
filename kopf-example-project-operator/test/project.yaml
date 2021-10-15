@@ -3,6 +3,12 @@ kind: Project
 metadata:
   name: my-namespace
   namespace: project-operator
+  # sample annotations 
+  annotations:
+    co.elastic.logs/multiline.pattern: '^\['
+    co.elastic.logs/multiline.negate: true
+    co.elastic.logs/multiline.match: after
+    co.elastic.logs.sidecar/exclude_lines: '^DBG'
 spec:
   # Add fields here
   resourcequotarequestscpu: "4"
