@@ -56,10 +56,13 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
 #  obj.metadata.annotations = {
 #        "my-annotation-test": datetime.datetime.utcnow()
 #    }
+  annotations=meta.annotations
   obj.metadata.annotations = {
-        meta.annotations
+       annotations
     }
   
+  pprint("Project annotations:", annotations)
+
   #annotations=meta.annotations
   #pprint(meta)
   #pprint(annotations)
