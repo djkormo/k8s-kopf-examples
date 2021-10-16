@@ -1,0 +1,24 @@
+apiVersion: djkormo.github/v1alpha1
+kind: Project
+metadata:
+  name: my-namespace-2
+  namespace: project-operator
+  # sample annotations 
+  annotations:
+    project-operator/multiline.pattern: "test"
+    project-operator/multiline.name: "name 2"
+spec:
+  # Add fields here
+  resourcequotarequestscpu: "4"
+  resourcequotarequestsmemory: 5Gi
+  resourcequotalimitscpu: "3"
+  resourcequotalimitsmemory: 4Gi
+  resourcequotacountjobsbatch: 4k
+  resourcequotacountingresses: 2k
+  resourcequotapods: "109"
+  resourcequotaservices: "109"
+  resourcequotaconfigmaps: "99"
+  resourcequotapersistentvolumeclaims: "98"
+  resourcequotareplicationcontrollers: "97"
+  resourcequotasecrets: "96"
+  resourcequotaservicesloadbalancers: "102"
