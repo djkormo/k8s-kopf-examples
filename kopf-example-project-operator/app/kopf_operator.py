@@ -8,7 +8,6 @@ from kubernetes.client.rest import ApiException
 from pprint import pprint
 import datetime
 import random
-import pytz
 
 # for Kubernetes probes
 
@@ -56,8 +55,6 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
     
   obj.metadata.annotations = {
         "my-annotation-test": datetime.datetime.utcnow()
-        .replace(tzinfo=pytz.UTC)
-        .isoformat()
     }
   
   #annotations=meta.annotations
