@@ -8,6 +8,7 @@ from kubernetes.client.rest import ApiException
 from pprint import pprint
 import datetime
 import random
+import pytz
 
 # for Kubernetes probes
 
@@ -53,19 +54,24 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespace: %s\n" % e)  
     
+  obj.metadata.annotations = {
+        "my-annotation-test": datetime.datetime.utcnow()
+        .replace(tzinfo=pytz.UTC)
+        .isoformat()
+    }
   
-  annotations=meta.annotations
+  #annotations=meta.annotations
   #pprint(meta)
-  pprint(annotations)
+  #pprint(annotations)
 
-  body = {"metadata":  annotations  }
+  #body = {"metadata":  annotations  }
 
-  logger.info(f"Annotations is created: {annotations}")
+  #logger.info(f"Annotations is created: {annotations}")
   
   try:
     obj = api.patch_namespace(
           name=name,
-          body=body
+          body=obj
       )
 
     logger.info(f"Namespace child is patched: {obj}")
