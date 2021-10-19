@@ -1,0 +1,14 @@
+apiVersion: djkormo.github/v1alpha1
+kind: Restarter
+metadata:
+  name: logstash-restarter
+  namespace: my-namespace
+spec:
+  namespace: my-namespace
+  dry-run: false
+  deployments: false
+  daemonsets: true
+  statefulsets: false 
+  filter: "*"
+  ttl: 300 # in seconds 
+

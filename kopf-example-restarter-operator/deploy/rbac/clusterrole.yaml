@@ -1,0 +1,44 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: restarter-operator-role-cluster
+rules:
+
+  # Framework: knowing which other operators are running (i.e. peering).
+  - apiGroups: [kopf.dev]
+    resources: [clusterkopfpeerings]
+    verbs: [list, watch, patch, get]
+
+  # Framework: runtime observation of namespaces & CRDs (addition/deletion).
+  - apiGroups: [apiextensions.k8s.io]
+    resources: [customresourcedefinitions]
+    verbs: [list, watch]
+  - apiGroups: [""]
+    resources: [namespaces]
+    verbs: [list, watch]
+
+  # Framework: admission webhook configuration management.
+  - apiGroups: [admissionregistration.k8s.io/v1, admissionregistration.k8s.io/v1beta1]
+    resources: [validatingwebhookconfigurations, mutatingwebhookconfigurations]
+    verbs: [create, patch]
+  # events   
+  - apiGroups: [""]
+    resources: [events]
+    verbs: [create]
+
+  # for controlling restarters  
+  - apiGroups: [djkormo.github]
+    resources: [restarters,restarters/status]
+    verbs: [list, watch,patch]
+
+  # for controlling deployment  
+  - apiGroups: ["*"]
+    resources: [deployments]
+    verbs: [list, watch,patch,create,update]
+  - apiGroups: ["*"]
+    resources: [daemonsets]
+    verbs: [list, watch,patch,create,update]
+  - apiGroups: ["*"]
+    resources: [statefulsets]
+    verbs: [list, watch,patch,create,update]
+
