@@ -1,6 +1,6 @@
 ARG ALPINE_VERSION=3.14
 
-FROM docker-remote.artifactory.corp.plusnet/python:3.7-alpine${ALPINE_VERSION}
+FROM python:3.7-alpine${ALPINE_VERSION}
 
 ENV https_proxy=http://artivm1.plusnet:3128
 ENV http_proxy=http://artivm1.plusnet:3128
