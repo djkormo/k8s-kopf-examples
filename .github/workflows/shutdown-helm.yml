@@ -1,4 +1,4 @@
-name: Shutdown operator release and publish helm artifact
+name: shutdown operator release and publish helm artifact
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
       run: echo ::set-output name=version::${GITHUB_REF/refs\/tags\//}
       id: version
     - name: build package
-      working-directory: deploy
+      working-directory: kopf-example-shutdown-operator/helm
       run: helm package --version ${{ steps.version.outputs.version }} shutdown-operator
     - name: create release
       uses: actions/create-release@v1
