@@ -1,4 +1,4 @@
-name: shutdown operator for DockerHub
+name: shutdown operator container build
 
 on:
   push:

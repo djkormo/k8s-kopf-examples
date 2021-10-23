@@ -1,10 +1,10 @@
-name: shutdown operator release and publish helm artifact
+name: shutdown operator helm publish
 
 on:
   push:
-    tags:
-      - '*'
-      
+    paths:
+      - 'kopf-example-shutdown-operator/**'
+
 jobs:
   buildAndPublish:
     runs-on: ubuntu-latest

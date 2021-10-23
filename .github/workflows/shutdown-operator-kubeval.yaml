@@ -1,4 +1,4 @@
-name: shutdown operator kubeval
+name: shutdown operator kubeval validate
 
 on:
   push:
