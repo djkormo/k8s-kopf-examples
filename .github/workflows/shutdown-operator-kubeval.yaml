@@ -15,7 +15,7 @@ jobs:
         with:
           files: kopf-example-shutdown-operator/deploy
 
-  test-action:
+  k8s-manifest-kubeval-helm-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,16 +34,6 @@ jobs:
             echo "Run kubeval for helm"
             helmv3 template kopf-example-shutdown-operator/helm | kubeval --strict --ignore-missing-schemas
 
-
-#  k8s-helm-kubeval-validation:
-#    runs-on: ubuntu-latest
-#    steps:
-#    - uses: actions/checkout@master
-#    - name: validate helm chart in kopf-example-shutdown-operator/helm
-#      uses: desaintmartin/helm-kubeval-action@master
-#      with:
-#        path: kopf-example-shutdown-operator/helm
-#        config: kopf-example-shutdown-operator/helm/Chart.yaml
 
 
 
