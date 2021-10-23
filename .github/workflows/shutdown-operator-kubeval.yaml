@@ -30,9 +30,9 @@ jobs:
           kubeaudit: 0.11.5
           command: |
             echo "Run kubeval for manifests"
-            kubeval --strict kopf-example-shutdown-operator/deploy
+            kubeval --strict --ignore-missing-schemas -d kopf-example-shutdown-operator/deploy/
             echo "Run kubeval for helm"
-            helmv3 template kopf-example-shutdown-operator/helm | kubeval --strict
+            helmv3 template kopf-example-shutdown-operator/helm | kubeval --strict --ignore-missing-schemas
 
 
 
