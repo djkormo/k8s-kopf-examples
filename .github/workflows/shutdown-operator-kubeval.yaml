@@ -23,4 +23,4 @@ jobs:
       uses: desaintmartin/helm-kubeval-action@master
       with:
         path: kopf-example-shutdown-operator/helm
-#        config: ./config_repos
+        config: kopf-example-shutdown-operator/helm
