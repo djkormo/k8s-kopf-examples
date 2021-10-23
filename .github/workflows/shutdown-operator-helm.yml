@@ -24,7 +24,7 @@ jobs:
       with:
         draft: false
         prerelease: false
-        release_name: ${{ steps.version.outputs.version }}
+        release_name: 0.1.0 #${{ steps.version.outputs.version }}
         tag_name: ${{ github.ref }}
         body_path: CHANGELOG.md
       env:
@@ -35,6 +35,9 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./kopf-example-shutdown-operator/helm/shutdown-operator-${{ steps.version.outputs.version }}.tgz
-        asset_name: shutdown-operator-${{ steps.version.outputs.version }}.tgz
+#        asset_path: ./kopf-example-shutdown-operator/helm/shutdown-operator-${{ steps.version.outputs.version }}.tgz
+#        asset_name: shutdown-operator-${{ steps.version.outputs.version }}.tgz
+        asset_path: ./kopf-example-shutdown-operator/helm/shutdown-operator-0.1.0.tgz
+        asset_name: shutdown-operator-0.1.0.tgz
+               
         asset_content_type: application/gzip
