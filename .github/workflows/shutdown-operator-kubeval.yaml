@@ -1,0 +1,18 @@
+name: shutdown operator kubeval
+
+on:
+  push:
+    paths:
+      - 'kopf-example-shutdown-operator/**'
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: validate manifests in kopf-example-shutdown-operator/deploy
+        uses: makocchi-git/actions-k8s-manifests-validate-kubeval@1.0.0
+        with:
+          files: kopf-example-shutdown-operator/deploy, kopf-example-shutdown-operator/deploy
+#          token: ${{ secrets.GITHUB_TOKEN }}
+
