@@ -6,7 +6,7 @@ on:
       - 'kopf-example-shutdown-operator/**'
 
 jobs:
-  validation:
+  k8s-manifest-kubeval-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,5 +14,13 @@ jobs:
         uses: instrumenta/kubeval-action@master
         with:
           files: kopf-example-shutdown-operator/deploy
-#          token: ${{ secrets.GITHUB_TOKEN }}
+
+  k8s-helm-kubeval-validation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: validate helm chart in kopf-example-shutdown-operator/helm
+      uses: mati92/helm-kubeval-action@master
+      with:
+        path: kopf-example-shutdown-operator/helm
 
