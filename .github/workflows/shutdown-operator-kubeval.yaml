@@ -23,4 +23,4 @@ jobs:
       uses: desaintmartin/helm-kubeval-action@master
       with:
         path: kopf-example-shutdown-operator/helm
-        config: kopf-example-shutdown-operator/helm
+        config: kopf-example-shutdown-operator/helm/Chart.yaml
