@@ -57,7 +57,7 @@ spec:
     additionalPrinterColumns:
     - name: namespace
       type: string
-      description: Namespace to controll
+      description: Namespace to control
       jsonPath: .spec.namespace
     - name: dry-run
       type: boolean
@@ -79,5 +79,4 @@ spec:
       type: string
       description: Filtering resources to controll
       jsonPath: .spec.filter
-
   {{- end}}

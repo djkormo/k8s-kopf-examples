@@ -3,37 +3,38 @@ kind: ClusterRole
 metadata:
   name: {{ include "shutdown-operator.serviceAccountName" . }}
 rules:
-  - apiGroups: [ kopf.dev ]
-    resources: [ clusterkopfpeerings ]
-    verbs: [ list, watch, patch, get ]
 
-  - apiGroups: [ apiextensions.k8s.io ]
-    resources: [ customresourcedefinitions ]
-    verbs: [ list, watch ]
-  - apiGroups: [ "" ]
-    resources: [ namespaces ]
-    verbs: [ list, watch ]
+  # Framework: knowing which other operators are running (i.e. peering).
+  - apiGroups: [kopf.dev]
+    resources: [clusterkopfpeerings]
+    verbs: [list, watch, patch, get]
 
-  - apiGroups: [ admissionregistration.k8s.io/v1, admissionregistration.k8s.io/v1beta1 ]
-    resources: [ validatingwebhookconfigurations, mutatingwebhookconfigurations ]
-    verbs: [ create, patch ]
+  # Framework: runtime observation of namespaces & CRDs (addition/deletion).
+  - apiGroups: [apiextensions.k8s.io]
+    resources: [customresourcedefinitions]
+    verbs: [list, watch]
+  - apiGroups: [""]
+    resources: [namespaces]
+    verbs: [list, watch]
 
-  - apiGroups: [ shutdown-operator.qalo.de ]
-    resources: [ "*" ]
-    verbs: [ list, watch, patch ]
-
-  - apiGroups: [ batch, extensions ]
-    resources: [ jobs ]
-    verbs: [ create ]
-
-  - apiGroups: [ "" ]
-    resources: [ configmaps,services ]
-    verbs: [ get,create,patch,update ]
-
-  - apiGroups: [ apps ]
-    resources: [ statefulsets ]
-    verbs: [ create,patch ]
+  # Framework: admission webhook configuration management.
+  - apiGroups: [admissionregistration.k8s.io/v1, admissionregistration.k8s.io/v1beta1]
+    resources: [validatingwebhookconfigurations, mutatingwebhookconfigurations]
+    verbs: [create, patch]
 
   - apiGroups: [""]
     resources: [events]
     verbs: [create]
+
+  # Application: read-only access for watching cluster-wide.
+  - apiGroups: [djkormo.github]
+    resources: [shutdowns,shutdowns/status]
+    verbs: [list, watch,patch]
+  # for controlling namespace  
+  - apiGroups: [""]
+    resources: [namespaces]
+    verbs: [list, watch,patch]
+  # for reading replicasets , deployments,statefulsets,daemonsets
+  - apiGroups: ["apps",""]
+    resources: [replicasets,deployments,deployments/scale,statefulsets,statefulsets/scale,daemonsets]
+    verbs: [get,list, watch,patch]
