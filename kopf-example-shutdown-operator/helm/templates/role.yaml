@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: {{ .Values.namespace | default "default" }}
+  name: {{ include "shutdown-operator.serviceAccountName" . }}
+rules:
+
+  # Framework: knowing which other operators are running (i.e. peering).
+  - apiGroups: [kopf.dev]
+    resources: [kopfpeerings]
+    verbs: [list, watch, patch, get]
+
+  # Framework: posting the events about the handlers progress/errors.
+  - apiGroups: [""]
+    resources: [events]
+    verbs: [create]
+
+  # Application: watching & handling for the custom resource we declare.
+  - apiGroups: [djkormo.github]
+    resources: [shutdowns,shutdowns/status]
+    verbs: [list, watch, patch]
+
+  # Application: other resources it produces and manipulates.
+  
