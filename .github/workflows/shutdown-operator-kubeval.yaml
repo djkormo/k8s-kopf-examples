@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: validate helm chart in kopf-example-shutdown-operator/helm
-      uses: mati92/helm-kubeval-action@master
+      uses: desaintmartin/helm-kubeval-action@master
       with:
         path: kopf-example-shutdown-operator/helm
-
+#        config: ./config_repos
