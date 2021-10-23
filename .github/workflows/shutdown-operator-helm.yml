@@ -16,7 +16,8 @@ jobs:
       id: version
     - name: build package
       working-directory: kopf-example-shutdown-operator/helm
-      run: helm package --version ${{ steps.version.outputs.version }} shutdown-operator
+#      run: helm package --version ${{ steps.version.outputs.version }} shutdown-operator
+      run: helm package --version 0.1.0 shutdown-operator
     - name: create release
       uses: actions/create-release@v1
       id: create_release
