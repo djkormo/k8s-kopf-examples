@@ -15,6 +15,30 @@ jobs:
         with:
           files: kopf-example-shutdown-operator/deploy
 
+  test-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Kubernetes tools
+        uses: grebois/kube-tools@v1.5.2
+        with:
+          kubectl: 1.20.7
+          kustomize: 3.5.5
+          helm: 2.16.7
+          helmv3: 3.2.1
+          kubeseal: 0.12.5
+          kubeaudit: 0.11.5
+          command: |
+            echo "Run kubeval for manifests"
+            kubeval --strict kopf-example-shutdown-operator/deploy
+            echo "Run kubeval for helm"
+            helmv3 template kopf-example-shutdown-operator/helm | kubeval --strict
+
+
+
+
+
+
   k8s-helm-kubeval-validation:
     runs-on: ubuntu-latest
     steps:
@@ -24,3 +48,6 @@ jobs:
       with:
         path: kopf-example-shutdown-operator/helm
         config: kopf-example-shutdown-operator/helm/Chart.yaml
+
+
+
