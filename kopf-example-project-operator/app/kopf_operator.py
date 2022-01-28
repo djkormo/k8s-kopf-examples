@@ -62,6 +62,7 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
     }
   
   pprint("Project annotations:", annotations)
+  
 
   #annotations=meta.annotations
   #pprint(meta)
@@ -71,10 +72,13 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
 
   #logger.info(f"Annotations is created: {annotations}")
   
+  # obj=patch_namespace(", "default", body={"metadata":{"annotations":{"description": None}}})
+  # obj=patch_namespace(", "default", body={"metadata":{"annotations":{"description": "test"}}})
+  
   try:
     obj = api.patch_namespace(
           name=name,
-          body=obj
+          body={"metadata":{"annotations":{"description": "test"}}}
       )
 
     logger.info(f"Namespace child is patched: {obj}")
@@ -99,15 +103,15 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   
   #logger.info(f"Annotations is created: {annotations}")
   
-  #try:
-  #  obj = api.patch_namespace(
-  #        name=name,
-  #        body=annotations
-  #    )
+  try:
+    obj = api.patch_namespace(
+          name=name,
+          body={"metadata":{"annotations":{"description": "test"}}}
+      )
 
-  #  logger.info(f"Namespace child is patched: {obj}")
-  #except ApiException as e:
-  #    print("Exception when calling CoreV1Api->patch_namespace: %s\n" % e)  
+    logger.info(f"Namespace child is patched: {obj}")
+  except ApiException as e:
+      print("Exception when calling CoreV1Api->patch_namespace: %s\n" % e)  
 
 # create resourcequota based on yaml manifest
 def create_resourcequota(kopf,name,meta,spec,logger,api,filename):
