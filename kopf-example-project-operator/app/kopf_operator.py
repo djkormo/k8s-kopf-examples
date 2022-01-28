@@ -62,7 +62,7 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
     }
   
   pprint("Project annotations:", annotations)
-  
+  logger.info(f"Project annotations: {annotations}")
 
   #annotations=meta.annotations
   #pprint(meta)
@@ -75,10 +75,12 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   # obj=patch_namespace(", "default", body={"metadata":{"annotations":{"description": None}}})
   # obj=patch_namespace(", "default", body={"metadata":{"annotations":{"description": "test"}}})
   
+  annotations = {"description": "test"}
+  
   try:
     obj = api.patch_namespace(
           name=name,
-          body={"metadata":{"annotations":{"description": "test"}}}
+          body={"metadata":{"annotations":annotations}}
       )
 
     logger.info(f"Namespace child is patched: {obj}")
@@ -96,6 +98,9 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   #annotations=meta.annotations
   #pprint(meta)
   #pprint(annotations)
+  annotations=meta.annotations
+  
+  logger.info(f"Project annotations: {annotations}")
   #body = {"metadata":  annotations }
   #annotations=meta.annotations = {
   #      "my-annotation-test": datetime.datetime.utcnow()
@@ -103,10 +108,12 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   
   #logger.info(f"Annotations is created: {annotations}")
   
+  annotations = {"description": "test"}
+  
   try:
     obj = api.patch_namespace(
           name=name,
-          body={"metadata":{"annotations":{"description": "test"}}}
+          body={"metadata":{"annotations":annotations}}
       )
 
     logger.info(f"Namespace child is patched: {obj}")
