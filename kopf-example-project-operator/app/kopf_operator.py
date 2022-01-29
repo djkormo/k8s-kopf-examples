@@ -96,8 +96,8 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   logger.info(f"Project ANNOTATIONS {annotations} and LABELS {labels}\n")
  
   # mock data
-  labels = {"owner": "djkormo", "name": "project"}
-  #annotations = {"description": "test","confirmation":"yes"}
+  #labels = {"owner": "djkormo", "name": "project"}
+  annotations = {"description": "test","confirmation":"yes"}
   
   # Apply annotations to namespace
   try:
@@ -295,7 +295,6 @@ def update_fn(spec, name, status, namespace,meta, logger,diff, **kwargs):
 
     try: 
       api_response = api.list_namespace() 
-      #pprint(api_response)
       l_namespace=[]
       for i in api_response.items:
         print("Namespaces list: %s\t name:" %
@@ -345,7 +344,6 @@ def check_object_on_time(spec, name, status, namespace,meta, logger, **kwargs):
 
     try: 
       api_response = api.list_namespace() 
-      #pprint(api_response)
       l_namespace=[]
       for i in api_response.items:
         print("Namespaces list: %s\t name:" %
