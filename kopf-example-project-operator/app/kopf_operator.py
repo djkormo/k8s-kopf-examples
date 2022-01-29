@@ -76,7 +76,7 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
           name=name,
           body={"metadata":{"labels":labels}}
       )
-    logger.info(f"Namespace child is patched: {obj}")
+    #logger.info(f"Namespace child is patched: {obj}")
   except ApiException as e:
       print("Exception when calling CoreV1Api->patch_namespace: %s\n" % e)  
 
@@ -110,7 +110,7 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
           name=name,
           body={"metadata":{"labels":labels}}
       )
-    logger.info(f"Namespace child is patched: {obj}")
+    #logger.info(f"Namespace child is patched: {obj}")
   except ApiException as e:
       print("Exception when calling CoreV1Api->patch_namespace: %s\n" % e)  
 
@@ -165,7 +165,7 @@ def create_resourcequota(kopf,name,meta,spec,logger,api,filename):
         body=data,
       )
     kopf.append_owner_reference(obj)
-    logger.info(f"ResourceQuota child is created: {obj}")
+    #logger.info(f"ResourceQuota child is created: {obj}")
   except ApiException as e:
     print("Exception when calling CoreV1Api->create_namespaced_resource_quota: %s\n" % e)
   kopf.adopt(data)
@@ -246,7 +246,6 @@ def create_fn(spec, name, status, namespace,meta, logger,diff, **kwargs):
 
     try: 
       api_response = api.list_namespace() 
-      #pprint(api_response)
       l_namespace=[]
       for i in api_response.items:
         print("Namespaces list: %s\t name:" %
