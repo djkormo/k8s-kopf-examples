@@ -96,7 +96,9 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   logger.info(f"Project ANNOTATIONS {annotations} and LABELS {labels}\n")
  
   # mock data
-  #labels = {"owner": "djkormo", "name": "project"}
+  labels = {"owner": "djkormo", "name": "project"}
+  labels = {'env': 'kubernetes', 'name': 'project', 'owner': 'djkormo', 'type': 'operator'}
+  labels=json.dump(labels)
   annotations = {"description": "test","confirmation":"yes"}
   
   logger.info(f"Project LABELS {labels} \n")
