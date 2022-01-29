@@ -8,7 +8,7 @@ metadata:
     owner: "djkormo"
     type: "operator"
     env: "kubernetes"
-    name: "project"
+    name: "project-2"
   # sample annotations 
   annotations:
     project-operator/multiline.pattern: "test-paterrn-2"

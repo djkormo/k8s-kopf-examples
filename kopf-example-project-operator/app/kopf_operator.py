@@ -84,7 +84,10 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
           name=name,
           body={"metadata":{"annotations":annotations} }
       )
-
+    obj = api.patch_namespace(
+          name=name,
+          body={"metadata":{"labels":labels}}
+      )
     logger.info(f"Namespace child is patched: {obj}")
   except ApiException as e:
       print("Exception when calling CoreV1Api->patch_namespace: %s\n" % e)  
@@ -120,6 +123,10 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
           body={"metadata":{"annotations":annotations}}
       )
 
+    obj = api.patch_namespace(
+          name=name,
+          body={"metadata":{"labels":labels}}
+      )
     logger.info(f"Namespace child is patched: {obj}")
   except ApiException as e:
       print("Exception when calling CoreV1Api->patch_namespace: %s\n" % e)  
