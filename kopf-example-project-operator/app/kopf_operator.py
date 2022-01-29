@@ -26,7 +26,7 @@ def get_random_value(**kwargs):
 def check_namespace(name,excluded_namespaces):
   env = Env()
   env.read_env()  # read .env file, if it exists
-  namespace_list = env.list(excluded_namespaces)
+  namespace_list = env.list(excluded_namespaces,"[kube-system]")
   if name in namespace_list:
     print(f"Excluded namespace list: {namespace_list} ")    
     print(f"Excluded namespace found: {name}")
@@ -98,7 +98,7 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   # mock data
   labels = {"owner": "djkormo", "name": "project"}
   labels = {'env': 'kubernetes', 'name': 'project', 'owner': 'djkormo', 'type': 'operator'}
-  labels=json.dump(labels)
+  #labels=json.dump(labels)
   annotations = {"description": "test","confirmation":"yes"}
   
   logger.info(f"Project LABELS {labels} \n")
@@ -334,7 +334,14 @@ def update_fn(spec, name, status, namespace,meta, logger,diff, **kwargs):
       replace_resourcequota(kopf=kopf,name=name,meta=meta,spec=spec,logger=logger,api=api,filename='resourcequota.yaml')
  
 
+
+
+# set default value of LOOP_INTERVAL
+os.environ['LOOP_INTERVAL']="30"
+
 LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
+
+
 @kopf.on.timer('djkormo.github', 'v1alpha1', 'project',interval=LOOP_INTERVAL,sharp=True)
 def check_object_on_time(spec, name, status, namespace,meta, logger, **kwargs):
     logger.info(f"Timer: {spec} is invoked")
