@@ -59,7 +59,7 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   # get labels from parrent object 
   labels=meta.labels
 
-  logger.info(f"Project annotations {annotations} and  {labels}")
+  logger.info(f"Project ANNOTATIONS {annotations} and LABELS {labels}\n")
  
   # mock data
   labels = {"owner": "djkormo", "name": "project"}
@@ -93,7 +93,7 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   # get labels from parent object
   labels=meta.labels
 
-  logger.info(f"Project annotations {annotations} and  {labels}")
+  logger.info(f"Project ANNOTATIONS {annotations} and LABELS {labels}\n")
  
   # mock data
   labels = {"owner": "djkormo", "name": "project"}
