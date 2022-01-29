@@ -12,7 +12,7 @@ metadata:
   # sample annotations 
   annotations:
     project-operator/multiline.pattern: "test-paterrn"
-    project-operator/multiline.name: "test-name"
+#    project-operator/multiline.name: "test-name"
 spec:
   # Add fields here
   resourcequotarequestscpu: "4"

@@ -54,39 +54,24 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   except ApiException as e:
       print("Exception when calling CoreV1Api->create_namespace: %s\n" % e)  
     
-#  obj.metadata.annotations = {
-#        "my-annotation-test": datetime.datetime.utcnow()
-#    }
+  # get annotations from parent object
   annotations=meta.annotations
-  #annotations=json.loads(annotations)
+  # get labels from parrent object 
   labels=meta.labels
-  #labels=json.loads(labels)
-  #obj.metadata.annotations = {
-  #     annotations
-  #  }
-  
-  #pprint("Project annotations:", annotations)
-  logger.info(f"Project annotations: {annotations}")
-  logger.info(f"Project labels: {labels}")
-  #annotations=meta.annotations
-  #pprint(meta)
-  #pprint(annotations)
 
-  #body = {"metadata":  annotations  }
-
-  #logger.info(f"Annotations is created: {annotations}")
-  
-  # obj=patch_namespace(", "default", body={"metadata":{"annotations":{"description": None}}})
-  # obj=patch_namespace(", "default", body={"metadata":{"annotations":{"description": "test"}}})
-  
+  logger.info(f"Project annotations {annotations} and  {labels}")
+ 
+  # mock data
   labels = {"owner": "djkormo", "name": "project"}
   annotations = {"description": "test","confirmation":"yes"}
   
+  # Apply annotations to namespace
   try:
     obj = api.patch_namespace(
           name=name,
           body={"metadata":{"annotations":annotations} }
       )
+  # Apply labels to namespace  
     obj = api.patch_namespace(
           name=name,
           body={"metadata":{"labels":labels}}
@@ -103,30 +88,24 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
 
-  #annotations=meta.annotations
-  #pprint(meta)
-  #pprint(annotations)
+  # get annotations from parent object
   annotations=meta.annotations
-  #annotations=json.loads(annotations)
+  # get labels from parent object
   labels=meta.labels
-  #labels=json.loads(labels)
-  logger.info(f"Project annotations: {annotations}")
-  logger.info(f"Project labels: {labels}")
-  #body = {"metadata":  annotations }
-  #annotations=meta.annotations = {
-  #      "my-annotation-test": datetime.datetime.utcnow()
-  #  }
-  
-  #logger.info(f"Annotations is created: {annotations}")
+
+  logger.info(f"Project annotations {annotations} and  {labels}")
+ 
+  # mock data
   labels = {"owner": "djkormo", "name": "project"}
   annotations = {"description": "test","confirmation":"yes"}
   
+  # Apply annotations to namespace
   try:
     obj = api.patch_namespace(
           name=name,
           body={"metadata":{"annotations":annotations}}
       )
-
+  # Apply labels to namespace
     obj = api.patch_namespace(
           name=name,
           body={"metadata":{"labels":labels}}
