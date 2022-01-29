@@ -4,7 +4,6 @@ RUN apk --no-cache add  gcc musl-dev curl bash
 RUN apk --no-cache add --update expat=2.4.3-r0
 RUN pip install --upgrade pip
 
-
 ADD app /app
 RUN addgroup -S worker && adduser -D -h /home/worker -s /bin/bash worker -G worker
 
@@ -27,6 +26,5 @@ LABEL maintainer="Krzysztof Pudlowski <djkormo@gmail.com>" version="1.0.0"
 
 #CMD kopf run --liveness=http://0.0.0.0:8080/healthz --standalone  /home/worker/app/kopf_operator.py
 ENTRYPOINT ["/bin/bash", "-c", "/home/worker/app/operator.bash"]
-
 
 

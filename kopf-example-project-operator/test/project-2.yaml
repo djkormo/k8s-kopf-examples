@@ -3,10 +3,16 @@ kind: Project
 metadata:
   name: my-namespace-2
   namespace: project-operator
+  # sample labels
+  labels:
+    owner: "djkormo"
+    type: "operator"
+    env: "kubernetes"
+    name: "project"
   # sample annotations 
   annotations:
-    project-operator/multiline.pattern: "test"
-    project-operator/multiline.name: "name 2"
+    project-operator/multiline.pattern: "test-paterrn-2"
+    project-operator/multiline.name: "test-name-2"
 spec:
   # Add fields here
   resourcequotarequestscpu: "4"
