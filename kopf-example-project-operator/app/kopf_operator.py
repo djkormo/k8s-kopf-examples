@@ -97,7 +97,7 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
  
   # mock data
   labels = {"owner": "djkormo", "name": "project"}
-  annotations = {"description": "test","confirmation":"yes"}
+  #annotations = {"description": "test","confirmation":"yes"}
   
   # Apply annotations to namespace
   try:
