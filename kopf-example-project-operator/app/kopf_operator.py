@@ -76,8 +76,8 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   # obj=patch_namespace(", "default", body={"metadata":{"annotations":{"description": None}}})
   # obj=patch_namespace(", "default", body={"metadata":{"annotations":{"description": "test"}}})
   
-  labels = {"owner": "djkormo"}
-  annotations = {"description": "test"}
+  #labels = {"owner": "djkormo"}
+  #annotations = {"description": "test"}
   
   try:
     obj = api.patch_namespace(
@@ -114,8 +114,8 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   #  }
   
   #logger.info(f"Annotations is created: {annotations}")
-  labels = {"owner": "djkormo"}
-  annotations = {"description": "test"}
+  #labels = {"owner": "djkormo"}
+  #annotations = {"description": "test"}
   
   try:
     obj = api.patch_namespace(
