@@ -2,6 +2,7 @@ import time
 import kopf
 import kubernetes
 import yaml
+import json
 import os
 from environs import Env
 from kubernetes.client.rest import ApiException
@@ -57,10 +58,12 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
 #        "my-annotation-test": datetime.datetime.utcnow()
 #    }
   annotations=meta.annotations
+  annotations=json.loads(annotations)
   labels=meta.labels
-  obj.metadata.annotations = {
-       annotations
-    }
+  labels=json.loads(labels)
+  #obj.metadata.annotations = {
+  #     annotations
+  #  }
   
   #pprint("Project annotations:", annotations)
   logger.info(f"Project annotations: {annotations}")
@@ -104,8 +107,9 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   #pprint(meta)
   #pprint(annotations)
   annotations=meta.annotations
+  annotations=json.loads(annotations)
   labels=meta.labels
-  
+  labels=json.loads(labels)
   logger.info(f"Project annotations: {annotations}")
   logger.info(f"Project labels: {labels}")
   #body = {"metadata":  annotations }
