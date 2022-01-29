@@ -99,7 +99,7 @@ def replace_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   #labels = {"owner": "djkormo", "name": "project"}
   annotations = {"description": "test","confirmation":"yes"}
   
-  logger.info(f"Project LABELS {labels} \n {meta.labels} \n")
+  logger.info(f"Project LABELS {labels} \n")
   
   # Apply annotations to namespace
   try:
