@@ -1,6 +1,7 @@
 import time
 import shlex
 import subprocess
+import pytest
 from kopf.testing import KopfRunner
 
 def test_operator():
@@ -17,5 +18,13 @@ def test_operator():
     assert runner.exception is None
     assert 'And here we are!' in runner.stdout
     assert 'Deleted, really deleted' in runner.stdout
+    
+    
+def test_absent_file_fails():
+    with pytest.raises(FileNotFoundError):
+        with KopfRunner(['run', 'non-existent.py', '--standalone']):
+            pass
+            
 # run test    
 test_operator()    
+test_absent_file_fails()
