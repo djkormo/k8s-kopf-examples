@@ -8,6 +8,15 @@ from kubernetes.client.rest import ApiException
 from pprint import pprint
 import datetime
 import random
+import asyncio
+
+@kopf.on.startup()
+async def startup_fn_simple(logger, **kwargs):
+    logger.info('Environment variables:')
+    for k, v in os.environ.items():
+        logger.info(f'{k}={v}')
+    logger.info('Starting in 5s...')
+    await asyncio.sleep(5)
 
 # for Kubernetes probes
 

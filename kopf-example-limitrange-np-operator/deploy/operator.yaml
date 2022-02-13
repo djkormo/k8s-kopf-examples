@@ -52,4 +52,10 @@ spec:
           failureThreshold: 30
           periodSeconds: 10
         securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+          privileged: false
           readOnlyRootFilesystem: true
+          runAsNonRoot: true
