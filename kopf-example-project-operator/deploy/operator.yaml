@@ -48,3 +48,11 @@ spec:
           httpGet:
             path: /healthz
             port: 8080
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true

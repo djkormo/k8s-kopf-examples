@@ -74,8 +74,8 @@ def create_namespace(kopf,name,namespace,meta,spec,logger,api,filename):
   logger.info(f"Project ANNOTATIONS {annotations} and LABELS {labels}\n")
  
   # mock data
-  labels = {"owner": "djkormo", "name": "project"}
-  annotations = {"description": "test","confirmation":"yes"}
+  #labels = {"owner": "djkormo", "name": "project"}
+  #annotations = {"description": "test","confirmation":"yes"}
   
   # Apply annotations to namespace
   try:

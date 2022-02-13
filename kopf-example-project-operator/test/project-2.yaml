@@ -11,8 +11,8 @@ metadata:
     name: "project-2a"
   # sample annotations 
   annotations:
-    project-operator/multiline.pattern: "test-paterrn-2"
-    project-operator/multiline.name: "test-name-2"
+    project-operator/multiline.pattern: "test-paterrn-4"
+    project-operator/multiline.name: "test-name-3"
 spec:
   # Add fields here
   resourcequotarequestscpu: "4"
