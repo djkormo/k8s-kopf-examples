@@ -196,6 +196,9 @@ def create_fn(spec, name, namespace, logger, **kwargs):
     if "default-deny-ingress" not in l_netpol:
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
      
+      if "allow-all-in-namespace" not in l_netpol:
+          create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-all-in-namespace.yaml')
+      
     return {'limitrange-np-name': name} 
 
 # use env variable to control loop interval in seconds 
@@ -262,6 +265,10 @@ def check_object_on_time(spec, name, namespace, logger, **kwargs):
     else:
       replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml',policyname='default-deny-ingress')   
     
+    if "allow-all-in-namespace" not in l_netpol:
+        create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-all-in-namespace.yaml')
+    else:
+        replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-all-in-namespace.yaml')
 
 # When updating object
 @kopf.on.update('namespace')
@@ -325,6 +332,13 @@ def update_fn(spec, name, status, namespace, logger,diff, **kwargs):
       create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml')
     else:
       replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-default-deny-ingress.yaml',policyname='default-deny-ingress')   
+    
+    if "allow-all-in-namespace" not in l_netpol:
+      create_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-all-in-namespace.yaml')
+    else:
+      replace_networkpolicy(kopf=kopf,name=name,spec=spec,logger=logger,api=api,filename='networkpolicy-allow-all-in-namespace.yaml')
+
+    
     
     return {'limitrange-np-name': name} 
 
