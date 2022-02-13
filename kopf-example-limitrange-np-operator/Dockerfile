@@ -1,6 +1,6 @@
 FROM python:3.7-alpine
 
-RUN apk --no-cache add  gcc musl-dev curl bash --update expat=2.4.3-r0
+RUN apk --no-cache add  gcc musl-dev curl bash --update expat=2.4.4-r0
 
 RUN pip install --no-cache-dir --upgrade pip
 
