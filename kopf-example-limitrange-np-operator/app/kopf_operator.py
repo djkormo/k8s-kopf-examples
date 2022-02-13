@@ -33,17 +33,27 @@ def check_namespace(name,excluded_namespaces):
 
 # create limitrange based on yaml manifest
 def create_limitrange(kopf,name,meta,spec,logger,api,filename):
+      
+  # get annotations from parent object
+  annotations=meta['annotations']
+  
+  # get labels from parrent object 
+  labels=meta['labels']
+  
+  logger.info(f"Namespace {name} ANNOTATIONS {annotations}\n")    
+      
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
-  limitrangemaxcpu = spec.get('limitrangemaxcpu',"20000m")
-  limitrangemaxmem = spec.get('limitrangemaxmem',"30Gi")
-  limitrangemincpu = spec.get('limitrangemincpu',"50m")
-  limitrangeminmem = spec.get('limitrangeminmem',"50Mi")
-  limitrangedefaultcpu = spec.get('limitrangedefaultcpu',"1000m")
-  limitrangedefaultmem = spec.get('limitrangedefaultmem',"1000Mi")
-  limitrangedefaultrequestcpu = spec.get('limitrangedefaultrequestcpu',"100m")
-  limitrangedefaultrequestmem = spec.get('limitrangedefaultrequestmem',"100Mi")
-
+  
+  limitrangemaxcpu = meta['annotations'].get('limitrangemaxcpu',"20000m")
+  limitrangemaxmem = meta['annotations'].get('limitrangemaxmem',"30Gi")
+  limitrangemincpu = meta['annotations'].get('limitrangemincpu',"50m")
+  limitrangeminmem = meta['annotations'].get('limitrangeminmem',"50Mi")
+  limitrangedefaultcpu = meta['annotations'].get('limitrangedefaultcpu',"1000m")
+  limitrangedefaultmem = meta['annotations'].get('limitrangedefaultmem',"1000Mi")
+  limitrangedefaultrequestcpu = meta['annotations'].get('limitrangedefaultrequestcpu',"100m")
+  limitrangedefaultrequestmem = meta['annotations'].get('limitrangedefaultrequestmem',"100Mi")
+  
   text = tmpl.format(name=name,limitrangemaxmem=limitrangemaxmem,
            limitrangemaxcpu=limitrangemaxcpu, 
            limitrangemincpu=limitrangemincpu,
@@ -68,16 +78,24 @@ def create_limitrange(kopf,name,meta,spec,logger,api,filename):
 
 # replace limitrange based on yaml manifest
 def replace_limitrange(kopf,name,meta,spec,logger,api,filename):
+  # get annotations from parent object
+  annotations=meta['annotations']
+  
+  # get labels from parrent object 
+  labels=meta['labels']
+  
+  logger.info(f"Namespace {name} ANNOTATIONS {annotations} \n")    
+  
   path = os.path.join(os.path.dirname(__file__), filename)
   tmpl = open(path, 'rt').read()
-  limitrangemaxcpu = spec.get('limitrangemaxcpu',"20000m")
-  limitrangemaxmem = spec.get('limitrangemaxmem',"30Gi")
-  limitrangemincpu = spec.get('limitrangemincpu',"50m")
-  limitrangeminmem = spec.get('limitrangeminmem',"50Mi")
-  limitrangedefaultcpu = spec.get('limitrangedefaultcpu',"1000m")
-  limitrangedefaultmem = spec.get('limitrangedefaultmem',"1000Mi")
-  limitrangedefaultrequestcpu = spec.get('limitrangedefaultrequestcpu',"100m")
-  limitrangedefaultrequestmem = spec.get('limitrangedefaultrequestmem',"100Mi")
+  limitrangemaxcpu = meta['annotations'].get('limitrangemaxcpu',"20000m")
+  limitrangemaxmem = meta['annotations'].get('limitrangemaxmem',"30Gi")
+  limitrangemincpu = meta['annotations'].get('limitrangemincpu',"50m")
+  limitrangeminmem = meta['annotations'].get('limitrangeminmem',"50Mi")
+  limitrangedefaultcpu = meta['annotations'].get('limitrangedefaultcpu',"1000m")
+  limitrangedefaultmem = meta['annotations'].get('limitrangedefaultmem',"1000Mi")
+  limitrangedefaultrequestcpu = meta['annotations'].get('limitrangedefaultrequestcpu',"100m")
+  limitrangedefaultrequestmem = meta['annotations'].get('limitrangedefaultrequestmem',"100Mi")
 
   text = tmpl.format(name=name,limitrangemaxmem=limitrangemaxmem,
            limitrangemaxcpu=limitrangemaxcpu, 
