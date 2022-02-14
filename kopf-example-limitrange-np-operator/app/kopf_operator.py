@@ -166,10 +166,12 @@ def replace_networkpolicy(kopf,name,spec,logger,api,filename,policyname):
   except ApiException as e:
     logger.error("Exception when calling NetworkingV1Api->replace_namespaced_network_policy: %s\n" % e)
    
-os.environ['LOOP_INTERVAL']="30"
-# use env variable to control loop interval in seconds 
-LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
-
+# use env variable to control loop interval in seconds
+try:
+  LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
+except:
+  LOOP_INTERVAL=30
+  print(f"Variable LOOP_INTERVAL is not set, using {LOOP_INTERVAL}s as default")
 
 # When creating, updating or resuming object 
 @kopf.on.resume('namespace')
