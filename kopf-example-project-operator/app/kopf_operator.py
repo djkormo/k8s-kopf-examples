@@ -242,10 +242,13 @@ def replace_resourcequota(kopf,name,meta,spec,logger,api,filename):
   
 
 
-# set default value of LOOP_INTERVAL
-os.environ['LOOP_INTERVAL']="30"
-
-LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
+    
+# use env variable to control loop interval in seconds
+try:
+  LOOP_INTERVAL = int(os.environ['LOOP_INTERVAL'])
+except:
+  LOOP_INTERVAL=30
+  print(f"Variable LOOP_INTERVAL is not set, using {LOOP_INTERVAL}s as default")    
 
 @kopf.on.resume('djkormo.github', 'v1alpha1', 'project')
 @kopf.on.create('djkormo.github', 'v1alpha1', 'project')
